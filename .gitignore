@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+Dictionary.depend
+Dictionary.cbp
+Dictionary.layout

@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1687397970 source:e:\cs163\project\dictionary\main.cpp
+1687399432 source:e:\cs163\project\dictionary\main.cpp
 	<bits/stdc++.h>
-	"SFML/Graphics.hpp"
+	"Header/MainFunction.hpp"
 
 1525812018 c:\users\suyun\downloads\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -411,4 +411,18 @@
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
+
+1687400431 e:\cs163\project\dictionary\header\mainfunction.hpp
+	"SFML/Graphics.hpp"
+	"MenuSideBar.hpp"
+
+1687402473 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+	"MainFunction.hpp"
+
+1687403610 e:\cs163\project\dictionary\header\menusidebar.hpp
+	<bits/stdc++.h>
+	"SFML/Graphics.hpp"
+
+1687402760 source:e:\cs163\project\dictionary\header\menusidebar.cpp
+	"MenuSideBar.hpp"
 

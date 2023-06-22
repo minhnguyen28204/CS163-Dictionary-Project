@@ -23,7 +23,6 @@
 					<Add library="freetype" />
 					<Add library="winmm" />
 					<Add library="gdi32" />
-					<Add library="openal32" />
 					<Add library="flac" />
 					<Add library="vorbisenc" />
 					<Add library="vorbisfile" />
@@ -51,7 +50,6 @@
 					<Add library="freetype" />
 					<Add library="winmm" />
 					<Add library="gdi32" />
-					<Add library="openal32" />
 					<Add library="flac" />
 					<Add library="vorbisenc" />
 					<Add library="vorbisfile" />
@@ -69,7 +67,12 @@
 		</Compiler>
 		<Linker>
 			<Add directory="C:/Users/suyun/Downloads/SFML-2.5.1/lib" />
+			<Add directory="Header" />
 		</Linker>
+		<Unit filename="Header/MainFunction.cpp" />
+		<Unit filename="Header/MainFunction.hpp" />
+		<Unit filename="Header/MenuSideBar.cpp" />
+		<Unit filename="Header/MenuSideBar.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
