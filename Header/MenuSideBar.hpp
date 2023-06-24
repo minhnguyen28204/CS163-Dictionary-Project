@@ -1,7 +1,8 @@
 #ifndef MENUSIDEBAR_H
 #define MENUSIDEBAR_H
-#include <bits/stdc++.h>
-#include "SFML/Graphics.hpp"
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 using namespace std;
 
 class SideBar{

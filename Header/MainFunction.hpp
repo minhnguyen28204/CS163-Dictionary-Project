@@ -1,6 +1,8 @@
 #ifndef MAINFUNCTION_H
 #define MAINFUNCTION_H
-#include "SFML/Graphics.hpp"
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "MenuSideBar.hpp"
 
 class Dictionary{
