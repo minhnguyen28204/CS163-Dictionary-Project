@@ -147,3 +147,21 @@ void Dataset::loadDataSet(Trie* root) {
 	fwout.close();
 	fcout.close();
 }
+
+std::wstring Dataset::definition(Trie* root, std::wstring word) {
+	Trie::Node* tmp{ root->search(root->trueRoot, word, 0) };
+	if (!tmp) {
+		std::wstring str{};
+		return str;
+	}
+	std::wifstream fin(curDataSet + L"Definition", std::ios::binary | std::ios::in);
+	fin.seekg(std::ios::beg, tmp->exist);
+	int size{};
+	fin.read((wchar_t*)&size, sizeof(int) / 2);
+	wchar_t* result = new wchar_t[size];
+	fin.read(result, size / 2);
+	std::wstring str{ result };
+	delete[] result;
+	fin.close();
+	return str;
+}

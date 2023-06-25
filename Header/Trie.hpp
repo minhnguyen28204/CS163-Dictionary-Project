@@ -33,9 +33,12 @@ namespace Dataset {
 		}
 	};
 
+
+
 	inline std::wstring curDataSet{};
 	void loadDataSet(Trie* root);
 	void switchDataSet(int n);
+	std::wstring definition(Trie* root, std::wstring word);
 }
 
 
