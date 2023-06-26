@@ -20,8 +20,8 @@ namespace Dataset {
 		Trie() {
 			trueRoot = new Node;
 		}
-		void insert(Node* root, std::wstring word, int n, int pos);
-		Node* search(Node* root, std::wstring word, int n);
+		void insert(std::wstring word, int pos);
+		Node* search(std::wstring word);
 		bool remove(Node* root, std::wstring word, int n);
 		void displayTree(Node* root, std::wstring& word);
 		void displayTree(Node* root, std::wstring& word, int& num);

@@ -4,42 +4,56 @@
 #include <string>
 #include "Trie.hpp"
 
-void Dataset::Trie::insert(Node* root, std::wstring word, int n, int pos) {
-	if (n == word.size()) {
-		root->exist = pos;
-		return;
+template <typename T> int position(std::vector<T> nums, T key) {
+	int b{ 0 }, e{ static_cast<int>(nums.size()) - 1 };
+	while (b <= e) {
+		int mid = b + (e - b) / 2;
+		if (nums[mid] == key)
+			return mid;
+		if (nums[mid] > key)
+			e = mid - 1;
+		else b = mid + 1;
 	}
-	root->cnt++;
-	int i{ 0 };
-	for (; i < root->key.size() && root->key[i] != word[n]; ++i);
-	if (i == root->key.size()) {
-		root->key.push_back(word[n]);
-		int j{ i - 1 };
-		Node* tmp;
-		tmp = new Node;
-		root->children.push_back(tmp);
-		for (; j >= 0 && root->key[j] > word[n]; --j) {
-			root->key[j + 1] = root->key[j];
-			root->children[j + 1] = root->children[j];
-		}
-		root->key[j + 1] = word[n];
-		root->children[j + 1] = tmp;
-		insert(tmp, word, n + 1, pos);
-	}
-	else {
-		insert(root->children[i], word, n + 1, pos);
-	}
+	return nums.size();
 }
 
-Dataset::Trie::Node* Dataset::Trie::search(Node* root, std::wstring word, int n) {
-	if (n == word.size()) {
-		return (root->exist != 0) ? root : nullptr;
+void Dataset::Trie::insert(std::wstring word, int pos) {
+	Node* cur = trueRoot;
+	for (int j{ 0 }; j < word.length(); ++j) {
+		cur->cnt++;
+		int i{ position<wchar_t>(cur->key, word[j]) };
+		if (i == cur->key.size()) {
+			cur->key.push_back(word[j]);
+			int r{ i - 1};
+			Node* tmp;
+			tmp = new Node;
+			cur->children.push_back(tmp);
+			for (; r >= 0 && cur->key[r] > word[j]; --r) {
+				cur->key[r + 1] = cur->key[r];
+				cur->children[r + 1] = cur->children[r];
+			}
+			cur->key[r + 1] = word[j];
+			cur->children[r + 1] = tmp;
+			cur = tmp;
+		}
+		else {
+			cur = cur->children[i];
+		}
+
 	}
-	int i{ 0 };
-	for (; i < root->key.size() && root->key[i] != word[n]; ++i);
-	if (i == root->key.size())
-		return nullptr;
-	return search(root->children[i], word, n + 1);
+	cur->exist = pos;
+	return;
+}
+
+Dataset::Trie::Node* Dataset::Trie::search(std::wstring word) {
+	Node* cur = trueRoot;
+	for (int n{ 0 }; n < word.length(); ++n) {
+		int i{ position<wchar_t>(cur->key, word[n]) };
+		if (i == cur->key.size())
+			return nullptr;
+		cur = cur->children[i];
+	}
+	return cur;
 }
 
 bool Dataset::Trie::remove(Node* root, std::wstring word, int n) {
@@ -51,13 +65,19 @@ bool Dataset::Trie::remove(Node* root, std::wstring word, int n) {
 		}
 		return false;
 	}
-	int i{ 0 };
-	for (; i < root->key.size() && root->key[i] != word[n]; ++i);
+	int i{ position<wchar_t>(root->key, word[n]) };
+	root->cnt--;
 	if (i == root->key.size())
 		return false;
-	if (remove(root->children[i], word, n + 1) && root->children.size() <= 1) {
-		delete root;
-		return true;
+	if (remove(root->children[i], word, n + 1)) {
+		if (root->children.size() <= 1) {
+			delete root;
+			return true;
+		}
+		else {
+			root->key.erase(root->key.begin() + i);
+			root->children.erase(root->children.begin() + i);
+		}
 	}
 	return false;
 }
@@ -88,14 +108,14 @@ void Dataset::Trie::displayTree(Node* root, std::wstring& word, int& num) {
 }
 
 void Dataset::Trie::displayTree(std::wstring word) {
-	Node* cur{ search(trueRoot, word, 0) };
+	Node* cur{ search(word) };
 	if (!cur)
 		return;
 	displayTree(cur, word);
 }
 
 void Dataset::Trie::displayTree(std::wstring word, int num) {
-	Node* cur{ search(trueRoot, word, 0) };
+	Node* cur{ search(word) };
 	if (!cur)
 		return;
 	displayTree(cur, word, num);
@@ -141,7 +161,7 @@ void Dataset::loadDataSet(Trie* root) {
 		std::wstring input{ word };
 		curLen = size + sizeof(int);
 		fwout.read((wchar_t*)&size, sizeof(int) / 2);
-		root->insert(root->trueRoot, input, 0, size);
+		root->insert(input, size);
 		delete[] word;
 	}
 	fwout.close();
@@ -149,8 +169,8 @@ void Dataset::loadDataSet(Trie* root) {
 }
 
 std::wstring Dataset::definition(Trie* root, std::wstring word) {
-	Trie::Node* tmp{ root->search(root->trueRoot, word, 0) };
-	if (!tmp) {
+	Trie::Node* tmp{ root->search(word) };
+	if (!tmp || tmp->exist == 0) {
 		std::wstring str{};
 		return str;
 	}
