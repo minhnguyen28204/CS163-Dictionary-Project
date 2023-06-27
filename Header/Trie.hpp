@@ -39,6 +39,7 @@ namespace Dataset {
 	void loadDataSet(Trie* root);
 	void switchDataSet(int n);
 	std::wstring definition(Trie* root, std::wstring word);
+	void inputNewWord(Trie* root, std::wstring& word, std::wstring& definition);
 }
 
 
