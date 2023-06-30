@@ -67,11 +67,11 @@ namespace Character {
 		return result;
 	}
 
-	void stringToWString(std::string& str);
+	std::wstring stringToWString(std::string& str);
 
-	void stringTou16String(std::string& str);
+	std::u16string stringTou16String(std::string& str);
 
-	void stringTou32String(std::string& str);
+	std::u32string stringTou32String(std::string& str);
 }
 
 namespace Dataset {
@@ -80,13 +80,12 @@ namespace Dataset {
 	struct Trie {
 
 		struct Node {
-			bool key[16]{};
 			Node* children[16];
 			int exist{-1};
+			int num{};
 			int cnt{};
 			Node() {
 				for (int i{ 0 }; i < 16; ++i) {
-					key[i] = 0;
 					children[i] = nullptr;
 				}
 			}
@@ -96,7 +95,7 @@ namespace Dataset {
 			trueRoot = new Node;
 		};
 
-		void insert(std::string& word, int pos);
+		void insert(std::string& word, int pos, int n);
 		Node* search(std::string& word);
 		bool remove(Node* root, std::string& word, int n);
 		void remove(std::string& word);
@@ -116,5 +115,6 @@ namespace Dataset {
 	void loadDataSet(Trie* root);
 	std::string definition(Trie* root, std::string& word);
 	void inputNewWord(Trie* root, std::string& word, std::string& definition);
+	void removeWordFromFile(int n);
 }
 #endif
