@@ -74,6 +74,33 @@ namespace Character {
 	std::u32string stringTou32String(std::string& str);
 }
 
+namespace DefinitionSet {
+	struct Trie {
+		struct Node {
+			std::vector<int> wordNum{};
+			Node* children[16];
+			Node() {
+				for (int i{ 0 }; i < 16; ++i)
+					children[i] = nullptr;
+			}
+		};
+		Node* trueRoot;
+		Trie() {
+			trueRoot = new Node;
+		}
+
+		void insert(std::string& word, int wordNum);
+		Node* search(std::string& word);
+		void deleteTree(Node*& root);
+		std::vector<int> allWordContain(std::string& word);
+		~Trie() {
+			deleteTree(trueRoot);
+		}
+
+	};
+	void loadDefinitionSet(Trie*& root, int pos, int n);
+}
+
 namespace Dataset {
 	extern std::wstring curDataSet;
 
@@ -112,9 +139,11 @@ namespace Dataset {
 
 
 	void switchDataSet(int n);
-	void loadDataSet(Trie* root);
+	void loadDataSet(Trie* root, DefinitionSet::Trie* defiRoot);
 	std::string definition(Trie* root, std::string& word);
-	void inputNewWord(Trie* root, std::string& word, std::string& definition);
+	void inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::string& word, std::string& definition);
 	void removeWordFromFile(int n);
+	std::string getOneWordFromFile(int n);
 }
+
 #endif
