@@ -246,7 +246,7 @@ std::string Dataset::definition(Trie* root, std::string& word) {
 		return "";
 	}
 	std::ifstream fin(curDataSet + L"/Definition.bin", std::ios::binary | std::ios::in);
-	fin.seekg(std::ios::beg, tmp->exist);
+	fin.seekg(tmp->exist, std::ios::beg);
 	int size{};
 	fin.read((char*)&size, sizeof(int));
 	char* result = new char[size];
@@ -261,8 +261,8 @@ std::string Dataset::definition(Trie* root, std::string& word) {
 // Both word and definition store characters as wide chars.
 void Dataset::inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::string& word, std::string& definition) {
 	//Input the definition into the file and return pos as the position of the inputted definition
-	std::ofstream fout(curDataSet + L"/Definition.bin", std::ios::binary | std::ios::out);
-	fout.seekp(std::ios::end, 0);
+	std::fstream fout(curDataSet + L"/Definition.bin", std::ios::binary | std::ios::out | std::ios::in);
+	fout.seekp(0, std::ios::end);
 	int size{ static_cast<int>(definition.length()) + 1 };
 	int pos{ };
 	pos = fout.tellp();
@@ -276,8 +276,8 @@ void Dataset::inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::strin
 	DefinitionSet::loadDefinitionSet(defiRoot, pos, root->trueRoot->cnt);
 
 	//Input the word and the position of the definition into the file and return the end position of the word
-	fout.open(curDataSet + L"/Words.bin", std::ios::binary | std::ios::out);
-	fout.seekp(std::ios::end, 0);
+	fout.open(curDataSet + L"/Words.bin", std::ios::binary | std::ios::out | std::ios::in);
+	fout.seekp(0, std::ios::end);
 	fout.write(word.c_str(), (word.length() + 1));
 	fout.write((char*)&pos, sizeof(int));
 	pos = fout.tellp();
@@ -292,9 +292,9 @@ void Dataset::inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::strin
 	fin.close();
 
 	//Change the number of words and input the end position of the word
-	std::ofstream fcout(curDataSet + L"/WordsColumn.bin", std::ios::binary | std::ios::out);
+	std::fstream fcout(curDataSet + L"/WordsColumn.bin", std::ios::binary | std::ios::out | std::ios::in);
 	fcout.write((char*)&num, sizeof(int));
-	fcout.seekp(std::ios::end, 0);
+	fcout.seekp(0, std::ios::end);
 	fcout.write((char*)&pos, sizeof(int));
 	fcout.close();
 }
@@ -304,13 +304,13 @@ void Dataset::removeWordFromFile(int n) {
 	//Get the last position of the word, a.k.a the position of pos
 	std::fstream ft(curDataSet + L"/WordsColumn.bin", std::ios::binary | std::ios::in);
 	int pos{};
-	ft.seekg(std::ios::cur, (n + 1) * sizeof(int));
+	ft.seekg((n + 1) * sizeof(int), std::ios::cur);
 	ft.read((char*)&pos, sizeof(int));
 	ft.close();
 	int num = -1;
 	//Change the pos of the word to -1
-	ft.open(curDataSet + L"/Words.bin", std::ios::binary | std::ios::out);
-	ft.seekp(std::ios::beg, pos);
+	ft.open(curDataSet + L"/Words.bin", std::ios::binary | std::ios::out | std::ios::in);
+	ft.seekp(pos, std::ios::beg);
 	ft.write((char*)&num, sizeof(int));
 	ft.close();
 }
@@ -326,14 +326,14 @@ std::string Dataset::getOneWordFromFile(int n) {
 		fin.read((char*)&pos, sizeof(int));
 	}
 	else {
-		fin.seekg(std::ios::cur, (n - 1) * sizeof(int));
+		fin.seekg((n - 1) * sizeof(int), std::ios::cur);
 		fin.read((char*)&prePos, sizeof(int));
 		fin.read((char*)&pos, sizeof(int));
 	}
 	fin.close();
 	char* tmp = new char[pos - prePos - sizeof(int)];
 	fin.open(curDataSet + L"/Words.bin", std::ios::binary | std::ios::in);
-	fin.seekg(std::ios::beg, prePos + sizeof(int));
+	fin.seekg(prePos + sizeof(int), std::ios::beg);
 	fin.read(tmp, pos - prePos - sizeof(int));
 	fin.close();
 	std::string result{ tmp };
@@ -349,7 +349,7 @@ std::vector<int> DefinitionSet::Trie::allWordContain(std::string& word) {
 void DefinitionSet::loadDefinitionSet(DefinitionSet::Trie*& root, int pos, int n) {
 	std::ifstream fin(Dataset::curDataSet + L"/Definition.bin", std::ios::binary | std::ios::in);
 	int size{};
-	fin.seekg(std::ios::beg, pos);
+	fin.seekg(pos, std::ios::beg);
 	fin.read((char*)&size, sizeof(int));
 	char* tmp = new char[size];
 	fin.read(tmp, size);
