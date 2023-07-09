@@ -20,6 +20,7 @@ vector<string> favouriteList()
 		string fileName = "Favorite Words/" + output + ".bin";
 		if (filesystem::exists(fileName))
 			favorite.push_back(output);
+		delete[] word;
 	}
 	return favorite;
 }
