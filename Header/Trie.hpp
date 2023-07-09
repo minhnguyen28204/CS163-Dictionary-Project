@@ -99,6 +99,7 @@ namespace DefinitionSet {
 
 	};
 	void loadDefinitionSet(Trie*& root, int pos, int n);
+	void editDefinition(std::string newDefinition, int n);
 }
 
 namespace Dataset {
