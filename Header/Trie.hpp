@@ -98,6 +98,23 @@ namespace DefinitionSet {
 		}
 
 	};
+	template <typename T, typename U> void splitLineToTrie(T& source, Trie*& root, int n) {
+		std::string output{};
+		for (int i{ 0 }; i < source.length(); ++i) {
+			if (source[i] != static_cast<U>(' ')) {
+				output += Character::load<U>(source[i]);
+			}
+			else {
+				if (output.length() != 0) {
+					root->insert(output, n);
+				}
+				output.clear();
+			}
+		}
+		if (output.length() != 0) {
+			root->insert(output, n);
+		}
+	}
 	void loadDefinitionSet(Trie*& root, int pos, int n);
 }
 
@@ -141,6 +158,7 @@ namespace Dataset {
 	void switchDataSet(int n);
 	void loadDataSet(Trie* root, DefinitionSet::Trie* defiRoot);
 	std::string definition(Trie* root, std::string& word);
+	std::string definition(int pos);
 	void inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::string& word, std::string& definition);
 	void removeWordFromFile(int n);
 	std::string getOneWordFromFile(int n);

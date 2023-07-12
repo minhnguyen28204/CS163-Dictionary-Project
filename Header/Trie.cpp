@@ -245,18 +245,21 @@ std::string Dataset::definition(Trie* root, std::string& word) {
 	if (!tmp || tmp->exist == -1) {
 		return "";
 	}
-	std::ifstream fin(curDataSet + L"/Definition.bin", std::ios::binary | std::ios::in);
-	fin.seekg(tmp->exist, std::ios::beg);
-	int size{};
-	fin.read((char*)&size, sizeof(int));
-	char* result = new char[size];
-	fin.read(result, size);
-	std::string str{ result };
-	delete[] result;
-	fin.close();
-	return str;
+	return definition(tmp->exist);
 }
 
+std::string Dataset::definition(int pos) {
+	std::ifstream fin(Dataset::curDataSet + L"/Definition.bin", std::ios::binary | std::ios::in);
+	int size{};
+	fin.seekg(pos, std::ios::beg);
+	fin.read((char*)&size, sizeof(int));
+	char* tmp = new char[size];
+	fin.read(tmp, size);
+	std::string input = tmp;
+	delete[] tmp;
+	fin.close();
+	return input;
+}
 
 // Both word and definition store characters as wide chars.
 void Dataset::inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::string& word, std::string& definition) {
@@ -347,22 +350,8 @@ std::vector<int> DefinitionSet::Trie::allWordContain(std::string& word) {
 }
 
 void DefinitionSet::loadDefinitionSet(DefinitionSet::Trie*& root, int pos, int n) {
-	std::ifstream fin(Dataset::curDataSet + L"/Definition.bin", std::ios::binary | std::ios::in);
-	int size{};
-	fin.seekg(pos, std::ios::beg);
-	fin.read((char*)&size, sizeof(int));
-	char* tmp = new char[size];
-	fin.read(tmp, size);
-	std::string input{};
-	for (int i{ 0 }; i < size; ++i) {
-		if (tmp[i] != ' ' && tmp[i] != '\0') {
-			input.push_back(tmp[i]);
-		}
-		else {
-			std::wstring tempWStr = Character::stringToWString(input);
-			input = Character::decodeStr<std::wstring, wchar_t>(tempWStr);
-			root->insert(input, n);
-			input.clear();
-		}
-	}
+	std::string definit{ Dataset::definition(pos) };
+	std::wstring input = Character::stringToWString(definit);
+	splitLineToTrie<std::wstring, wchar_t>(input, root, n);
 }
+	
