@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1687399432 source:e:\cs163\project\dictionary\main.cpp
-	<bits/stdc++.h>
+1687696290 source:e:\cs163\project\dictionary\main.cpp
 	"Header/MainFunction.hpp"
+	"Header/Trie.hpp"
 
 1525812018 c:\users\suyun\downloads\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -412,17 +412,101 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1687400431 e:\cs163\project\dictionary\header\mainfunction.hpp
-	"SFML/Graphics.hpp"
+1688140935 e:\cs163\project\dictionary\header\mainfunction.hpp
+	<SFML/System.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
 	"MenuSideBar.hpp"
+	"Screen.hpp"
 
-1687402473 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1688190412 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
-1687403610 e:\cs163\project\dictionary\header\menusidebar.hpp
-	<bits/stdc++.h>
-	"SFML/Graphics.hpp"
+1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
+	<SFML/System.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<vector>
 
-1687402760 source:e:\cs163\project\dictionary\header\menusidebar.cpp
+1687703117 source:e:\cs163\project\dictionary\header\menusidebar.cpp
 	"MenuSideBar.hpp"
+	<iostream>
+
+1687921001 e:\cs163\project\dictionary\header\trie.hpp
+
+1687921001 source:e:\cs163\project\dictionary\header\trie.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<string>
+	"Trie.hpp"
+
+1687971621 e:\cs163\project\dictionary\header\screen.hpp
+	"cScreen.hpp"
+	"HomeScreen.hpp"
+	"QuizScreen.hpp"
+	"SearchScreen.hpp"
+	"HistoryScreen.hpp"
+	"FavouriteScreen.hpp"
+	"AddScreen.hpp"
+
+1688141440 e:\cs163\project\dictionary\header\cscreen.hpp
+	<SFML/Graphics.hpp>
+
+1688143371 e:\cs163\project\dictionary\header\homescreen.hpp
+	<iostream>
+	<vector>
+	"cScreen.hpp"
+	"TextField.hpp"
+	<SFML/Graphics.hpp>
+
+1688143564 source:e:\cs163\project\dictionary\header\homescreen.cpp
+	"HomeScreen.hpp"
+	<iostream>
+
+1688141710 e:\cs163\project\dictionary\header\quizscreen.hpp
+	"cScreen.hpp"
+	<SFML/Graphics.hpp>
+
+1688141727 source:e:\cs163\project\dictionary\header\quizscreen.cpp
+	"QuizScreen.hpp"
+
+1688141745 e:\cs163\project\dictionary\header\searchscreen.hpp
+	"cScreen.hpp"
+
+1688141758 source:e:\cs163\project\dictionary\header\searchscreen.cpp
+	"SearchScreen.hpp"
+
+1688141677 e:\cs163\project\dictionary\header\historyscreen.hpp
+	"cScreen.hpp"
+
+1688141691 source:e:\cs163\project\dictionary\header\historyscreen.cpp
+	"HistoryScreen.hpp"
+
+1688141506 source:e:\cs163\project\dictionary\header\favouritescreen.cpp
+	"FavouriteScreen.hpp"
+
+1688141486 e:\cs163\project\dictionary\header\favouritescreen.hpp
+	"cScreen.hpp"
+
+1688141801 e:\cs163\project\dictionary\header\addscreen.hpp
+	"cScreen.hpp"
+
+1688141831 source:e:\cs163\project\dictionary\header\addscreen.cpp
+	"AddScreen.hpp"
+
+1688036039 source:e:\cs163\project\dictionary\sfml elements\textfield.cpp
+	"TextField.hpp"
+
+1688036039 e:\cs163\project\dictionary\sfml elements\textfield.hpp
+	<SFML/Graphics.hpp>
+	<string>
+
+1688190919 e:\cs163\project\dictionary\header\textfield.hpp
+	<SFML/Graphics.hpp>
+	<string>
+
+1688353854 source:e:\cs163\project\dictionary\header\textfield.cpp
+	"TextField.hpp"
+	<iostream>
 
