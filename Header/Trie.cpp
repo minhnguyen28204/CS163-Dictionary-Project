@@ -104,7 +104,7 @@ DefinitionSet::Trie::Node* DefinitionSet::Trie::search(std::string& word) {
 bool Dataset::Trie::remove(Node* root, std::string& word, int n) {
 	if (n == word.size()) {
 		root->exist = 0;
-		for (int i{ 0 }; i < 16; ++i)
+		for (int i{ 0 }; i < 16; ++i) 
 			if (root->children[i]) {
 				return false;
 			}
