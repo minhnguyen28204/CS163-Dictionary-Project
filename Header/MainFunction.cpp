@@ -9,15 +9,16 @@ Dictionary::Dictionary()
     Screens.push_back(&s3);
     Screens.push_back(&s4);
     Screens.push_back(&s5);
-    //Screens.push_back(&s1);
-    _font.loadFromFile("Font/BeVietnamPro-Regular.ttf");
+    Screens.push_back(&s6);
+
+    if (_font.loadFromFile("Font/BeVietnamPro-Regular.ttf")) cout << "Load succeded!\n";
     sideBar.setPosition(0,0);
     sideBar.setSize(sf::Vector2f(70,850));
-    sideBar.setFillColor(sf::Color(57, 62, 70));
+    sideBar.setFillColor(c2);
     Title.setString("Dictionary");
     Title.setFont(_font);
     Title.setCharacterSize(65);
-    Title.setFillColor(sf::Color(238,238,238));
+    Title.setFillColor(c4);
     Title.setOutlineThickness(2);
     Title.setOutlineColor(c3);
     sf::FloatRect textBounds = Title.getGlobalBounds();
@@ -156,6 +157,25 @@ Dictionary::Dictionary()
     tsetting.setOutlineThickness(1);
     tsetting.setString("Setting");
     MyCursorText.push_back(tsetting);
+
+    //Change theme
+    itheme.loadFromFile("Image/theme.png");
+    Itheme.setTexture(itheme);
+    Itheme.setPosition(sf::Vector2f(10,720));
+    MySprite.push_back(Itheme);
+
+    sf::RectangleShape BoundTheme;
+    BoundTheme.setPosition(0,710);
+    BoundTheme.setSize(sf::Vector2f(70,70));
+    BoundTheme.setFillColor(c2);
+    MyBounder.push_back(BoundTheme);
+
+    ttheme.setFont(_font);
+    ttheme.setCharacterSize(15);
+    ttheme.setFillColor(sf::Color::White);
+    ttheme.setOutlineThickness(1);
+    ttheme.setString("Change theme");
+    MyCursorText.push_back(ttheme);
 }
 
 void Dictionary::run(){
@@ -184,7 +204,36 @@ void Dictionary::processIconColor(sf::Event event){
             x.setFillColor(c3);
             is_on[i] = true;
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
-                screen = i;
+                if (i < 7) screen = i;
+                else{
+                    dark = !dark;
+                    if (dark) c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
+                    else c1 = sf::Color(233, 248, 249), c2 = sf::Color(192, 238, 242), c3 = sf::Color(24, 24, 35), c4 = sf::Color(83,127,231);
+                    sideBar.setFillColor(c2);
+                    Title.setFillColor(c4);
+                    Title.setOutlineColor(c3);
+                    s0.SetColor(c1,c2,c3,c4);
+                    if (dark) {
+                        ihome.loadFromFile("Image/home.png");
+                        ihistory.loadFromFile("Image/history.png");
+                        isearch.loadFromFile("Image/mag_glass.png");
+                        iquiz.loadFromFile("Image/quiz.png");
+                        isetting.loadFromFile("Image/setting.png");
+                        itheme.loadFromFile("Image/theme.png");
+                        iadd.loadFromFile("Image/add.png");
+                        ifavorite.loadFromFile("Image/favorite.png");
+                    }
+                    else{
+                        iadd.loadFromFile("Image/add2.png");
+                        ifavorite.loadFromFile("Image/favorite2.png");
+                        ihome.loadFromFile("Image/home2.png");
+                        ihistory.loadFromFile("Image/history - Copy.png");
+                        isearch.loadFromFile("Image/mag_glass2.png");
+                        iquiz.loadFromFile("Image/quiz - Copy.png");
+                        isetting.loadFromFile("Image/setting - Copy.png");
+                        itheme.loadFromFile("Image/theme - Copy.png");
+                    }
+                }
             }
         }
         else{
@@ -214,7 +263,7 @@ void Dictionary::update(sf::Time &deltaTime){
 }
 
 void Dictionary::render(){
-    mWindow.clear(sf::Color(34,40,49));
+    mWindow.clear(c1);
     mWindow.draw(sideBar);
     mWindow.draw(Title);
     Screens[screen]->ScreenDraw(mWindow);
