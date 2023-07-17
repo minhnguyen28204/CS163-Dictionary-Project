@@ -90,7 +90,7 @@ void TextField::draw(sf::RenderWindow& window)
         tmp.setString(temp);
         tmp.setFont(_font);
         tmp.setCharacterSize(Size);
-        tmp.setColor(color);
+        tmp.setFillColor(color);
         tmp.setPosition(pos_x+10,pos_y+10);
         window.draw(tmp);
     }
@@ -159,7 +159,7 @@ void TextField::update(sf::Time &deltaTime){
             tmp.setString(temp);
             tmp.setFont(_font);
             tmp.setCharacterSize(Size);
-            tmp.setColor(color);
+            tmp.setFillColor(sf::Color::White);
             tmp.setPosition(pos_x+10,pos_y+10);
             m_cursor.setPosition(tmp.getPosition().x + tmp.getLocalBounds().width + 4, tmp.getPosition().y);
         }

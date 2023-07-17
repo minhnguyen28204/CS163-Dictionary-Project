@@ -9,9 +9,9 @@ private:
     sf::RectangleShape rec;
 public:
     QuizScreen(void);
-    virtual void ScreenDraw(sf::RenderWindow &App);
-    virtual int ProcessEvent(sf::RenderWindow &App, sf::Event event);
-    virtual void updateScene(sf::Time &deltaTime);
+    void ScreenDraw(sf::RenderWindow &App);
+    int ProcessEvent(sf::RenderWindow &App, sf::Event event);
+    void updateScene(sf::Time &deltaTime);
 };
 
 #endif // QUIZSCREEN_HPP
