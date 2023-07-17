@@ -10,11 +10,11 @@
 #include <iomanip>
 
 namespace Path {
-	std::wstring const emoji{};
-	std::wstring const slang{};
-	std::wstring const engToEng{};
-	std::wstring const engToVie{};
-	std::wstring const vieToEng{};
+	std::string const emoji{};
+	std::string const slang{};
+	std::string const engToEng{};
+	std::string const engToVie{};
+	std::string const vieToEng{};
 }
 
 namespace Character {
@@ -119,7 +119,7 @@ namespace DefinitionSet {
 }
 
 namespace Dataset {
-	extern std::wstring curDataSet;
+	extern std::string curDataSet;
 
 	struct Trie {
 
