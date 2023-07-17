@@ -354,4 +354,3 @@ void DefinitionSet::loadDefinitionSet(DefinitionSet::Trie*& root, int pos, int n
 	std::wstring input = Character::stringToWString(definit);
 	splitLineToTrie<std::wstring, wchar_t>(input, root, n);
 }
-	
