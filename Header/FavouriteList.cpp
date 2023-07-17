@@ -4,6 +4,7 @@ vector<string> favouriteList()
 {
 	vector<string> favorite;
 	ifstream fin;
+	ifstream fin2;
 	fin.open("FavoriteList.bin", ios::binary | ios::in);
 	if (!fin)
 		return favorite;
@@ -18,9 +19,14 @@ vector<string> favouriteList()
 		word[size] = '\0';
 		string output = word;
 		string fileName = "Favorite Words/" + output + ".bin";
-		if (filesystem::exists(fileName))
+		fin2.open(fileName);
+		if (fin2)
+		{
 			favorite.push_back(output);
+			fin2.close();
+		}
 		delete[] word;
 	}
+	fin.close();
 	return favorite;
 }
