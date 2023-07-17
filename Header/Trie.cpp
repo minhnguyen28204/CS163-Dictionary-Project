@@ -132,7 +132,7 @@ void Dataset::Trie::remove(std::string& word) {
 }
 
 void Dataset::Trie::displayTree(Node* root, std::string& word, std::vector<std::string>& ans) {
-	if (root->exist != 0) {
+	if (root->exist != -1) {
 		ans.push_back(word);
 	}
 	for (int i{ 0 }; i < 16; ++i) {
@@ -147,7 +147,7 @@ void Dataset::Trie::displayTree(Node* root, std::string& word, std::vector<std::
 void Dataset::Trie::displayTree(Node* root, std::string& word, int& num, std::vector<std::string>& ans) {
 	if (num == 0)
 		return;
-	if (root->exist != 0) {
+	if (root->exist != -1) {
 		ans.push_back(word);
 		num--;
 	}
