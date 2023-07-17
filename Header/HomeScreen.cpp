@@ -1,7 +1,9 @@
 #include "HomeScreen.hpp"
 #include <iostream>
 
-HomeScreen::HomeScreen(void){
+HomeScreen::HomeScreen(void)
+{
+    
     _font.loadFromFile("Font/BeVietnamPro-Regular.ttf");
 
     object.loadFromFile("Image/Dictionary_Pic.png");
@@ -16,7 +18,7 @@ HomeScreen::HomeScreen(void){
 
     //150, 150
     //1140 75
-    inputField.SetProperties(_font,35,sf::Color(238,238,238),150,150,1000,75,true);
+    inputField.SetProperties(_font,35,c4,150,150,1000,75,true);
 
     RandomWord.setPosition(120,280);
     RandomWord.setSize(sf::Vector2f(590,100));
@@ -101,4 +103,17 @@ void HomeScreen::ScreenDraw(sf::RenderWindow &App){
 
 void HomeScreen::updateScene(sf::Time &deltaTime){
     inputField.update(deltaTime);
+}
+
+void HomeScreen::SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color &f4){
+    c1 = f1;
+    c2 = f2;
+    c3 = f3;
+    c4 = f4;
+    ranw.setFillColor(c4);
+    hisw.setFillColor(c4);
+    favw.setFillColor(c4);
+    quizw.setFillColor(c4);
+    if (c4 == sf::Color(238,238,238)) enter_object.loadFromFile("Image/enter_search.png");
+    else enter_object.loadFromFile("Image/enter_search - Copy.png");
 }

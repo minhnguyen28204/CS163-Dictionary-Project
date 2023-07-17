@@ -1,7 +1,9 @@
 #include "TextField.hpp"
 #include <iostream>
 
-TextField::TextField(){
+TextField::TextField()
+    : m_selected(false), m_cursorVisible(false)
+{
 
 }
 

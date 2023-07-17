@@ -1,0 +1,32 @@
+// {
+// 	"version": "2.0.0",
+// 	"tasks": [
+// 		{
+// 			"type": "cppbuild",
+// 			"label": "C/C++: g++.exe build active file",
+// 			"command": "C:/Users/suyun/Downloads/mingw64/bin/g++.exe",
+// 			"args": [
+// 				"-fdiagnostics-color=always",
+// 				"-g",
+// 				"${workspaceFolder}\\*.cpp",
+// 				"-I",
+// 				"C:/Users/suyun/Downloads/SFML-2.5.1/include",
+// 				"-L",
+// 				"C:/Users/suyun/Downloads/SFML-2.5.1/lib",
+// 				"-o",
+// 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+// 				"-lsfml-graphics", 
+// 				"-lsfml-window", 
+// 				"-lsfml-system"
+// 			],
+// 			"options": {
+// 				"cwd": "C:/Users/suyun/Downloads/mingw64/bin"
+// 			},
+// 			"problemMatcher": [
+// 				"$gcc"
+// 			],
+// 			"group": "build",
+// 			"detail": "compiler: C:/Users/suyun/Downloads/mingw64/bin/g++.exe"
+// 		}
+// 	]
+// }

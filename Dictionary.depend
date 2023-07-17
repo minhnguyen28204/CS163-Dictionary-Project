@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1689568707 source:e:\cs163\project\dictionary\main.cpp
+1689597613 source:e:\cs163\project\dictionary\main.cpp
 	"Header/MainFunction.hpp"
+	"Header/Trie.hpp"
 
 1525812018 c:\users\suyun\downloads\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -411,14 +412,14 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1688140935 e:\cs163\project\dictionary\header\mainfunction.hpp
+1689607243 e:\cs163\project\dictionary\header\mainfunction.hpp
 	<SFML/System.hpp>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
 	"MenuSideBar.hpp"
 	"Screen.hpp"
 
-1688190412 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1689607200 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -431,7 +432,7 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
-1689564532 e:\cs163\project\dictionary\header\trie.hpp
+1689607192 e:\cs163\project\dictionary\header\trie.hpp
 	<iostream>
 	<cstdlib>
 	<fstream>
@@ -441,14 +442,10 @@
 	<codecvt>
 	<iomanip>
 
-1687921001 source:e:\cs163\project\dictionary\header\trie.cpp
-	<iostream>
-	<fstream>
-	<vector>
-	<string>
+1689607243 source:e:\cs163\project\dictionary\header\trie.cpp
 	"Trie.hpp"
 
-1687971621 e:\cs163\project\dictionary\header\screen.hpp
+1689607243 e:\cs163\project\dictionary\header\screen.hpp
 	"cScreen.hpp"
 	"HomeScreen.hpp"
 	"QuizScreen.hpp"
@@ -456,18 +453,24 @@
 	"HistoryScreen.hpp"
 	"FavouriteScreen.hpp"
 	"AddScreen.hpp"
+	"SettingScreen.hpp"
 
-1689607189 e:\cs163\project\dictionary\header\cscreen.hpp
+1689598133 ated upstream
+
+1689607243 e:\cs163\project\dictionary\header\cscreen.hpp
 	<SFML/Graphics.hpp>
 
-1688143371 e:\cs163\project\dictionary\header\homescreen.hpp
+1689607151 shed changes
+	<SFML/Graphics.hpp>
+
+1689607243 e:\cs163\project\dictionary\header\homescreen.hpp
 	<iostream>
 	<vector>
 	"cScreen.hpp"
 	"TextField.hpp"
 	<SFML/Graphics.hpp>
 
-1688143564 source:e:\cs163\project\dictionary\header\homescreen.cpp
+1689607243 source:e:\cs163\project\dictionary\header\homescreen.cpp
 	"HomeScreen.hpp"
 	<iostream>
 
@@ -509,11 +512,17 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1688190919 e:\cs163\project\dictionary\header\textfield.hpp
+1689607243 e:\cs163\project\dictionary\header\textfield.hpp
 	<SFML/Graphics.hpp>
 	<string>
 
-1688353854 source:e:\cs163\project\dictionary\header\textfield.cpp
+1689607243 source:e:\cs163\project\dictionary\header\textfield.cpp
 	"TextField.hpp"
 	<iostream>
+
+1689607243 e:\cs163\project\dictionary\header\settingscreen.hpp
+	"cScreen.hpp"
+
+1689607243 source:e:\cs163\project\dictionary\header\settingscreen.cpp
+	"SettingScreen.hpp"
 

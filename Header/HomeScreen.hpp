@@ -8,6 +8,8 @@
 
 class HomeScreen : public cScreen
 {
+public:
+    void SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color &f4);
 private:
     sf::RectangleShape RandomWord;
     sf::RectangleShape HistoryWord;

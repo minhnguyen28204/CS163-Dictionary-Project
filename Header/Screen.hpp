@@ -11,5 +11,6 @@
 #include "HistoryScreen.hpp"
 #include "FavouriteScreen.hpp"
 #include "AddScreen.hpp"
+#include "SettingScreen.hpp"
 
 #endif // SCREENS_HPP_INCLUDED

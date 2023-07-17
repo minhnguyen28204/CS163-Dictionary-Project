@@ -1,5 +1,6 @@
 #ifndef TEXT_FIELD_H
 #define TEXT_FIELD_H
+#define SFML_NO_DEPRECATED_WARNINGS
 
 #include <SFML/Graphics.hpp>
 #include <string>

@@ -26,7 +26,7 @@ std::u16string Character::stringTou16String(std::string& str) {
 }
 
 std::u32string Character::stringTou32String(std::string& str) {
-	std::wstring_convert<std::codecvt<char32_t, char, std::mbstate_t>, char32_t> converter;
+	std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
 	return converter.from_bytes(str);
 }
 
