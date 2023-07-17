@@ -1,5 +1,5 @@
 #include "Header/MainFunction.hpp"
-#include "Header/Trie.hpp"
+//#include "Header/Trie.hpp"
 using namespace std;
 
 int main()

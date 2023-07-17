@@ -89,8 +89,6 @@
 		<Unit filename="Header/SearchScreen.hpp" />
 		<Unit filename="Header/TextField.cpp" />
 		<Unit filename="Header/TextField.hpp" />
-		<Unit filename="Header/Trie.cpp" />
-		<Unit filename="Header/Trie.hpp" />
 		<Unit filename="Header/cScreen.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>

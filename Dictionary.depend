@@ -1,7 +1,6 @@
 # depslib dependency file v1.0
-1687696290 source:e:\cs163\project\dictionary\main.cpp
+1689568707 source:e:\cs163\project\dictionary\main.cpp
 	"Header/MainFunction.hpp"
-	"Header/Trie.hpp"
 
 1525812018 c:\users\suyun\downloads\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -432,7 +431,15 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
-1687921001 e:\cs163\project\dictionary\header\trie.hpp
+1689564532 e:\cs163\project\dictionary\header\trie.hpp
+	<iostream>
+	<cstdlib>
+	<fstream>
+	<vector>
+	<string>
+	<sstream>
+	<codecvt>
+	<iomanip>
 
 1687921001 source:e:\cs163\project\dictionary\header\trie.cpp
 	<iostream>
