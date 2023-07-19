@@ -1,5 +1,6 @@
 #include "FavouriteList.hpp"
 #include <fstream>
+#include <stdio.h>
 
 bool addWordToFavList(std::string& word)
 {
@@ -21,4 +22,11 @@ bool addWordToFavList(std::string& word)
     if(!fout.is_open()) return false;
     fout.close();
     return true;
+}
+
+bool removeWordFromFavList(std::string& word)
+{
+    std::string path = "\\FavouriteList\\" + word + ".bin";
+    if(!remove(path)) return true;
+    return false;
 }
