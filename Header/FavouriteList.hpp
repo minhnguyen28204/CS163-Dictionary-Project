@@ -1,7 +1,7 @@
 #ifndef FAVOURITElIST_HPP
 #define FAVOURITELIST_HPP
 
-void addWord();
-void removeWord();
+bool addWordToFavList(std::string& word);
+void removeWordFromFavList();
 
 #endif
