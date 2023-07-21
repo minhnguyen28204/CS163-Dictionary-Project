@@ -1,5 +1,7 @@
 #ifndef HISTORY_HPP
 #define HISTORY_HPP
+#include <vector>
+#include <string>
 using namespace std;
 
 vector<std::string> loadHistory(std::string& word,bool& exist);
