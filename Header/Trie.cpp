@@ -596,3 +596,9 @@ void WordSet::loadAllData() {
 	DefinitionSet::loadTrieFromString();
 	loadNewData();
 }
+
+void WordSet::reset() {
+	std::ofstream fout(curWordSet + "/New.txt", std::ios::trunc);
+	fout << 0;
+	fout.close();
+}

@@ -290,6 +290,7 @@ namespace WordSet {
 	std::string getOneWordFromTextFile(int n);
 	void buildSerialFile();
 	void loadTrieFromString();
+	void reset();
 
 	extern Trie* wordTrie;
 	extern int wordOrigCount;
