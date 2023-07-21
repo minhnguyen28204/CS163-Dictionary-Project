@@ -7,6 +7,7 @@ WordSet::Trie* WordSet::wordTrie = new WordSet::Trie;
 int WordSet::wordOrigCount = 0;
 int WordSet::wordNewCount = 0;
 DefinitionSet::Trie* DefinitionSet::definitionTrie = new DefinitionSet::Trie;
+char Character::wordSplit[]{ ',', ' ', '.', ';', '|', ':', '(', ')', '?', '-', '/' , '!', '#', '[', ']', '~'};
 
 int getLength(std::wstring ws) { return ws.length(); }
 int getLength(std::u16string ws) { return ws.length(); }

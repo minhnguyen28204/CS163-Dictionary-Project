@@ -12,8 +12,8 @@
 #include <stack>
 
 namespace Path {
-	std::string const emoji{};
-	std::string const slang{};
+	std::string const emoji{"Data/emoticon"};
+	std::string const slang{"Data/slang"};
 	std::string const engToEng{"Data/engToEng"};
 	std::string const engToVie{};
 	std::string const vieToEng{};
@@ -37,6 +37,8 @@ template <typename T = int> int position(std::vector<T> nums, T key) {
 }
 
 namespace Character {
+	extern char wordSplit[];
+	
 	// Change a unicode character into hex form with proper length
 	template <typename T> std::string load(T ch) {
 		std::ostringstream fout{};
@@ -98,9 +100,8 @@ namespace Character {
 	std::string backToString(std::u32string& str);
 
 	template <typename T> bool wordBreaker(T ch) {
-		char a[] = { ',', ' ', '.', ';', '|', ':'};
-		for (int i{ 0 }; i < 6; ++i) {
-			if (ch == static_cast<T>(a[i]))
+		for (int i{ 0 }; i < 16; ++i) {
+			if (ch == static_cast<T>(wordSplit[i]))
 				return true;
 		}
 		return false;
@@ -158,9 +159,10 @@ namespace DefinitionSet {
 	template <typename T = std::wstring, typename U = wchar_t> void splitLineToTrie(T& source, U ch, int n) {
 		std::string output{};
 		int i{ 0 };
-		while (i < source.length() && source[i] != static_cast<U>(')'))
-			i++;
-		for (i++; i < source.length(); ++i) {
+		/*while (i < source.length() && source[i] != static_cast<U>(')'))
+			i++;*/
+		//i++;
+		for (; i < source.length(); ++i) {
 			if (!Character::wordBreaker<U>(source[i])) {
 				output += Character::load<U>(source[i]);
 			}
@@ -327,8 +329,9 @@ namespace WordSet {
 		return wordTrie->displayTree(word, num);
 	}
 
+	//Used for both adding a new word AND modify a word's definition
 	template <typename T = std::wstring> void addNew(T word, T definition) {
-		if (getLength(word) == 0)
+		if (getLength(word) == 0 || getLength(definition) == 0)
 			return;
 		wordNewCount++;
 		std::fstream fout(curWordSet + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
@@ -338,12 +341,21 @@ namespace WordSet {
 		fout.open(curWordSet + "/New.txt");
 		fout << wordNewCount;
 		fout.close();
-		if (getLength(definition) == 0) {
-			insert(word, -1, wordOrigCount + wordNewCount - 1);
-			return;
-		}
 		DefinitionSet::loadDefinitionSet(definition, wordOrigCount + wordNewCount - 1);
 		insert(word, wordNewCount - 1, wordOrigCount + wordNewCount - 1);
+	}
+
+	template <typename T = std::wstring> void erase(T str) {
+		if (getLength(str) == 0)
+			return;
+		wordNewCount++;
+		std::fstream fout(curWordSet + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
+		fout << '\n' << Character::backToString(str) << '\t';
+		fout.close();
+		fout.open(curWordSet + "/New.txt");
+		fout << wordNewCount;
+		fout.close();
+		insert(str, -1, wordOrigCount + wordNewCount - 1);
 	}
 
 }

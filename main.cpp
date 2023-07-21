@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    WordSet::switchWordSet(3);
+    WordSet::switchWordSet(2);
     WordSet::loadAllData();
     Dictionary dictionary;
     dictionary.run();
