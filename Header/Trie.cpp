@@ -397,10 +397,15 @@ std::string WordSet::getOneWordFromTextFile(int n) {
 std::string WordSet::getWord(int n) {
 	if (n < 0 || n >= wordOrigCount + wordNewCount)
 		return "";
+	std::string tmp{};
 	if (n < wordOrigCount) {
-		return getOneWordFromBinFile(n);
+		tmp = getOneWordFromBinFile(n);
 	}
-	return getOneWordFromTextFile(n - wordOrigCount);
+	else tmp = getOneWordFromTextFile(n - wordOrigCount);
+	std::string defi = definition(Character::stringToWString(tmp));
+	if (defi.length() == 0)
+		return "";
+	return tmp;
 }
 
 std::vector<int> DefinitionSet::Trie::allWordContain(std::string word) {
