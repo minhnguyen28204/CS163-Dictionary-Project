@@ -15,8 +15,8 @@ namespace Path {
 	std::string const emoji{"Data/emoticon"};
 	std::string const slang{"Data/slang"};
 	std::string const engToEng{"Data/engToEng"};
-	std::string const engToVie{};
-	std::string const vieToEng{};
+	std::string const engToVie{"Data/engToVie"};
+	std::string const vieToEng{"Data/vieToEng"};
 }
 
 int getLength(std::wstring ws);
