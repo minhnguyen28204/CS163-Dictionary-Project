@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <random>
+#include <vector>
 
 namespace Random
 {
@@ -36,5 +37,10 @@ namespace Random
 		return get<R>(static_cast<R>(min), static_cast<R>(max));
 	}
 }
+
+std::string getWordFromFile(int& first,int& last);
+int getPositionDef(int& last);
+std::string getDefFromFile(int& pos);
+std::vector<std::string> randomOneWordFourDef();
 
 #endif //RANDOM_HPP
