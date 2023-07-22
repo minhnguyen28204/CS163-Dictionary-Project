@@ -42,5 +42,6 @@ std::string getWordFromFile(int& first,int& last);
 int getPositionDef(int& last);
 std::string getDefFromFile(int& pos);
 std::vector<std::string> randomOneWordFourDef();
+std::vector<std::string> randomOneDefFourWord();
 
 #endif //RANDOM_HPP

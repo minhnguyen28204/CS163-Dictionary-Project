@@ -78,7 +78,7 @@ std::vector<std::string> randomOneWordFourDef()
             }
             else if(i==3)
             {
-                 while(a[i]==a[0]||a[i]==a[1]||a[i]==a[2])
+                while(a[i]==a[0]||a[i]==a[1]||a[i]==a[2])
                 {
                     a[i] = rand()%n+1;
                 }
@@ -89,7 +89,6 @@ std::vector<std::string> randomOneWordFourDef()
             fin.seekg(a[i]*4);
             int last;
             fin.read((char*)&last,sizeof(int));
-            int posDef;
             if(i==0) 
             {
                 int first;
@@ -103,6 +102,66 @@ std::vector<std::string> randomOneWordFourDef()
             }
             int posDef = getPositionDef(last);
             vec.push_back(getDefFromFile(posDef));
+        }
+        fin.close();
+    }
+    return vec;
+}
+
+std::vector<std::string> randomOneDefFourWord()
+{
+    vector<std::string> vec;
+    ifstream fin;
+    fin.open("WordsColumn.bin",ios::binary);
+    int n;
+    if(fin.is_open())
+    {
+        fin.read((char*)&n,sizeof(int));
+        int a[4];
+        for(int i=0;i<4;i++)
+        {
+            a[i] = rand()%n+1;
+            if(i==1)
+            {
+                while(a[i]==a[0])
+                {
+                    a[i] = rand()%n+1;
+                }
+            }
+            else if(i==2)
+            {
+                while(a[i]==a[0]||a[i]==a[1])
+                {
+                    a[i] = rand()%n+1;
+                }
+            }
+            else if(i==3)
+            {
+                while(a[i]==a[0]||a[i]==a[1]||a[i]==a[2])
+                {
+                    a[i] = rand()%n+1;
+                }
+            }
+        }
+        for(int i=0;i<4;i++)
+        {
+            fin.seekg(a[i]*4);
+            int last;
+            fin.read((char*)&last,sizeof(int));
+            if(i==0) 
+            {
+                int posDef = getPositionDef(last);
+                vec.push_back(getDefFromFile(posDef));
+            }
+            int first;
+            if (a[i] > 1)
+            {
+                fin.seekg(a[i] * 4 - 4);
+                fin.read((char *)&first, sizeof(int));
+                first += 5;
+            }
+            else first = 0;
+            vec.push_back(getWordFromFile(first, last));
         }
         fin.close();
     }
