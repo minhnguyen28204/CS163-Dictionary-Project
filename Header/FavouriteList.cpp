@@ -30,6 +30,7 @@ vector<string> favouriteList()
 	fin.close();
 	return favorite;
 }
+
 bool addWordToFavList(std::string& word)
 {
     ifstream fin;

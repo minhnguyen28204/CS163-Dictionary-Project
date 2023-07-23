@@ -351,6 +351,29 @@ std::string WordSet::definition(Trie::Node* root) {
 	return input;
 }
 
+void DefinitionSet::Trie::editDefinition(std::string newDefinition, int n)
+{
+	std::fstream ft(WordSet::curWordSet + "/Definition.bin", std::ios::binary | std::ios::out | std::ios::in);
+	ft.seekp(0, std::ios::end);
+	int size = static_cast<int>(newDefinition.length()) + 1;
+	int pos;
+	pos = ft.tellp(); // position of new definition in definition.bin
+	ft.write((char*)&size, sizeof(int));
+	ft.write(newDefinition.c_str(), size);
+	ft.close();
+
+	ft.open(WordSet::curWordSet + "/WordsColumn.bin", std::ios::binary | std::ios::in);
+	int pos2; // position of the word in file word.bin
+	ft.seekg((n + 1) * sizeof(int), std::ios::beg);
+	ft.read((char*)&pos2, sizeof(int));
+	ft.close();
+
+	ft.open(WordSet::curWordSet + "/Words.bin", std::ios::binary | std::ios::out | std::ios::in);
+	ft.seekp(pos2, std::ios::beg);
+	ft.write((char*)&pos, sizeof(int));
+	ft.close();
+}
+
 std::string WordSet::getOneWordFromBinFile(int n) {
 	std::ifstream fin(curWordSet + "/WordsColumn.bin", std::ios::binary | std::ios::in);
 	int num{};
@@ -608,26 +631,3 @@ void WordSet::reset() {
 	fout.close();
 }
 
-void DefinitionSet::editDefinition(std::string newDefinition, int n)
-{
-	std::fstream ft(Dataset::curDataSet + L"/Definition.bin", std::ios::binary | std::ios::out | std::ios::in);
-	ft.seekp(0, std::ios::end);
-	int size = static_cast<int>(newDefinition.length()) + 1;
-	int pos;
-	pos = ft.tellp(); // position of new definition in definition.bin
-	ft.write((char*)&size, sizeof(int));
-	ft.write(newDefinition.c_str(), size);
-	ft.close();
-
-	ft.open(Dataset::curDataSet + L"/WordsColumn.bin", std::ios::binary | std::ios::in);
-	int pos2; // position of the word in file word.bin
-	ft.seekg((n + 1) * sizeof(int), std::ios::beg);
-	ft.read((char*)&pos2, sizeof(int));
-	ft.close();
-
-	ft.open(Dataset::curDataSet + L"/Words.bin", std::ios::binary | std::ios::out | std::ios::in);
-	ft.seekp(pos2, std::ios::beg);
-	ft.write((char*)&pos, sizeof(int));
-	ft.close();
-	fin.close();
-}
