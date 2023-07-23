@@ -143,6 +143,7 @@ namespace DefinitionSet {
 		Node* search(std::string word);
 		void deleteTree(Node*& root);
 		void remove(std::string str, int n);
+	  void editDefinition(std::string newDefinition, int n);
 		std::vector<int> allWordContain(std::string word);
 		~Trie() {
 			deleteTree(trueRoot);
