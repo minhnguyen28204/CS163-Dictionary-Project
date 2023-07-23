@@ -8,16 +8,37 @@
 #include <sstream>
 #include <codecvt>
 #include <iomanip>
+#include <chrono>
+#include <stack>
 
 namespace Path {
-	std::wstring const emoji{};
-	std::wstring const slang{};
-	std::wstring const engToEng{};
-	std::wstring const engToVie{};
-	std::wstring const vieToEng{};
+	std::string const emoji{"Data/emoticon"};
+	std::string const slang{"Data/slang"};
+	std::string const engToEng{"Data/engToEng"};
+	std::string const engToVie{"Data/engToVie"};
+	std::string const vieToEng{"Data/vieToEng"};
+}
+
+int getLength(std::wstring ws);
+int getLength(std::u16string ws);
+int getLength(std::u32string ws);
+
+template <typename T = int> int position(std::vector<T> nums, T key) {
+	int b{ 0 }, e{ static_cast<int>(nums.size()) - 1 };
+	while (b <= e) {
+		int mid = b + (e - b) / 2;
+		if (nums[mid] == key)
+			return mid;
+		if (nums[mid] > key)
+			e = mid - 1;
+		else b = mid + 1;
+	}
+	return -1;
 }
 
 namespace Character {
+	extern char wordSplit[];
+	
 	// Change a unicode character into hex form with proper length
 	template <typename T> std::string load(T ch) {
 		std::ostringstream fout{};
@@ -45,7 +66,7 @@ namespace Character {
 	}
 
 	//Change a string in hex form back as unicode characters
-	template <typename T> std::string encodeStr(std::string& s) {
+	template <typename T> std::string encodeStr(std::string s) {
 		std::string result{};
 		for (int i{ 0 }; i < s.length() / (sizeof(T) * 2); ++i) {
 			std::string tmp{};
@@ -59,19 +80,48 @@ namespace Character {
 	}
 
 	//Change a string of unicode characters into hex form
-	template <typename T, typename U> std::string decodeStr(T& str) {
+	template <typename T = std::wstring, typename U = wchar_t> std::string decodeStr(T str, U ch) {
 		std::string result{};
-		for (int i{ 0 }; i < str.length(); ++i) {
+		int l = getLength(str);
+		for (int i{ 0 }; i < l; ++i) {
 			result += load<U>(str[i]);
 		}
 		return result;
 	}
 
-	std::wstring stringToWString(std::string& str);
+	std::wstring stringToWString(std::string str);
 
-	std::u16string stringTou16String(std::string& str);
+	std::u16string stringTou16String(std::string str);
 
-	std::u32string stringTou32String(std::string& str);
+	std::u32string stringTou32String(std::string str);
+
+	std::string backToString(std::wstring& str);
+	std::string backToString(std::u16string& str);
+	std::string backToString(std::u32string& str);
+
+	template <typename T> bool wordBreaker(T ch) {
+		for (int i{ 0 }; i < 16; ++i) {
+			if (ch == static_cast<T>(wordSplit[i]))
+				return true;
+		}
+		return false;
+	}
+
+	template <typename T = int> void mergeVector(std::vector<T>& origin, std::vector<T> addition) {
+		if (origin.size() == 0) {
+			origin = addition;
+			return;
+		}
+		int i{ 0 };
+		while(i < origin.size()) {
+			if (position(addition, origin[i]) == -1) {
+				origin.erase(origin.begin() + i);
+			}
+			else {
+				i++;
+			}
+		}
+	}
 }
 
 namespace DefinitionSet {
@@ -89,21 +139,120 @@ namespace DefinitionSet {
 			trueRoot = new Node;
 		}
 
-		void insert(std::string& word, int wordNum);
-		Node* search(std::string& word);
+		void insert(std::string word, int wordNum);
+		Node* search(std::string word);
 		void deleteTree(Node*& root);
-		std::vector<int> allWordContain(std::string& word);
+		void remove(std::string str, int n);
+	  void editDefinition(std::string newDefinition, int n);
+		std::vector<int> allWordContain(std::string word);
 		~Trie() {
 			deleteTree(trueRoot);
 		}
 
 	};
-	void loadDefinitionSet(Trie*& root, int pos, int n);
-	void editDefinition(std::string newDefinition, int n);
+
+	extern Trie* definitionTrie;
+
+	void loadTrieFromString();
+	std::vector<std::string> allWord(std::vector<int> nums);
+	std::vector<std::string> displayTree();
+
+	template <typename T = std::wstring, typename U = wchar_t> void splitLineToTrie(T& source, U ch, int n) {
+		std::string output{};
+		int i{ 0 };
+		/*while (i < source.length() && source[i] != static_cast<U>(')'))
+			i++;*/
+		//i++;
+		for (; i < source.length(); ++i) {
+			if (!Character::wordBreaker<U>(source[i])) {
+				output += Character::load<U>(source[i]);
+			}
+			else {
+				if (output.length() != 0) {
+					definitionTrie->insert(output, n);
+				}
+				output.clear();
+			}
+		}
+		if (output.length() != 0) {
+			definitionTrie->insert(output, n);
+		}
+	}
+
+	template <typename T = std::wstring> void loadDefinitionSet(T definit, int n) {
+		if (definit.length() == 0)
+			return;
+		splitLineToTrie(definit, definit[0], n);
+	}
+
+	template <typename T = std::wstring> void containField(T str) {
+		std::string word{};
+		if (getLength(str) != 0) {
+			word = Character::decodeStr(str, str[0]);
+		}
+		return definitionTrie->allWordContain(word);
+	}
+
+	template <typename T = std::wstring, typename U = wchar_t> void splitToRemove(T& source, U ch, int n) {
+		std::string output{};
+		int i{ 0 };
+		if (source[i] == '(')
+			while (i < source.length() && source[i] != static_cast<U>(')'))
+				i++;
+		Trie::Node* tmp{};
+		for (i++; i < source.length(); ++i) {
+			if (!Character::wordBreaker<U>(source[i])) {
+				output += Character::load<U>(source[i]);
+			}
+			else {
+				if (output.length() != 0) {
+					definitionTrie->remove(output, n);
+				}
+				output.clear();
+			}
+		}
+		if (output.length() != 0) {
+			definitionTrie->remove(output, n);
+		}
+	}
+
+	template <typename T = std::wstring> void removeDefinition(T str, int n) {
+		if (getLength(str) == 0)
+			return;
+		splitToRemove(str, str[0], n);
+	}
+
+	template <typename T = std::wstring, typename U = wchar_t> std::vector<int> searchWord(T& str, U ch) {
+		std::string output{};
+		std::vector<int> result{};
+		for (int i{ 0 }; i < str.length(); ++i) {
+			if (!Character::wordBreaker<U>(str[i])) {
+				output += Character::load<U>(str[i]);
+			}
+			else {
+				if (output.length() != 0) {
+					Character::mergeVector(result, definitionTrie->allWordContain(output));
+				}
+				output.clear();
+			}
+		}
+		if (output.length() != 0) {
+			Character::mergeVector(result, definitionTrie->allWordContain(output));
+		}
+		return result;
+	}
+
+	template <typename T = std::wstring> std::vector<int> allWord(T str) {
+		std::vector<int> result{};
+		if (getLength(str) == 0)
+			return result;
+		result = searchWord(str, str[0]);
+		return result;
+	}
 }
 
-namespace Dataset {
-	extern std::wstring curDataSet;
+namespace WordSet {
+	extern std::string curWordSet;
 
 	struct Trie {
 
@@ -111,7 +260,6 @@ namespace Dataset {
 			Node* children[16];
 			int exist{-1};
 			int num{};
-			int cnt{};
 			Node() {
 				for (int i{ 0 }; i < 16; ++i) {
 					children[i] = nullptr;
@@ -123,28 +271,97 @@ namespace Dataset {
 			trueRoot = new Node;
 		};
 
-		void insert(std::string& word, int pos, int n);
-		Node* search(std::string& word);
-		bool remove(Node* root, std::string& word, int n);
-		void remove(std::string& word);
-		void displayTree(Node* root, std::string& word, std::vector<std::string>& ans);
-		void displayTree(Node* root, std::string& word, int& num, std::vector<std::string>& ans);
-		std::vector<std::string> displayTree(std::string& word);
-		std::vector<std::string> displayTree(std::string& word, int num);
+		void insert(std::string word, int pos, int n);
+		Node* search(std::string word);
+		void remove(std::string word);
+		std::vector<std::string> displayTree(std::string word);
+		std::vector<std::string> displayTree(std::string word, int num);
 		void deleteTree(Node* root);
 		~Trie() {
 			deleteTree(trueRoot);
 		}
 	};
 
+	void switchWordSet(int n);
+	void loadWordSet();
+	void loadNewData();
+	void loadAllData();
+	void loadWordCount();
+	std::string definition(Trie::Node* root);
+	std::string getWord(int n);
+	std::string getOneWordFromBinFile(int n);
+	std::string getOneWordFromTextFile(int n);
+	void buildSerialFile();
+	void loadTrieFromString();
+	void reset();
 
+	extern Trie* wordTrie;
+	extern int wordOrigCount;
+	extern int wordNewCount;
 
-	void switchDataSet(int n);
-	void loadDataSet(Trie* root, DefinitionSet::Trie* defiRoot);
-	std::string definition(Trie* root, std::string& word);
-	void inputNewWord(Trie* root, DefinitionSet::Trie* defiRoot, std::string& word, std::string& definition);
-	void removeWordFromFile(int n);
-	std::string getOneWordFromFile(int n);
+	template <typename T = std::wstring> void insert(T str, int pos, int n) {
+		if (n < 0 || n > wordOrigCount + wordNewCount || getLength(str) == 0)
+			return;
+		wordTrie->insert(Character::decodeStr(str, str[0]), pos, n);
+	}
+
+	template <typename T = std::wstring> void remove(T str) {
+		if (getLength(str) == 0)
+			return;
+		wordTrie->remove(Character::decodeStr(str, str[0]));
+	}
+
+	template <typename T = std::wstring> std::string definition(T str) {
+		if (getLength(str) == 0)
+			return "";
+		Trie::Node* tmp = wordTrie->search(Character::decodeStr(str, str[0]));
+		if (!tmp || tmp->exist == -1)
+			return "";
+		return definition(tmp);
+	}
+
+	template <typename T = std::wstring> std::vector<std::string> displayWordTree(T str, int num = -1) {
+		std::string word{};
+		if (getLength(str) != 0) {
+			word = Character::decodeStr(str, str[0]);
+		}
+		if (num <= 0)
+			return wordTrie->displayTree(word);
+		return wordTrie->displayTree(word, num);
+	}
+
+	//Used for both adding a new word AND modify a word's definition
+	template <typename T = std::wstring> void addNew(T word, T definition) {
+		if (getLength(word) == 0 || getLength(definition) == 0)
+			return;
+		wordNewCount++;
+		std::fstream fout(curWordSet + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
+		fout << '\n' << Character::backToString(word) << '\t';
+		fout << Character::backToString(definition);
+		fout.close();
+		fout.open(curWordSet + "/New.txt");
+		fout << wordNewCount;
+		fout.close();
+		DefinitionSet::loadDefinitionSet(definition, wordOrigCount + wordNewCount - 1);
+		insert(word, wordNewCount - 1, wordOrigCount + wordNewCount - 1);
+	}
+
+	template <typename T = std::wstring> void erase(T str) {
+		if (getLength(str) == 0)
+			return;
+		wordNewCount++;
+		std::fstream fout(curWordSet + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
+		fout << '\n' << Character::backToString(str) << '\t';
+		fout.close();
+		fout.open(curWordSet + "/New.txt");
+		fout << wordNewCount;
+		fout.close();
+		insert(str, -1, wordOrigCount + wordNewCount - 1);
+	}
+
 }
 
+std::string randomWordFromFile();
+
 #endif
+

@@ -3,9 +3,11 @@
 #include<vector>
 #include<string>
 #include<fstream>
+#include <stdio.h>
 using namespace std;
 
-void addWord();
-void removeWord();
+bool addWordToFavList(std::string& word);
+bool removeWordFromFavList(std::string& word);
 vector<string> favouriteList();
+
 #endif
