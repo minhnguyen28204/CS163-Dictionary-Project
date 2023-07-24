@@ -86,9 +86,18 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
     bool isMousedOn = enterBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
     if (isMousedOn){
         enter_bound.setFillColor(c3);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+            wstring Cur_str = inputField.getText();
+            wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+            MyKey = Cur_str;
+            MyDef = Definition;
+            is_search = true;
+            return 7;
+        }
     }
     else{
         enter_bound.setFillColor(c2);
+        is_search = false;
     }
     return 0;
 }

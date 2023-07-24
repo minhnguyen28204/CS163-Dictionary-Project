@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "MenuSideBar.hpp"
 #include "Screen.hpp"
+#include "Trie.hpp"
 
 class Dictionary{
 public:
@@ -15,6 +16,7 @@ private:
     void update(sf::Time &deltaTime);
     void render();
     void processIconColor(sf::Event event);
+
 private:
     sf::Color c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
     //Screen states
@@ -30,6 +32,7 @@ private:
     AddScreen s4;
     QuizScreen s5;
     SettingScreen s6;
+    WordScreen s7;
     bool dark = true;
     sf::Font _font;
     sf::RenderWindow mWindow;

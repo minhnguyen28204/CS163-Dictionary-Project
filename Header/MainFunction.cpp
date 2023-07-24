@@ -10,6 +10,10 @@ Dictionary::Dictionary()
     Screens.push_back(&s4);
     Screens.push_back(&s5);
     Screens.push_back(&s6);
+    Screens.push_back(&s7);
+
+    WordSet::switchWordSet(3);
+    WordSet::loadAllData();
 
     if (_font.loadFromFile("Font/BeVietnamPro-Regular.ttf")) cout << "Load succeded!\n";
     sideBar.setPosition(0,0);
@@ -247,6 +251,7 @@ void Dictionary::processIconColor(sf::Event event){
 void Dictionary::processEvent(){
     sf::Event event;
     while (mWindow.pollEvent(event)){
+        if (screen == 7 && s0.is_search) s7.setString(s0.MyDef,s0.MyKey), s0.is_search = false;
         screen = Screens[screen]->ProcessEvent(mWindow,event);
         processIconColor(event);
         if (event.type == sf::Event::Closed){

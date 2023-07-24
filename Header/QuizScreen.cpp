@@ -13,6 +13,10 @@ QuizScreen::QuizScreen(){
     d2.setFont(_font); d2.setCharacterSize(30); d2.setFillColor(c4);
     d3.setFont(_font); d3.setCharacterSize(30); d3.setFillColor(c4);
     d4.setFont(_font); d4.setCharacterSize(30); d4.setFillColor(c4);
+    d1.setPosition(150,150);
+    d2.setPosition(150,150);
+    d3.setPosition(150,150);
+    d4.setPosition(150,150);
 
 
     wordDef.loadFromFile("Image/QuizIcon.png");
@@ -114,10 +118,6 @@ int QuizScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
                 SetCenter(w2,q2);
                 SetCenter(w3,q3);
                 SetCenter(w4,q4);
-                if (selected==0) d1.setPosition(150,150);
-                if (selected==1) d2.setPosition(150,150);
-                if (selected==2) d3.setPosition(150,150);
-                if (selected==3) d4.setPosition(150,150);
             }
         }
 

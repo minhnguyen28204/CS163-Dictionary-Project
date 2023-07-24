@@ -412,14 +412,15 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1689607243 e:\cs163\project\dictionary\header\mainfunction.hpp
+1690183284 e:\cs163\project\dictionary\header\mainfunction.hpp
 	<SFML/System.hpp>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
 	"MenuSideBar.hpp"
 	"Screen.hpp"
+	"Trie.hpp"
 
-1689748528 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1690183962 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -449,7 +450,7 @@
 	"Trie.hpp"
 	"Random.hpp"
 
-1689607243 e:\cs163\project\dictionary\header\screen.hpp
+1690182348 e:\cs163\project\dictionary\header\screen.hpp
 	"cScreen.hpp"
 	"HomeScreen.hpp"
 	"QuizScreen.hpp"
@@ -458,6 +459,7 @@
 	"FavouriteScreen.hpp"
 	"AddScreen.hpp"
 	"SettingScreen.hpp"
+	"ViewWordScreen.hpp"
 
 1689598133 ated upstream
 
@@ -467,14 +469,15 @@
 1689607151 shed changes
 	<SFML/Graphics.hpp>
 
-1689738441 e:\cs163\project\dictionary\header\homescreen.hpp
+1690183188 e:\cs163\project\dictionary\header\homescreen.hpp
 	<iostream>
 	<vector>
 	"cScreen.hpp"
 	"TextField.hpp"
+	"Trie.hpp"
 	<SFML/Graphics.hpp>
 
-1689739074 source:e:\cs163\project\dictionary\header\homescreen.cpp
+1690184015 source:e:\cs163\project\dictionary\header\homescreen.cpp
 	"HomeScreen.hpp"
 	<iostream>
 
@@ -484,7 +487,7 @@
 	<vector>
 	<string>
 
-1690167529 source:e:\cs163\project\dictionary\header\quizscreen.cpp
+1690186408 source:e:\cs163\project\dictionary\header\quizscreen.cpp
 	"QuizScreen.hpp"
 
 1689749990 e:\cs163\project\dictionary\header\searchscreen.hpp
@@ -553,7 +556,7 @@
 	<vector>
 	<string>
 
-1690179493 source:e:\cs163\project\dictionary\header\random.cpp
+1690180780 source:e:\cs163\project\dictionary\header\random.cpp
 	"Random.hpp"
 	<ctime>
 	<fstream>
@@ -562,4 +565,14 @@
 	<chrono>
 	<random>
 	<vector>
+
+1690186040 e:\cs163\project\dictionary\header\viewwordscreen.hpp
+	<string>
+	"SFML/Graphics.hpp"
+	"cScreen.hpp"
+
+1690186516 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
+	"ViewWordScreen.hpp"
+	<iostream>
+	<sstream>
 

@@ -4,6 +4,7 @@
 #include <vector>
 #include "cScreen.hpp"
 #include "TextField.hpp"
+#include "Trie.hpp"
 #include <SFML/Graphics.hpp>
 
 class HomeScreen : public cScreen
@@ -31,12 +32,17 @@ private:
 
     float cur_stack_time = 0;
 
+
     sf::Color c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
 public:
     HomeScreen(void);
     void ScreenDraw(sf::RenderWindow &App);
     int ProcessEvent(sf::RenderWindow &App, sf::Event event);
     void updateScene(sf::Time &deltaTime);
+    void findString(wstring &def, wstring &key);
+    wstring MyDef;
+    wstring MyKey;
+    bool is_search = false;
 };
 
 #endif // HOMESCREEN_HPP
