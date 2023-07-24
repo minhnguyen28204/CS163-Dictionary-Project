@@ -1,7 +1,7 @@
 #include "Random.hpp"
 #include <ctime>
 #include <fstream>
-
+#include "Trie.hpp"
 using namespace std;
 
 std::string getWordFromFile(int& first,int& last)
@@ -49,7 +49,7 @@ std::string getDefFromFile(int& pos)
     return def;
 }
 
-std::vector<std::string> randomOneWordFourDef()
+std::vector<std::string> randomOneWordFourDef(std::string& mode)
 {
     vector<std::string> vec;
     ifstream fin;
@@ -108,7 +108,7 @@ std::vector<std::string> randomOneWordFourDef()
     return vec;
 }
 
-std::vector<std::string> randomOneDefFourWord()
+std::vector<std::string> randomOneDefFourWord(std::string& mode)
 {
     vector<std::string> vec;
     ifstream fin;
