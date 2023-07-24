@@ -388,12 +388,13 @@ std::string WordSet::getOneWordFromBinFile(int n) {
 		fin.seekg((n - 1) * sizeof(int), std::ios::cur);
 		fin.read((char*)&prePos, sizeof(int));
 		fin.read((char*)&pos, sizeof(int));
+		prePos += sizeof(int);
 	}
 	fin.close();
-	char* tmp = new char[pos - prePos - sizeof(int)];
+	char* tmp = new char[pos - prePos];
 	fin.open(curWordSet + "/Words.bin", std::ios::binary | std::ios::in);
-	fin.seekg(prePos + sizeof(int), std::ios::beg);
-	fin.read(tmp, pos - prePos - sizeof(int));
+	fin.seekg(prePos, std::ios::beg);
+	fin.read(tmp, pos - prePos);
 	fin.read((char*)&pos, sizeof(int));
 	fin.close();
 	if (pos < 0) {
@@ -426,8 +427,12 @@ std::string WordSet::getWord(int n) {
 		tmp = getOneWordFromBinFile(n);
 	}
 	else tmp = getOneWordFromTextFile(n - wordOrigCount);
-	std::string defi = definition(Character::stringToWString(tmp));
-	if (defi.length() == 0)
+	if (tmp.length() == 0) {
+		return "";
+	}
+	std::wstring definition = Character::stringToWString(tmp);
+	Trie::Node* defi = wordTrie->search(Character::decodeStr(definition, definition[0]));
+	if (!defi || defi->exist == -1)
 		return "";
 	return tmp;
 }
@@ -443,7 +448,9 @@ std::vector<int> DefinitionSet::Trie::allWordContain(std::string word) {
 std::vector<std::string> DefinitionSet::allWord(std::vector<int> nums) {
 	std::vector<std::string> result{};
 	for (int i{ 0 }; i < nums.size(); ++i) {
-		result.push_back(WordSet::getWord(nums[i]));
+		std::string input = WordSet::getWord(nums[i]);
+		if (input.length() != 0)
+			result.push_back(input);
 	}
 	return result;
 }
