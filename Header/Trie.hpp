@@ -248,9 +248,9 @@ namespace DefinitionSet {
 		return result;
 	}
 
-	std::vector<std::string> allDefinitionContain(std::wstring str);
-	std::vector<std::string> allDefinitionContain(std::u16string str);
-	std::vector<std::string> allDefinitionContain(std::u32string str);
+	template <typename T = std::wstring> std::vector<std::string> allDefinitionContain(T str) {
+		return allWord(allWord(str));
+	}
 }
 
 namespace WordSet {

@@ -639,38 +639,3 @@ void Path::loadPath(int n) {
 	curPath = n % path.size();
 }
 
-std::vector<std::string> DefinitionSet::allDefinitionContain(std::wstring str) {
-	std::vector<int> list = DefinitionSet::allWord(str);
-	std::vector<std::string> result{};
-	for (int i{ 0 }; i < list.size(); ++i) {
-		std::string input = WordSet::getWord(list[i]);
-		if (input.length() != 0) {
-			result.push_back(input);
-		}
-	}
-	return result;
-}
-
-std::vector<std::string> DefinitionSet::allDefinitionContain(std::u16string str) {
-	std::vector<int> list = DefinitionSet::allWord(str);
-	std::vector<std::string> result{};
-	for (int i{ 0 }; i < list.size(); ++i) {
-		std::string input = WordSet::getWord(list[i]);
-		if (input.length() != 0) {
-			result.push_back(input);
-		}
-	}
-	return result;
-}
-
-std::vector<std::string> DefinitionSet::allDefinitionContain(std::u32string str) {
-	std::vector<int> list = DefinitionSet::allWord(str);
-	std::vector<std::string> result{};
-	for (int i{ 0 }; i < list.size(); ++i) {
-		std::string input = WordSet::getWord(list[i]);
-		if (input.length() != 0) {
-			result.push_back(input);
-		}
-	}
-	return result;
-}
