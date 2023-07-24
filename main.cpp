@@ -4,8 +4,8 @@ using namespace std;
 
 int main()
 {
-    WordSet::switchWordSet(4);
-    WordSet::loadAllData();
+    Path::loadPath();
+    WordSet::switchWordSet(2);
     Dictionary dictionary;
     dictionary.run();
     return 0;
