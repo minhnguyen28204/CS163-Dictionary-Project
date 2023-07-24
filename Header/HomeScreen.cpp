@@ -3,7 +3,7 @@
 
 HomeScreen::HomeScreen(void)
 {
-    
+
     _font.loadFromFile("Font/BeVietnamPro-Regular.ttf");
 
     object.loadFromFile("Image/Dictionary_Pic.png");
@@ -67,12 +67,16 @@ HomeScreen::HomeScreen(void)
 int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
     inputField.handleEvent(App,event);
     sf::Vector2i mousePosition = sf::Mouse::getPosition(App);
+    int MyMap[4] = {5,3,2,7};
     for(int i=0; i<4; i++){
         auto &x = MyButton[i];
         sf::FloatRect ShapeBound = x.getGlobalBounds();
         bool isMousedOn = ShapeBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
         if (isMousedOn){
             x.setFillColor(c3);
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+                return MyMap[i];
+            }
         }
         else{
             x.setFillColor(c2);

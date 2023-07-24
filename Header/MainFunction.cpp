@@ -208,11 +208,12 @@ void Dictionary::processIconColor(sf::Event event){
                 else{
                     dark = !dark;
                     if (dark) c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
-                    else c1 = sf::Color(233, 248, 249), c2 = sf::Color(192, 238, 242), c3 = sf::Color(24, 24, 35), c4 = sf::Color(83,127,231);
+                    else c1 = sf::Color(83,127,231), c2 = sf::Color(233, 248, 249), c3 = sf::Color(192, 238, 242), c4 = sf::Color(24, 24, 35);
                     sideBar.setFillColor(c2);
                     Title.setFillColor(c4);
                     Title.setOutlineColor(c3);
                     s0.SetColor(c1,c2,c3,c4);
+                    s5.SetColor(c1,c2,c3,c4);
                     if (dark) {
                         ihome.loadFromFile("Image/home.png");
                         ihistory.loadFromFile("Image/history.png");

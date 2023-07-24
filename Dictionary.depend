@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1689597613 source:e:\cs163\project\dictionary\main.cpp
+1689607286 source:e:\cs163\project\dictionary\main.cpp
 	"Header/MainFunction.hpp"
 	"Header/Trie.hpp"
 
@@ -419,7 +419,7 @@
 	"MenuSideBar.hpp"
 	"Screen.hpp"
 
-1689607200 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1689748528 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -432,7 +432,7 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
-1689607192 e:\cs163\project\dictionary\header\trie.hpp
+1690180612 e:\cs163\project\dictionary\header\trie.hpp
 	<iostream>
 	<cstdlib>
 	<fstream>
@@ -441,9 +441,13 @@
 	<sstream>
 	<codecvt>
 	<iomanip>
+	<chrono>
+	<stack>
+	<random>
 
-1689607243 source:e:\cs163\project\dictionary\header\trie.cpp
+1690180655 source:e:\cs163\project\dictionary\header\trie.cpp
 	"Trie.hpp"
+	"Random.hpp"
 
 1689607243 e:\cs163\project\dictionary\header\screen.hpp
 	"cScreen.hpp"
@@ -457,37 +461,40 @@
 
 1689598133 ated upstream
 
-1689607243 e:\cs163\project\dictionary\header\cscreen.hpp
+1689738548 e:\cs163\project\dictionary\header\cscreen.hpp
 	<SFML/Graphics.hpp>
 
 1689607151 shed changes
 	<SFML/Graphics.hpp>
 
-1689607243 e:\cs163\project\dictionary\header\homescreen.hpp
+1689738441 e:\cs163\project\dictionary\header\homescreen.hpp
 	<iostream>
 	<vector>
 	"cScreen.hpp"
 	"TextField.hpp"
 	<SFML/Graphics.hpp>
 
-1689607243 source:e:\cs163\project\dictionary\header\homescreen.cpp
+1689739074 source:e:\cs163\project\dictionary\header\homescreen.cpp
 	"HomeScreen.hpp"
 	<iostream>
 
-1688141710 e:\cs163\project\dictionary\header\quizscreen.hpp
+1689861670 e:\cs163\project\dictionary\header\quizscreen.hpp
 	"cScreen.hpp"
 	<SFML/Graphics.hpp>
+	<vector>
+	<string>
 
-1688141727 source:e:\cs163\project\dictionary\header\quizscreen.cpp
+1690167529 source:e:\cs163\project\dictionary\header\quizscreen.cpp
 	"QuizScreen.hpp"
 
-1688141745 e:\cs163\project\dictionary\header\searchscreen.hpp
+1689749990 e:\cs163\project\dictionary\header\searchscreen.hpp
 	"cScreen.hpp"
+	"TextField.hpp"
 
-1688141758 source:e:\cs163\project\dictionary\header\searchscreen.cpp
+1689750310 source:e:\cs163\project\dictionary\header\searchscreen.cpp
 	"SearchScreen.hpp"
 
-1688141677 e:\cs163\project\dictionary\header\historyscreen.hpp
+1689734485 e:\cs163\project\dictionary\header\historyscreen.hpp
 	"cScreen.hpp"
 
 1688141691 source:e:\cs163\project\dictionary\header\historyscreen.cpp
@@ -496,10 +503,10 @@
 1688141506 source:e:\cs163\project\dictionary\header\favouritescreen.cpp
 	"FavouriteScreen.hpp"
 
-1688141486 e:\cs163\project\dictionary\header\favouritescreen.hpp
+1689734467 e:\cs163\project\dictionary\header\favouritescreen.hpp
 	"cScreen.hpp"
 
-1688141801 e:\cs163\project\dictionary\header\addscreen.hpp
+1689734453 e:\cs163\project\dictionary\header\addscreen.hpp
 	"cScreen.hpp"
 
 1688141831 source:e:\cs163\project\dictionary\header\addscreen.cpp
@@ -512,17 +519,47 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1689607243 e:\cs163\project\dictionary\header\textfield.hpp
+1689747569 e:\cs163\project\dictionary\header\textfield.hpp
 	<SFML/Graphics.hpp>
 	<string>
 
-1689607243 source:e:\cs163\project\dictionary\header\textfield.cpp
+1689748016 source:e:\cs163\project\dictionary\header\textfield.cpp
 	"TextField.hpp"
 	<iostream>
 
-1689607243 e:\cs163\project\dictionary\header\settingscreen.hpp
+1689734514 e:\cs163\project\dictionary\header\settingscreen.hpp
 	"cScreen.hpp"
 
 1689607243 source:e:\cs163\project\dictionary\header\settingscreen.cpp
 	"SettingScreen.hpp"
+
+1690178574 source:e:\cs163\project\dictionary\header\favouritelist.cpp
+	"FavouriteList.hpp"
+
+1690178559 e:\cs163\project\dictionary\header\favouritelist.hpp
+	<vector>
+	<string>
+	<fstream>
+	<stdio.h>
+
+1690178628 source:e:\cs163\project\dictionary\header\history.cpp
+	<iostream>
+	"History.hpp"
+	<fstream>
+	<vector>
+	<stdio.h>
+
+1690178624 e:\cs163\project\dictionary\header\history.hpp
+	<vector>
+	<string>
+
+1690179493 source:e:\cs163\project\dictionary\header\random.cpp
+	"Random.hpp"
+	<ctime>
+	<fstream>
+
+1690180735 e:\cs163\project\dictionary\header\random.hpp
+	<chrono>
+	<random>
+	<vector>
 

@@ -1,14 +1,20 @@
 #ifndef SEARCH_SCREEN_HPP
 #define SEARCH_SCREEN_HPP
 #include "cScreen.hpp"
+#include "TextField.hpp"
 
 class SearchScreen : public cScreen{
 private:
+    TextField keyField;
+    TextField defField;
+    sf::Font _font;
+    sf::Color c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
+    sf::Text SubTit1, SubTit2;
 public:
     SearchScreen(void);
-    virtual void ScreenDraw(sf::RenderWindow &App);
-    virtual int ProcessEvent(sf::RenderWindow &App, sf::Event event);
-    virtual void updateScene(sf::Time &deltaTime);
+    void ScreenDraw(sf::RenderWindow &App);
+    int ProcessEvent(sf::RenderWindow &App, sf::Event event);
+    void updateScene(sf::Time &deltaTime);
 };
 
 #endif // SEARCH_SCREEN_HPP

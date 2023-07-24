@@ -36,7 +36,8 @@ private:
     sf::Text m_text;
     sf::RectangleShape m_cursor; // New member variable for the cursor
     bool m_selected;
-    bool m_cursorVisible; // New member variable to keep track of cursor visibility
+    bool m_cursorVisible;// New member variable to keep track of cursor visibility
+    bool is_entering_text = false;
     sf::Clock m_cursorClock; // New member variable to keep track of elapsed time since last cursor toggle
     bool ShowTxt;
 };

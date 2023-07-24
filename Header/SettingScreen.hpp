@@ -7,9 +7,9 @@ class SettingScreen : public cScreen
 {
 public:
     SettingScreen(void);
-    virtual void ScreenDraw(sf::RenderWindow &App);
-    virtual int ProcessEvent(sf::RenderWindow &App, sf::Event event);
-    virtual void updateScene(sf::Time &deltaTime);
+    void ScreenDraw(sf::RenderWindow &App);
+    int ProcessEvent(sf::RenderWindow &App, sf::Event event);
+    void updateScene(sf::Time &deltaTime);
 };
 
 #endif // SETTINGSCREEN_HPP

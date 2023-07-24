@@ -119,11 +119,10 @@ void TextField::handleEvent(sf::RenderWindow &App, sf::Event &event)
     }
     else if (event.type == sf::Event::TextEntered && m_selected)
     {
+        is_entering_text = true;
         if (event.text.unicode == '\b' && m_text.getString().getSize() > 0) // Handle backspace
         {
-            wstring temp = real_text;
-            if (m_cursorIndex-1>=0) real_text = temp.substr(0,m_cursorIndex-1);
-            if (real_text.size() - m_cursorIndex > 0 && m_cursorIndex < temp.size()) real_text = temp.substr(m_cursorIndex,real_text.size() - m_cursorIndex);
+            if (real_text.size()) real_text.pop_back();
             m_text.setString(real_text);
             while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20){
                 m_text.setString(m_text.getString().substring(1,m_text.getString().getSize()));
@@ -141,6 +140,7 @@ void TextField::handleEvent(sf::RenderWindow &App, sf::Event &event)
             }
         }
     }
+    else if (event.type == sf::Event::KeyReleased) is_entering_text = false;
 }
 
 void TextField::update(sf::Time &deltaTime){
@@ -148,9 +148,11 @@ void TextField::update(sf::Time &deltaTime){
     cursor_stacked_time += deltaTime.asSeconds();
     if (m_selected)
     {
+
         if (cursor_stacked_time >= 0.5)
         {
-            m_cursorVisible = !m_cursorVisible;
+            if (is_entering_text) m_cursorVisible = true;
+            else m_cursorVisible = !m_cursorVisible;
             cursor_stacked_time -= 0.5;
         }
         if (ShowTxt) m_cursor.setPosition(m_text.getPosition().x + m_text.getLocalBounds().width + 4, m_text.getPosition().y);

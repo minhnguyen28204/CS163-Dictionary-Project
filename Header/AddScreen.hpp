@@ -6,9 +6,9 @@ class AddScreen : public cScreen{
 private:
 public:
     AddScreen(void);
-    virtual void ScreenDraw(sf::RenderWindow &App);
-    virtual int ProcessEvent(sf::RenderWindow &App, sf::Event event);
-    virtual void updateScene(sf::Time &deltaTime);
+    void ScreenDraw(sf::RenderWindow &App);
+    int ProcessEvent(sf::RenderWindow &App, sf::Event event);
+    void updateScene(sf::Time &deltaTime);
 };
 
 #endif // ADDSCR_HPP
