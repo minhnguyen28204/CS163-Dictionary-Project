@@ -250,6 +250,7 @@ void WordSet::switchWordSet(int n) {
 	if (n == Path::curPath || n < 0 || n >= Path::path.size())
 		return;
 	Path::curPath = n % Path::path.size();
+	Path::changePastPath(Path::curPath);
 	loadAllData();
 }
 
@@ -636,6 +637,26 @@ void Path::loadPath(int n) {
 	path.push_back("Data/engToEng");
 	path.push_back("Data/engToVie");
 	path.push_back("Data/vieToEng");
-	curPath = n % path.size();
+	curPath = getPastPath() % path.size();
 }
 
+int Path::getPastPath() {
+	std::ifstream fin("Data/CurPath.bin", std::ios::binary);
+	if (!fin.is_open())
+		return 0;
+	if (!fin.good()) {
+		fin.close();
+		return 0;
+	}
+	char result{};
+	fin.read(&result, 1);
+	fin.close();
+	return result;
+}
+
+void Path::changePastPath(int n) {
+	std::ofstream fout("Data/CurPath.bin", std::ios::trunc | std::ios::binary | std::ios::out);
+	char in = n % Path::path.size();
+	fout.write(&in, 1);
+	fout.close();
+}

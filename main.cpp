@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     Path::loadPath();
-    WordSet::switchWordSet(2);
+    WordSet::loadAllData();
     Dictionary dictionary;
     dictionary.run();
     return 0;
