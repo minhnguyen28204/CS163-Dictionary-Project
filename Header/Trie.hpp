@@ -10,14 +10,11 @@
 #include <iomanip>
 #include <chrono>
 #include <stack>
-#include <random>
 
 namespace Path {
-	std::string const emoji{"Data/emoticon"};
-	std::string const slang{"Data/slang"};
-	std::string const engToEng{"Data/engToEng"};
-	std::string const engToVie{"Data/engToVie"};
-	std::string const vieToEng{"Data/vieToEng"};
+	extern int curPath;
+	extern std::vector<std::string> path;
+	void loadPath(int n = 0);
 }
 
 int getLength(std::wstring ws);
@@ -249,10 +246,13 @@ namespace DefinitionSet {
 		result = searchWord(str, str[0]);
 		return result;
 	}
+
+	template <typename T = std::wstring> std::vector<std::string> allDefinitionContain(T str) {
+		return allWord(allWord(str));
+	}
 }
 
 namespace WordSet {
-	extern std::string curWordSet;
 
 	struct Trie {
 
@@ -335,11 +335,11 @@ namespace WordSet {
 		if (getLength(word) == 0 || getLength(definition) == 0)
 			return;
 		wordNewCount++;
-		std::fstream fout(curWordSet + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
+		std::fstream fout(Path::path[Path::curPath] + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
 		fout << '\n' << Character::backToString(word) << '\t';
 		fout << Character::backToString(definition);
 		fout.close();
-		fout.open(curWordSet + "/New.txt");
+		fout.open(Path::path[Path::curPath] + "/New.txt");
 		fout << wordNewCount;
 		fout.close();
 		DefinitionSet::loadDefinitionSet(definition, wordOrigCount + wordNewCount - 1);
@@ -350,10 +350,10 @@ namespace WordSet {
 		if (getLength(str) == 0)
 			return;
 		wordNewCount++;
-		std::fstream fout(curWordSet + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
+		std::fstream fout(Path::path[Path::curPath] + "/New.txt", std::ios::ate | std::ios::in | std::ios::out);
 		fout << '\n' << Character::backToString(str) << '\t';
 		fout.close();
-		fout.open(curWordSet + "/New.txt");
+		fout.open(Path::path[Path::curPath] + "/New.txt");
 		fout << wordNewCount;
 		fout.close();
 		insert(str, -1, wordOrigCount + wordNewCount - 1);

@@ -1,9 +1,11 @@
 #ifndef QUIZSCREEN_HPP
 #define QUIZSCREEN_HPP
 #include "cScreen.hpp"
+#include "Trie.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include <iostream>
 using namespace std;
 
 class QuizScreen : public cScreen
@@ -13,7 +15,8 @@ private:
     bool is_def = false;
     bool state_reset = true;
     int selected = 0;
-    sf::RectangleShape bound_wordDef, bound_defWord;
+    sf::RectangleShape bound_wordDef, bound_defWord, back_button;
+    sf::Text tback_button;
     sf::Texture wordDef;
     sf::Sprite swordDef;
     sf::Texture defWord;
@@ -38,6 +41,7 @@ public:
     int ProcessEvent(sf::RenderWindow &App, sf::Event event);
     void updateScene(sf::Time &deltaTime);
     void SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color &f4);
+    void wrapText(sf::Text &text, float maxWidth);
 };
 
 #endif // QUIZSCREEN_HPP

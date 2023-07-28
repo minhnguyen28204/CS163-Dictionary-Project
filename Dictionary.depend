@@ -420,7 +420,7 @@
 	"Screen.hpp"
 	"Trie.hpp"
 
-1690183962 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1690456264 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -433,7 +433,7 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
-1690180612 e:\cs163\project\dictionary\header\trie.hpp
+1690287398 e:\cs163\project\dictionary\header\trie.hpp
 	<iostream>
 	<cstdlib>
 	<fstream>
@@ -444,9 +444,8 @@
 	<iomanip>
 	<chrono>
 	<stack>
-	<random>
 
-1690180655 source:e:\cs163\project\dictionary\header\trie.cpp
+1690287391 source:e:\cs163\project\dictionary\header\trie.cpp
 	"Trie.hpp"
 	"Random.hpp"
 
@@ -469,25 +468,27 @@
 1689607151 shed changes
 	<SFML/Graphics.hpp>
 
-1690183188 e:\cs163\project\dictionary\header\homescreen.hpp
-	<iostream>
+1690458528 e:\cs163\project\dictionary\header\homescreen.hpp
 	<vector>
 	"cScreen.hpp"
 	"TextField.hpp"
 	"Trie.hpp"
 	<SFML/Graphics.hpp>
 
-1690184015 source:e:\cs163\project\dictionary\header\homescreen.cpp
+1690458841 source:e:\cs163\project\dictionary\header\homescreen.cpp
 	"HomeScreen.hpp"
 	<iostream>
+	<string>
 
-1689861670 e:\cs163\project\dictionary\header\quizscreen.hpp
+1690460717 e:\cs163\project\dictionary\header\quizscreen.hpp
 	"cScreen.hpp"
+	"Trie.hpp"
 	<SFML/Graphics.hpp>
 	<vector>
 	<string>
+	<iostream>
 
-1690186408 source:e:\cs163\project\dictionary\header\quizscreen.cpp
+1690460567 source:e:\cs163\project\dictionary\header\quizscreen.cpp
 	"QuizScreen.hpp"
 
 1689749990 e:\cs163\project\dictionary\header\searchscreen.hpp
@@ -530,10 +531,13 @@
 	"TextField.hpp"
 	<iostream>
 
-1689734514 e:\cs163\project\dictionary\header\settingscreen.hpp
+1690455219 e:\cs163\project\dictionary\header\settingscreen.hpp
 	"cScreen.hpp"
+	"Trie.hpp"
+	<fstream>
+	<vector>
 
-1689607243 source:e:\cs163\project\dictionary\header\settingscreen.cpp
+1690455229 source:e:\cs163\project\dictionary\header\settingscreen.cpp
 	"SettingScreen.hpp"
 
 1690178574 source:e:\cs163\project\dictionary\header\favouritelist.cpp
@@ -566,12 +570,12 @@
 	<random>
 	<vector>
 
-1690186040 e:\cs163\project\dictionary\header\viewwordscreen.hpp
+1690455835 e:\cs163\project\dictionary\header\viewwordscreen.hpp
 	<string>
 	"SFML/Graphics.hpp"
 	"cScreen.hpp"
 
-1690186516 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
+1690456161 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
 	"ViewWordScreen.hpp"
 	<iostream>
 	<sstream>

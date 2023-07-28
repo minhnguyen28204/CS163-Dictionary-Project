@@ -1,6 +1,5 @@
 #ifndef HOMESCREEN_HPP
 #define HOMESCREEN_HPP
-#include <iostream>
 #include <vector>
 #include "cScreen.hpp"
 #include "TextField.hpp"
@@ -30,6 +29,10 @@ private:
 
     std::vector<sf::RectangleShape> MyButton;
 
+    //elements for suggest box
+    std::vector<sf::Text> suggestBox;
+    std::vector<sf::RectangleShape> outlineBox;
+
     float cur_stack_time = 0;
 
 
@@ -43,6 +46,7 @@ public:
     wstring MyDef;
     wstring MyKey;
     bool is_search = false;
+    bool previous_state = false;
 };
 
 #endif // HOMESCREEN_HPP

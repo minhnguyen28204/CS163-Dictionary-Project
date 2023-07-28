@@ -12,8 +12,11 @@ Dictionary::Dictionary()
     Screens.push_back(&s6);
     Screens.push_back(&s7);
 
-    WordSet::switchWordSet(3);
-    WordSet::loadAllData();
+    Path::loadPath();
+    ifstream ifs("Data/OldSettings.txt");
+    int dataSet; ifs >> dataSet;
+    WordSet::switchWordSet(dataSet);
+    ifs.close();
 
     if (_font.loadFromFile("Font/BeVietnamPro-Regular.ttf")) cout << "Load succeded!\n";
     sideBar.setPosition(0,0);
@@ -212,12 +215,13 @@ void Dictionary::processIconColor(sf::Event event){
                 else{
                     dark = !dark;
                     if (dark) c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
-                    else c1 = sf::Color(83,127,231), c2 = sf::Color(233, 248, 249), c3 = sf::Color(192, 238, 242), c4 = sf::Color(24, 24, 35);
+                    else c1 = sf::Color(233, 248, 249), c2 = sf::Color(192, 238, 242), c3 = sf::Color(83,127,231), c4 = sf::Color(24, 24, 35);
                     sideBar.setFillColor(c2);
                     Title.setFillColor(c4);
                     Title.setOutlineColor(c3);
                     s0.SetColor(c1,c2,c3,c4);
                     s5.SetColor(c1,c2,c3,c4);
+                    s7.SetColor(c1,c2,c3,c4);
                     if (dark) {
                         ihome.loadFromFile("Image/home.png");
                         ihistory.loadFromFile("Image/history.png");
@@ -270,9 +274,9 @@ void Dictionary::update(sf::Time &deltaTime){
 
 void Dictionary::render(){
     mWindow.clear(c1);
+    Screens[screen]->ScreenDraw(mWindow);
     mWindow.draw(sideBar);
     mWindow.draw(Title);
-    Screens[screen]->ScreenDraw(mWindow);
     for(auto &x : MyBounder) mWindow.draw(x);
     for(auto &x : MySprite) mWindow.draw(x);
     for(int i=0; i<MyCursorText.size(); i++) if (is_on[i]) mWindow.draw(MyCursorText[i]);

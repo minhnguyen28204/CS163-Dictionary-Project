@@ -1,12 +1,13 @@
 #include "Trie.hpp"
 #include "Random.hpp"
 
-std::string WordSet::curWordSet = "";
 std::mt19937 Random::mt{ Random::generate() };
 WordSet::Trie* WordSet::wordTrie = new WordSet::Trie;
 int WordSet::wordOrigCount = 0;
 int WordSet::wordNewCount = 0;
+int Path::curPath = 0;
 DefinitionSet::Trie* DefinitionSet::definitionTrie = new DefinitionSet::Trie;
+std::vector<std::string> Path::path{};
 char Character::wordSplit[]{ ',', ' ', '.', ';', '|', ':', '(', ')', '?', '-', '/' , '!', '#', '[', ']', '~'};
 
 int getLength(std::wstring ws) { return ws.length(); }
@@ -151,7 +152,8 @@ void WordSet::Trie::remove(std::string word) {
 
 void displayWordTrie(WordSet::Trie::Node* root, std::string& word, std::vector<std::string>& ans) {
 	if (root->exist != -1) {
-		ans.push_back(word);
+		if (Path::curPath < 5)
+			ans.push_back(Character::encodeStr<wchar_t>(word));
 	}
 	for (int i{ 0 }; i < 16; ++i) {
 		if (root->children[i]) {
@@ -166,7 +168,8 @@ void displayWordTrie(WordSet::Trie::Node* root, std::string& word, int& num, std
 	if (num == 0)
 		return;
 	if (root->exist != -1) {
-		ans.push_back(word);
+		if (Path::curPath < 5)
+			ans.push_back(Character::encodeStr<wchar_t>(word));
 		num--;
 	}
 	for (int i{ 0 }; i < 16; ++i) {
@@ -180,7 +183,8 @@ void displayWordTrie(WordSet::Trie::Node* root, std::string& word, int& num, std
 
 void displayDefiTrie(DefinitionSet::Trie::Node* root, std::string& word, std::vector<std::string>& ans) {
 	if (root->wordNum.size() != 0) {
-		ans.push_back(word);
+		if (Path::curPath < 5)
+			ans.push_back(Character::encodeStr<wchar_t>(word));
 	}
 	for (int i{ 0 }; i < 16; ++i) {
 		if (root->children[i]) {
@@ -243,28 +247,16 @@ void DefinitionSet::Trie::remove(std::string str, int n) {
 }
 
 void WordSet::switchWordSet(int n) {
-	switch (n) {
-	case 1:
-		WordSet::curWordSet = Path::emoji;
-		break;
-	case 2:
-		WordSet::curWordSet = Path::slang;
-		break;
-	case 3:
-		WordSet::curWordSet = Path::engToEng;
-		break;
-	case 4:
-		WordSet::curWordSet = Path::engToVie;
-		break;
-	case 5:
-		WordSet::curWordSet = Path::vieToEng;
-	}
+	if (n == Path::curPath || n < 0 || n >= Path::path.size())
+		return;
+	Path::curPath = n % Path::path.size();
+	loadAllData();
 }
 
 void WordSet::loadWordSet() {
-	std::ifstream fwout(curWordSet + "/Words.bin", std::ios::binary | std::ios::in);
-	std::ifstream fcout(curWordSet + "/WordsColumn.bin", std::ios::binary | std::ios::in);
-	std::ifstream fdout(curWordSet + "/Definition.bin", std::ios::binary | std::ios::in);
+	std::ifstream fwout(Path::path[Path::curPath] + "/Words.bin", std::ios::binary | std::ios::in);
+	std::ifstream fcout(Path::path[Path::curPath] + "/WordsColumn.bin", std::ios::binary | std::ios::in);
+	std::ifstream fdout(Path::path[Path::curPath] + "/Definition.bin", std::ios::binary | std::ios::in);
 	int n{};
 	fcout.read((char*)&n, sizeof(int));
 	int curLen{};
@@ -331,7 +323,7 @@ std::string WordSet::definition(Trie::Node* root) {
 	if (root->exist < 0 || root->num >= wordOrigCount + wordNewCount)
 		return "";
 	if (root->num < wordOrigCount) {
-		std::ifstream fin(WordSet::curWordSet + "/Definition.bin", std::ios::binary | std::ios::in);
+		std::ifstream fin(Path::path[Path::curPath] + "/Definition.bin", std::ios::binary | std::ios::in);
 		int size{};
 		fin.seekg(root->exist, std::ios::beg);
 		fin.read((char*)&size, sizeof(int));
@@ -342,7 +334,7 @@ std::string WordSet::definition(Trie::Node* root) {
 		fin.close();
 		return input;
 	}
-	std::ifstream fin(WordSet::curWordSet + "/New.txt");
+	std::ifstream fin(Path::path[Path::curPath] + "/New.txt");
 	std::string input{};
 	for (int i{ 0 }; i <= root->exist; ++i)
 		std::getline(fin, input);
@@ -353,7 +345,7 @@ std::string WordSet::definition(Trie::Node* root) {
 
 void DefinitionSet::Trie::editDefinition(std::string newDefinition, int n)
 {
-	std::fstream ft(WordSet::curWordSet + "/Definition.bin", std::ios::binary | std::ios::out | std::ios::in);
+	std::fstream ft(Path::path[Path::curPath] + "/Definition.bin", std::ios::binary | std::ios::out | std::ios::in);
 	ft.seekp(0, std::ios::end);
 	int size = static_cast<int>(newDefinition.length()) + 1;
 	int pos;
@@ -362,20 +354,20 @@ void DefinitionSet::Trie::editDefinition(std::string newDefinition, int n)
 	ft.write(newDefinition.c_str(), size);
 	ft.close();
 
-	ft.open(WordSet::curWordSet + "/WordsColumn.bin", std::ios::binary | std::ios::in);
+	ft.open(Path::path[Path::curPath] + "/WordsColumn.bin", std::ios::binary | std::ios::in);
 	int pos2; // position of the word in file word.bin
 	ft.seekg((n + 1) * sizeof(int), std::ios::beg);
 	ft.read((char*)&pos2, sizeof(int));
 	ft.close();
 
-	ft.open(WordSet::curWordSet + "/Words.bin", std::ios::binary | std::ios::out | std::ios::in);
+	ft.open(Path::path[Path::curPath] + "/Words.bin", std::ios::binary | std::ios::out | std::ios::in);
 	ft.seekp(pos2, std::ios::beg);
 	ft.write((char*)&pos, sizeof(int));
 	ft.close();
 }
 
 std::string WordSet::getOneWordFromBinFile(int n) {
-	std::ifstream fin(curWordSet + "/WordsColumn.bin", std::ios::binary | std::ios::in);
+	std::ifstream fin(Path::path[Path::curPath] + "/WordsColumn.bin", std::ios::binary | std::ios::in);
 	int num{};
 	fin.read((char*)&num, sizeof(int));
 	if (n >= num)
@@ -392,7 +384,7 @@ std::string WordSet::getOneWordFromBinFile(int n) {
 	}
 	fin.close();
 	char* tmp = new char[pos - prePos];
-	fin.open(curWordSet + "/Words.bin", std::ios::binary | std::ios::in);
+	fin.open(Path::path[Path::curPath] + "/Words.bin", std::ios::binary | std::ios::in);
 	fin.seekg(prePos, std::ios::beg);
 	fin.read(tmp, pos - prePos);
 	fin.read((char*)&pos, sizeof(int));
@@ -407,7 +399,7 @@ std::string WordSet::getOneWordFromBinFile(int n) {
 }
 
 std::string WordSet::getOneWordFromTextFile(int n) {
-	std::ifstream fin(curWordSet + "/New.txt");
+	std::ifstream fin(Path::path[Path::curPath] + "/New.txt");
 	std::string word{}, tmp;
 	for (int i{ 0 }; i <= n; ++i) {
 		std::getline(fin, tmp);
@@ -502,12 +494,12 @@ void buildSerialDefiTrie(DefinitionSet::Trie::Node* root, std::string& serial) {
 void WordSet::buildSerialFile() {
 	std::string line{};
 	buildSerialWordTrie(wordTrie->trueRoot, line);
-	std::ofstream fin(curWordSet + "/Serial.txt");
+	std::ofstream fin(Path::path[Path::curPath] + "/Serial.txt");
 	fin << line;
 	fin.close();
 	line.clear();
 	buildSerialDefiTrie(DefinitionSet::definitionTrie->trueRoot, line);
-	fin.open(curWordSet + "/SerialDefi.txt");
+	fin.open(Path::path[Path::curPath] + "/SerialDefi.txt");
 	fin << line;
 	fin.close();
 }
@@ -579,7 +571,7 @@ int deserialiseStrToDefi(DefinitionSet::Trie::Node* root, std::string& serial, i
 }
 
 void WordSet::loadTrieFromString() {
-	std::ifstream fin(curWordSet + "/Serial.txt");
+	std::ifstream fin(Path::path[Path::curPath] + "/Serial.txt");
 	std::string serial{};
 	std::getline(fin, serial);
 	fin.close();
@@ -588,7 +580,7 @@ void WordSet::loadTrieFromString() {
 }
 
 void DefinitionSet::loadTrieFromString() {
-	std::ifstream fin(WordSet::curWordSet + "/SerialDefi.txt");
+	std::ifstream fin(Path::path[Path::curPath] + "/SerialDefi.txt");
 	std::string serial{};
 	std::getline(fin, serial);
 	fin.close();
@@ -598,16 +590,16 @@ void DefinitionSet::loadTrieFromString() {
 
 void WordSet::loadWordCount() {
 	std::ifstream fin;
-	fin.open(curWordSet + "/WordsColumn.bin", std::ios::binary);
+	fin.open(Path::path[Path::curPath] + "/WordsColumn.bin", std::ios::binary);
 	fin.read((char*)&wordOrigCount, sizeof(int));
 	fin.close();
-	fin.open(curWordSet + "/New.txt");
+	fin.open(Path::path[Path::curPath] + "/New.txt");
 	fin >> wordNewCount;
 	fin.close();
 }
 
 void WordSet::loadNewData() {
-	std::ifstream fin(curWordSet + "/New.txt");
+	std::ifstream fin(Path::path[Path::curPath] + "/New.txt");
 	std::string word{}, definition{};
 	std::getline(fin, word);
 	for (int i{ 0 }; i < wordNewCount; ++i) {
@@ -633,7 +625,16 @@ void WordSet::loadAllData() {
 }
 
 void WordSet::reset() {
-	std::ofstream fout(curWordSet + "/New.txt", std::ios::trunc);
+	std::ofstream fout(Path::path[Path::curPath] + "/New.txt", std::ios::trunc);
 	fout << 0;
 	fout.close();
+}
+
+void Path::loadPath(int n) {
+	path.push_back("Data/emoticon");
+	path.push_back("Data/slang");
+	path.push_back("Data/engToEng");
+	path.push_back("Data/engToVie");
+	path.push_back("Data/vieToEng");
+	curPath = n % path.size();
 }
