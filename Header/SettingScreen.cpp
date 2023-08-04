@@ -15,6 +15,7 @@ SettingScreen::SettingScreen(void){
 
     semo.setPosition(sf::Vector2f(150,150));
     semo.setRadius(16);
+    semo.setFillColor(c3);
     emoticon.setString("Emoji");
     emoticon.setFont(_font);
     emoticon.setPosition(190,147);
@@ -22,6 +23,7 @@ SettingScreen::SettingScreen(void){
 
     ssla.setPosition(sf::Vector2f(150,200));
     ssla.setRadius(16);
+    ssla.setFillColor(c3);
     slang.setString("Slang");
     slang.setFont(_font);
     slang.setPosition(190,197);
@@ -29,6 +31,7 @@ SettingScreen::SettingScreen(void){
 
     seen.setPosition(sf::Vector2f(150,250));
     seen.setRadius(16);
+    seen.setFillColor(c3);
     engToEng.setString("English to English");
     engToEng.setFont(_font);
     engToEng.setPosition(190,247);
@@ -36,6 +39,7 @@ SettingScreen::SettingScreen(void){
 
     sevi.setPosition(sf::Vector2f(150,300));
     sevi.setRadius(16);
+    sevi.setFillColor(c3);
     engToVie.setString("English to Vietnamese");
     engToVie.setFont(_font);
     engToVie.setPosition(190,297);
@@ -43,10 +47,21 @@ SettingScreen::SettingScreen(void){
 
     sven.setPosition(sf::Vector2f(150,350));
     sven.setRadius(16);
+    sven.setFillColor(c3);
     vieToEng.setString("Vietnamese to English");
     vieToEng.setFont(_font);
     vieToEng.setPosition(190,347);
     vieToEng.setCharacterSize(30);
+
+    resetButton.setPosition(150,450);
+    resetButton.setSize(sf::Vector2f(250,50));
+    resetButton.setFillColor(c2);
+
+    resetText.setFont(_font);
+    resetText.setCharacterSize(25);
+    resetText.setString("Reset dictionary");
+    resetText.setPosition(150 + (250 - resetText.getLocalBounds().width)/2, 450 + (50 - resetText.getLocalBounds().height)/4);
+    resetText.setFillColor(c4);
 
     selected.setRadius(10);
     selected.setPosition(sf::Vector2f(156,156 + curSet*50));
@@ -69,6 +84,8 @@ void SettingScreen::ScreenDraw(sf::RenderWindow &App){
     for(auto x : myShape) App.draw(x);
     for(auto x : myText) App.draw(x);
     App.draw(selected);
+    App.draw(resetButton);
+    App.draw(resetText);
 }
 
 int SettingScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
@@ -87,9 +104,28 @@ int SettingScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
             }
         }
     }
+    sf::FloatRect resetBound = resetButton.getGlobalBounds();
+    if (resetBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))){
+        resetButton.setFillColor(c3);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+            WordSet::reset();
+            WordSet::loadAllData();
+        }
+    }
+    else{
+        resetButton.setFillColor(c2);
+    }
     return 6;
 }
 
 void SettingScreen::updateScene(sf::Time &deltaTime){
 
+}
+
+void SettingScreen::SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color &f4){
+    c1 = f1; c2 = f2; c3 = f3; c4 = f4;
+    dataSet.setFillColor(c4);
+    for(auto &x : myText) x.setFillColor(c4);
+    for(auto &x : myShape) x.setFillColor(c3);
+    resetText.setFillColor(c4);
 }

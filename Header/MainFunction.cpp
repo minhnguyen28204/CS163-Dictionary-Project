@@ -220,7 +220,10 @@ void Dictionary::processIconColor(sf::Event event){
                     Title.setFillColor(c4);
                     Title.setOutlineColor(c3);
                     s0.SetColor(c1,c2,c3,c4);
+                    s1.SetColor(c1,c2,c3,c4);
+                    s4.SetColor(c1,c2,c3,c4);
                     s5.SetColor(c1,c2,c3,c4);
+                    s6.SetColor(c1,c2,c3,c4);
                     s7.SetColor(c1,c2,c3,c4);
                     if (dark) {
                         ihome.loadFromFile("Image/home.png");
@@ -256,6 +259,7 @@ void Dictionary::processEvent(){
     sf::Event event;
     while (mWindow.pollEvent(event)){
         if (screen == 7 && s0.is_search) s7.setString(s0.MyDef,s0.MyKey), s0.is_search = false;
+        if (screen == 7 && s1.is_search) s7.setString(s1.MyDef,s1.MyKey), s1.is_search = false;
         screen = Screens[screen]->ProcessEvent(mWindow,event);
         processIconColor(event);
         if (event.type == sf::Event::Closed){

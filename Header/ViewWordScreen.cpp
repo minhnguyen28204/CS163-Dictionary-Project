@@ -13,6 +13,10 @@ WordScreen::WordScreen(void){
     Header.setPosition(70,0);
     Header.setSize(sf::Vector2f(1330,150));
     Header.setFillColor(c1);
+    objTexture.loadFromFile("Image/edit.png");
+    object.setTexture(objTexture);
+    editBound.setSize(sf::Vector2f(25,25));
+    editBound.setFillColor(c1);
 }
 
 void wrapText(sf::Text& text, float maxWidth) {
@@ -55,11 +59,15 @@ void wrapText(sf::Text& text, float maxWidth) {
 }
 
 void WordScreen::ScreenDraw(sf::RenderWindow &App){
-    for(int i=0; i<Def.size(); i++){
-        App.draw(Def[i]);
+    if (!is_edit){
+        for(int i=0; i<Def.size(); i++){
+            App.draw(Def[i]);
+        }
     }
     App.draw(Header);
     App.draw(KeyWord);
+    App.draw(editBound);
+    App.draw(object);
 }
 
 int WordScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
@@ -115,6 +123,15 @@ int WordScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
             }
         }
     }
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(App);
+    sf::FloatRect shape = editBound.getGlobalBounds();
+    if (shape.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))){
+        editBound.setFillColor(c3);
+
+    }
+    else{
+        editBound.setFillColor(c1);
+    }
     return 7;
 }
 
@@ -130,6 +147,14 @@ void WordScreen::SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color
     for(auto &x : Def) x.setFillColor(c4);
     KeyWord.setFillColor(c4);
     Header.setFillColor(c1);
+    if (is_dark){
+        is_dark = false;
+        objTexture.loadFromFile("Image/edit2.png");
+    }
+    else{
+        is_dark = true;
+        objTexture.loadFromFile("Image/edit.png");
+    }
 }
 
 void WordScreen::setString(wstring _def, wstring _key){
@@ -137,5 +162,7 @@ void WordScreen::setString(wstring _def, wstring _key){
     if (_def.size() == 0) is_found = false;
     else is_found = true;
     KeyWord.setString(_key);
+    object.setPosition(110 + KeyWord.getLocalBounds().width,109);
+    editBound.setPosition(110 + KeyWord.getLocalBounds().width,109);
     loadWord = true;
 }

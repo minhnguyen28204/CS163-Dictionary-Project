@@ -412,7 +412,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1690183284 e:\cs163\project\dictionary\header\mainfunction.hpp
+1691116710 e:\cs163\project\dictionary\header\mainfunction.hpp
 	<SFML/System.hpp>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -420,7 +420,7 @@
 	"Screen.hpp"
 	"Trie.hpp"
 
-1690456264 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1691066399 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -433,7 +433,7 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
-1690287398 e:\cs163\project\dictionary\header\trie.hpp
+1691111886 e:\cs163\project\dictionary\header\trie.hpp
 	<iostream>
 	<cstdlib>
 	<fstream>
@@ -488,14 +488,16 @@
 	<string>
 	<iostream>
 
-1690460567 source:e:\cs163\project\dictionary\header\quizscreen.cpp
+1690461046 source:e:\cs163\project\dictionary\header\quizscreen.cpp
 	"QuizScreen.hpp"
 
-1689749990 e:\cs163\project\dictionary\header\searchscreen.hpp
+1691065190 e:\cs163\project\dictionary\header\searchscreen.hpp
 	"cScreen.hpp"
 	"TextField.hpp"
+	"Trie.hpp"
+	<vector>
 
-1689750310 source:e:\cs163\project\dictionary\header\searchscreen.cpp
+1691065408 source:e:\cs163\project\dictionary\header\searchscreen.cpp
 	"SearchScreen.hpp"
 
 1689734485 e:\cs163\project\dictionary\header\historyscreen.hpp
@@ -510,10 +512,14 @@
 1689734467 e:\cs163\project\dictionary\header\favouritescreen.hpp
 	"cScreen.hpp"
 
-1689734453 e:\cs163\project\dictionary\header\addscreen.hpp
+1691066289 e:\cs163\project\dictionary\header\addscreen.hpp
 	"cScreen.hpp"
+	"TextField.hpp"
+	<vector>
+	<iostream>
+	"Trie.hpp"
 
-1688141831 source:e:\cs163\project\dictionary\header\addscreen.cpp
+1691068462 source:e:\cs163\project\dictionary\header\addscreen.cpp
 	"AddScreen.hpp"
 
 1688036039 source:e:\cs163\project\dictionary\sfml elements\textfield.cpp
@@ -523,21 +529,21 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1689747569 e:\cs163\project\dictionary\header\textfield.hpp
+1690977825 e:\cs163\project\dictionary\header\textfield.hpp
 	<SFML/Graphics.hpp>
 	<string>
 
-1689748016 source:e:\cs163\project\dictionary\header\textfield.cpp
+1691030351 source:e:\cs163\project\dictionary\header\textfield.cpp
 	"TextField.hpp"
 	<iostream>
 
-1690455219 e:\cs163\project\dictionary\header\settingscreen.hpp
+1691065072 e:\cs163\project\dictionary\header\settingscreen.hpp
 	"cScreen.hpp"
 	"Trie.hpp"
 	<fstream>
 	<vector>
 
-1690455229 source:e:\cs163\project\dictionary\header\settingscreen.cpp
+1691065718 source:e:\cs163\project\dictionary\header\settingscreen.cpp
 	"SettingScreen.hpp"
 
 1690178574 source:e:\cs163\project\dictionary\header\favouritelist.cpp
@@ -570,12 +576,13 @@
 	<random>
 	<vector>
 
-1690455835 e:\cs163\project\dictionary\header\viewwordscreen.hpp
+1691126914 e:\cs163\project\dictionary\header\viewwordscreen.hpp
 	<string>
 	"SFML/Graphics.hpp"
 	"cScreen.hpp"
+	"TextField.hpp"
 
-1690456161 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
+1691126892 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
 	"ViewWordScreen.hpp"
 	<iostream>
 	<sstream>

@@ -20,6 +20,10 @@ public:
     void clear_str();
     void Tab_handle();
     bool cur_state();
+    pair<float,float> getPosition();
+    void setPosition(float x, float y);
+    float getHeight();
+    float getWidth();
     void SetIniStr(std::wstring str);
     std::wstring getText() const;
 

@@ -64,6 +64,25 @@ void TextField::SetProperties(sf::Font& font, unsigned int size, sf::Color _colo
     ShowTxt = showText;
 }
 
+pair<float,float> TextField::getPosition(){
+    return pair<float,float>(pos_x,pos_y);
+}
+
+void TextField::setPosition(float x, float y){
+    pos_x = x;
+    pos_y = y;
+    m_background.setPosition(x,y);
+    m_text.setPosition(x+10,y + (m_background.getGlobalBounds().height - m_text.getLocalBounds().height)/4);
+}
+
+float TextField::getHeight(){
+    return m_background.getGlobalBounds().height;
+}
+
+float TextField::getWidth(){
+    return m_background.getGlobalBounds().width;
+}
+
 void TextField::clear_str(){
     m_text.setString(L"");
 }
