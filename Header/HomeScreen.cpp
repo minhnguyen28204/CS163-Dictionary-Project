@@ -69,6 +69,7 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
     inputField.handleEvent(App,event);
 
     if (MyKey != inputField.getText()){
+        if (Path::curPath == 0) WordSet::loadAllData();
         suggestBox.clear();
         outlineBox.clear();
         MyKey = inputField.getText();
@@ -149,6 +150,7 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
         enter_bound.setFillColor(c3);
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
             wstring Cur_str = inputField.getText();
+            wstring another = suggestBox[0].getString();
             wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
             MyKey = Cur_str;
             MyDef = Definition;

@@ -25,7 +25,7 @@ public:
     float getHeight();
     float getWidth();
     void SetIniStr(std::wstring str);
-    std::wstring getText() const;
+    std::wstring getText();
 
 private:
     float cursor_stacked_time = 0;

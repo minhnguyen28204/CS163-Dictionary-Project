@@ -97,24 +97,17 @@ bool TextField::cur_state(){
 }
 
 void TextField::SetIniStr(std::wstring str){
-    m_text.setString(str);
+    real_text = str;
+    m_text.setString(real_text);
+    while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20){
+        m_text.setString(m_text.getString().substring(1,m_text.getString().getSize()));
+    }
 }
 
 void TextField::draw(sf::RenderWindow& window)
 {
     window.draw(m_background);
     if (ShowTxt==true) window.draw(m_text);
-    else{
-        sf::Text tmp;
-        std::wstring temp = L"";
-        for(int i=0; i<m_text.getString().getSize(); i++) temp += L"*";
-        tmp.setString(temp);
-        tmp.setFont(_font);
-        tmp.setCharacterSize(Size);
-        tmp.setColor(color);
-        tmp.setPosition(pos_x+10,pos_y+10);
-        window.draw(tmp);
-    }
 
     if (m_selected && m_cursorVisible)
     {
@@ -139,7 +132,10 @@ void TextField::handleEvent(sf::RenderWindow &App, sf::Event &event)
     else if (event.type == sf::Event::TextEntered && m_selected)
     {
         is_entering_text = true;
-        if (event.text.unicode == '\b' && m_text.getString().getSize() > 0) // Handle backspace
+        if (event.text.unicode == '\n'){
+
+        }
+        else if (event.text.unicode == '\b' && real_text.size() > 0) // Handle backspace
         {
             if (real_text.size()) real_text.pop_back();
             m_text.setString(real_text);
@@ -174,7 +170,7 @@ void TextField::update(sf::Time &deltaTime){
             else m_cursorVisible = !m_cursorVisible;
             cursor_stacked_time -= 0.5;
         }
-        if (ShowTxt) m_cursor.setPosition(m_text.getPosition().x + m_text.getLocalBounds().width + 4, m_text.getPosition().y);
+        if (ShowTxt) m_cursor.setPosition(m_text.getPosition().x + m_text.getLocalBounds().width + 2, m_text.getPosition().y + 2);
         else{
             sf::Text tmp;
             std::wstring temp = L"";
@@ -193,7 +189,7 @@ void TextField::update(sf::Time &deltaTime){
     }
 }
 
-std::wstring TextField::getText() const
+std::wstring TextField::getText()
 {
-    return m_text.getString();
+    return real_text;
 }
