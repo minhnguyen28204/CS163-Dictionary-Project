@@ -184,7 +184,45 @@ void Dictionary::processIconColor(sf::Event event){
             x.setFillColor(c3);
             is_on[i] = true;
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+<<<<<<< Updated upstream
                 screen = i;
+=======
+                if (i < 7) screen = i;
+                else{
+                    dark = !dark;
+                    if (dark) c1 = sf::Color(34,40,49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238,238,238);
+                    else c1 = sf::Color(233, 248, 249), c2 = sf::Color(192, 238, 242), c3 = sf::Color(83,127,231), c4 = sf::Color(24, 24, 35);
+                    sideBar.setFillColor(c2);
+                    Title.setFillColor(c4);
+                    Title.setOutlineColor(c3);
+                    s0.SetColor(c1,c2,c3,c4);
+                    s1.SetColor(c1,c2,c3,c4);
+                    s4.SetColor(c1,c2,c3,c4);
+                    s5.SetColor(c1,c2,c3,c4);
+                    s6.SetColor(c1,c2,c3,c4);
+                    s7.SetColor(c1,c2,c3,c4);
+                    if (dark) {
+                        ihome.loadFromFile("Image/home.png");
+                        ihistory.loadFromFile("Image/history.png");
+                        isearch.loadFromFile("Image/mag_glass.png");
+                        iquiz.loadFromFile("Image/quiz.png");
+                        isetting.loadFromFile("Image/setting.png");
+                        itheme.loadFromFile("Image/theme.png");
+                        iadd.loadFromFile("Image/add.png");
+                        ifavorite.loadFromFile("Image/favorite.png");
+                    }
+                    else{
+                        iadd.loadFromFile("Image/add2.png");
+                        ifavorite.loadFromFile("Image/favorite2.png");
+                        ihome.loadFromFile("Image/home2.png");
+                        ihistory.loadFromFile("Image/history - Copy.png");
+                        isearch.loadFromFile("Image/mag_glass2.png");
+                        iquiz.loadFromFile("Image/quiz - Copy.png");
+                        isetting.loadFromFile("Image/setting - Copy.png");
+                        itheme.loadFromFile("Image/theme - Copy.png");
+                    }
+                }
+>>>>>>> Stashed changes
             }
         }
         else{
@@ -197,6 +235,11 @@ void Dictionary::processIconColor(sf::Event event){
 void Dictionary::processEvent(){
     sf::Event event;
     while (mWindow.pollEvent(event)){
+<<<<<<< Updated upstream
+=======
+        if (screen == 7 && s0.is_search) s7.setString(s0.MyDef,s0.MyKey), s0.is_search = false;
+        if (screen == 7 && s1.is_search) s7.setString(s1.MyDef,s1.MyKey), s1.is_search = false;
+>>>>>>> Stashed changes
         screen = Screens[screen]->ProcessEvent(mWindow,event);
         processIconColor(event);
         if (event.type == sf::Event::Closed){

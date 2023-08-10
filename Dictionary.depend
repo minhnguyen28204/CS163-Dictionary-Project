@@ -411,14 +411,22 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
+<<<<<<< Updated upstream
 1688140935 e:\cs163\project\dictionary\header\mainfunction.hpp
+=======
+1691116710 e:\cs163\project\dictionary\header\mainfunction.hpp
+>>>>>>> Stashed changes
 	<SFML/System.hpp>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
 	"MenuSideBar.hpp"
 	"Screen.hpp"
 
+<<<<<<< Updated upstream
 1688190412 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+=======
+1691066399 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+>>>>>>> Stashed changes
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -431,7 +439,11 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
+<<<<<<< Updated upstream
 1689564532 e:\cs163\project\dictionary\header\trie.hpp
+=======
+1691111886 e:\cs163\project\dictionary\header\trie.hpp
+>>>>>>> Stashed changes
 	<iostream>
 	<cstdlib>
 	<fstream>
@@ -475,6 +487,7 @@
 	"cScreen.hpp"
 	<SFML/Graphics.hpp>
 
+<<<<<<< Updated upstream
 1688141727 source:e:\cs163\project\dictionary\header\quizscreen.cpp
 	"QuizScreen.hpp"
 
@@ -482,6 +495,18 @@
 	"cScreen.hpp"
 
 1688141758 source:e:\cs163\project\dictionary\header\searchscreen.cpp
+=======
+1690461046 source:e:\cs163\project\dictionary\header\quizscreen.cpp
+	"QuizScreen.hpp"
+
+1691065190 e:\cs163\project\dictionary\header\searchscreen.hpp
+	"cScreen.hpp"
+	"TextField.hpp"
+	"Trie.hpp"
+	<vector>
+
+1691065408 source:e:\cs163\project\dictionary\header\searchscreen.cpp
+>>>>>>> Stashed changes
 	"SearchScreen.hpp"
 
 1688141677 e:\cs163\project\dictionary\header\historyscreen.hpp
@@ -496,10 +521,18 @@
 1688141486 e:\cs163\project\dictionary\header\favouritescreen.hpp
 	"cScreen.hpp"
 
+<<<<<<< Updated upstream
 1688141801 e:\cs163\project\dictionary\header\addscreen.hpp
+=======
+1691066289 e:\cs163\project\dictionary\header\addscreen.hpp
+>>>>>>> Stashed changes
 	"cScreen.hpp"
+	"TextField.hpp"
+	<vector>
+	<iostream>
+	"Trie.hpp"
 
-1688141831 source:e:\cs163\project\dictionary\header\addscreen.cpp
+1691068462 source:e:\cs163\project\dictionary\header\addscreen.cpp
 	"AddScreen.hpp"
 
 1688036039 source:e:\cs163\project\dictionary\sfml elements\textfield.cpp
@@ -509,6 +542,7 @@
 	<SFML/Graphics.hpp>
 	<string>
 
+<<<<<<< Updated upstream
 1688190919 e:\cs163\project\dictionary\header\textfield.hpp
 	<SFML/Graphics.hpp>
 	<string>
@@ -517,3 +551,63 @@
 	"TextField.hpp"
 	<iostream>
 
+=======
+1690977825 e:\cs163\project\dictionary\header\textfield.hpp
+	<SFML/Graphics.hpp>
+	<string>
+
+1691030351 source:e:\cs163\project\dictionary\header\textfield.cpp
+	"TextField.hpp"
+	<iostream>
+
+1691065072 e:\cs163\project\dictionary\header\settingscreen.hpp
+	"cScreen.hpp"
+	"Trie.hpp"
+	<fstream>
+	<vector>
+
+1691065718 source:e:\cs163\project\dictionary\header\settingscreen.cpp
+	"SettingScreen.hpp"
+
+1690178574 source:e:\cs163\project\dictionary\header\favouritelist.cpp
+	"FavouriteList.hpp"
+
+1690178559 e:\cs163\project\dictionary\header\favouritelist.hpp
+	<vector>
+	<string>
+	<fstream>
+	<stdio.h>
+
+1690178628 source:e:\cs163\project\dictionary\header\history.cpp
+	<iostream>
+	"History.hpp"
+	<fstream>
+	<vector>
+	<stdio.h>
+
+1690178624 e:\cs163\project\dictionary\header\history.hpp
+	<vector>
+	<string>
+
+1690180780 source:e:\cs163\project\dictionary\header\random.cpp
+	"Random.hpp"
+	<ctime>
+	<fstream>
+
+1690180735 e:\cs163\project\dictionary\header\random.hpp
+	<chrono>
+	<random>
+	<vector>
+
+1691126914 e:\cs163\project\dictionary\header\viewwordscreen.hpp
+	<string>
+	"SFML/Graphics.hpp"
+	"cScreen.hpp"
+	"TextField.hpp"
+
+1691126892 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
+	"ViewWordScreen.hpp"
+	<iostream>
+	<sstream>
+
+>>>>>>> Stashed changes

@@ -160,9 +160,6 @@ namespace DefinitionSet {
 	template <typename T = std::wstring, typename U = wchar_t> void splitLineToTrie(T& source, U ch, int n) {
 		std::string output{};
 		int i{ 0 };
-		/*while (i < source.length() && source[i] != static_cast<U>(')'))
-			i++;*/
-		//i++;
 		for (; i < source.length(); ++i) {
 			if (!Character::wordBreaker<U>(source[i])) {
 				output += Character::load<U>(source[i]);
