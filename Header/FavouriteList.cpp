@@ -1,35 +1,25 @@
 #include "FavouriteList.hpp"
 
-std::string pathEmoji = "FavouriteList\\FavouriteEmoji\\FavouriteEmoji.txt";
-std::string pathSlang = "FavouriteList\\FavouriteSlang\\FavouriteSlang.txt";
-std::string pathEngToEng = "FavouriteList\\FavouriteEngToEng\\FavouriteEngToEng.txt";
-std::string pathEngToVie = "FavouriteList\\FavouriteEngToVie\\FavouriteEngToVie.txt";
-std::string pathVieToEng = "FavouriteList\\FavouriteVieToEng\\FavouriteVieToEng.txt";
-std::vector<std::string> mode;
-std::string FolEmoji = "FavouriteList\\FavouriteEmoji";
-std::string FolSlang = "FavouriteList\\FavouriteSlang";
-std::string FolEngToEng = "FavouriteList\\FavouriteEngToEng";
-std::string FolEngToVie = "FavouriteList\\FavouriteEngToVie";
-std::string FolVieToEng = "FavouriteList\\FavouriteVieToEng";
-std::vector<std::string> folder;
+std::string favorite::pathEmoji = "FavouriteList\\FavouriteEmoji\\FavouriteEmoji.txt";
+std::string favorite::pathSlang = "FavouriteList\\FavouriteSlang\\FavouriteSlang.txt";
+std::string favorite::pathEngToEng = "FavouriteList\\FavouriteEngToEng\\FavouriteEngToEng.txt";
+std::string favorite::pathEngToVie = "FavouriteList\\FavouriteEngToVie\\FavouriteEngToVie.txt";
+std::string favorite::pathVieToEng = "FavouriteList\\FavouriteVieToEng\\FavouriteVieToEng.txt";
+std::vector<std::string> favorite::mode{ favorite::pathEmoji,favorite::pathSlang,favorite::pathEngToEng,favorite::pathEngToVie,favorite::pathVieToEng };
+std::string favorite::FolEmoji = "FavouriteList\\FavouriteEmoji";
+std::string favorite::FolSlang = "FavouriteList\\FavouriteSlang";
+std::string favorite::FolEngToEng = "FavouriteList\\FavouriteEngToEng";
+std::string favorite::FolEngToVie = "FavouriteList\\FavouriteEngToVie";
+std::string favorite::FolVieToEng = "FavouriteList\\FavouriteVieToEng";
+std::vector<std::string> favorite::folder{ favorite::FolEmoji,favorite::FolSlang,favorite::FolEngToEng,favorite::FolEngToVie,favorite::FolVieToEng };
 
 vector<string> favouriteList()
 {
-	mode.push_back(pathEmoji);
-	mode.push_back(pathSlang);
-	mode.push_back(pathEngToEng);
-	mode.push_back(pathEngToVie);
-	mode.push_back(pathVieToEng);
-	folder.push_back(FolEmoji);
-	folder.push_back(FolSlang);
-	folder.push_back(FolEngToEng);
-	folder.push_back(FolEngToVie);
-	folder.push_back(FolVieToEng);
 	vector<string> favorite;
 	ifstream fin;
 	ifstream fin2;
-	fin.open(mode[Path::curPath], ios::binary | ios::in);
-	if (!fin)
+	fin.open(favorite::mode[Path::curPath], ios::binary | ios::in);
+	if (!fin.is_open())
 		return favorite;
 	int n;
 	fin.read((char*)&n, sizeof(int));
@@ -41,7 +31,7 @@ vector<string> favouriteList()
 		fin.read((char*)word, size);
 		word[size] = '\0';
 		string output = word;
-		string fileName = folder[Path::curPath] + output + ".bin";
+		string fileName = favorite::folder[Path::curPath] + output + ".bin";
 		fin2.open(fileName);
 		if (fin2)
 		{
@@ -54,21 +44,55 @@ vector<string> favouriteList()
 	return favorite;
 }
 
+bool isFavourite(std::string& word)
+{
+	ifstream fin;
+	string output = word;
+	string fileName = favorite::folder[Path::curPath] + output + ".bin";
+	fin.open(fileName);
+	if (fin.is_open())
+	{
+		//cout << "Opened file fav"<<endl;
+		fin.close();
+		return true;
+	}
+	//cout << "Could not open file fav"<<endl;
+	return false;
+}
+
 bool addWordToFavList(std::string& word)
 {
     ifstream fin;
-	std::string path = folder[Path::curPath] + word + ".bin";
+	std::string path = favorite::folder[Path::curPath] + word + ".bin";
     fin.open(path);
     if(fin.is_open())
     {
+		//cout << "Word have been added!"<<endl;
         fin.close();
-        throw 'x';
+		return true;
     }
-    else fin.close();
+	fin.open(favorite::mode[Path::curPath],ios::binary|ios::app);
+	if (!fin.is_open()) return false;
+	int size;
+	if (fin.tellg() > 0)
+	{
+		fin.seekg(0, ios::beg);
+		fin.read((char*)&size, sizeof(int));
+	}
+	else size = 0;
+	//cout <<"Size: " <<size << endl;
+	size++;
+	//cout <<"Size: "<< size << endl;
+	fin.close();
     ofstream fout;
-	fout.open(mode[Path::curPath], ios::binary | ios::app);
+	fout.open(favorite::mode[Path::curPath], ios::binary | ios::app);
     if(!fout.is_open()) return false;
+	int range = sizeof(word);
+	fout.write((char*)&range, sizeof(int));
     fout.write((char*)&word,sizeof(word));
+	//cout << "Finish saving word" << endl;
+	fout.seekp(0, ios::beg);
+	fout.write((char*)&size, sizeof(int));
     fout.close();
     fout.open(path,ios::binary);
     if(!fout.is_open()) return false;
@@ -78,7 +102,11 @@ bool addWordToFavList(std::string& word)
 
 bool removeWordFromFavList(std::string& word)
 {
-    std::string path = folder[Path::curPath] + word + ".bin";
-    if(!remove(path.c_str())) return true;
+    std::string path = favorite::folder[Path::curPath] + word + ".bin";
+	if (!remove(path.c_str())) {
+		//cout << "Finish moving" << endl;
+		return true;
+	}
+	//else cout << "Could not do" << endl;
     return false;
 }

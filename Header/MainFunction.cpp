@@ -211,6 +211,7 @@ void Dictionary::processIconColor(sf::Event event){
             x.setFillColor(c3);
             is_on[i] = true;
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+				s7.heart_state = false;
 				if (i == 2) s2.recSet.clear(), s2.textSet.clear(), s2.updateScene();
 				//if (i == 3) s3.recSet.clear(), s3.textSet.clear(), s3.updateScene();
                 if (i < 7) screen = i;

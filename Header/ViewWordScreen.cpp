@@ -48,6 +48,12 @@ WordScreen::WordScreen(void) {
 	deleteBound.setSize(sf::Vector2f(25, 25));
 	deleteBound.setFillColor(c1);
 
+	heartObj.loadFromFile("Image/heart.png");
+	heartSprite.setTexture(heartObj);
+
+	heartBound.setSize(sf::Vector2f(25, 25));
+	heartBound.setFillColor(c1);
+
 	tickObj.loadFromFile("Image/tick.png");
 	tickSprite.setTexture(tickObj);
 
@@ -114,8 +120,10 @@ void WordScreen::ScreenDraw(sf::RenderWindow& App) {
 	if (!is_edit) {
 		App.draw(editBound);
 		App.draw(deleteBound);
+		App.draw(heartBound);
 		App.draw(object);
 		App.draw(deleteSprite);
+		App.draw(heartSprite);
 	}
 	else if (is_edit) {
 		App.draw(saveBound);
@@ -385,6 +393,32 @@ int WordScreen::ProcessEvent(sf::RenderWindow& App, sf::Event event) {
 		else {
 			deleteBound.setFillColor(c1);
 		}
+
+		shape = heartBound.getGlobalBounds();
+		if (shape.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))) {
+			heartBound.setFillColor(c3);
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				if (heart_state == false) {
+					heartObj.loadFromFile("Image/heart3.png");
+					wstring tmp = KeyWord.getString();
+					string fav = Character::backToString(tmp);
+					addWordToFavList(fav);
+					heart_state = true;
+				}
+				else
+				{
+					if(is_dark) heartObj.loadFromFile("Image/heart.png");
+					else heartObj.loadFromFile("Image/heart2.png");
+					wstring tmp = KeyWord.getString();
+					string fav = Character::backToString(tmp);
+					removeWordFromFavList(fav);
+					heart_state = false;
+				}
+			}
+		}
+		else {
+			heartBound.setFillColor(c1);
+		}
 	}
 	return 7;
 }
@@ -411,6 +445,7 @@ void WordScreen::SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Color
 		saveObj.loadFromFile("Image/save2.png");
 		cancelObj.loadFromFile("Image/cancel2.png");
 		deleteObj.loadFromFile("Image/delete2.png");
+		if (heart_state == false) heartObj.loadFromFile("Image/heart2.png");
 	}
 	else {
 		is_dark = true;
@@ -418,6 +453,7 @@ void WordScreen::SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Color
 		saveObj.loadFromFile("Image/save.png");
 		cancelObj.loadFromFile("Image/cancel.png");
 		deleteObj.loadFromFile("Image/delete.png");
+		if (heart_state == false) heartObj.loadFromFile("Image/heart.png");
 	}
 }
 
@@ -426,6 +462,19 @@ void WordScreen::setString(wstring _def, wstring _key) {
 	if (_def.size() == 0) is_found = false;
 	else is_found = true;
 	KeyWord.setString(_key);
+	std::string tmp = Character::backToString(_key);
+	//cout << tmp << endl;
+	if (isFavourite(tmp))
+	{
+		heart_state = true;
+		heartObj.loadFromFile("Image/heart3.png");
+	}
+	else
+	{
+		heart_state = false;
+		if (is_dark) heartObj.loadFromFile("Image/heart.png");
+		else heartObj.loadFromFile("Image/heart2.png");
+	}
 	MyKey = _key;
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
@@ -434,6 +483,9 @@ void WordScreen::setString(wstring _def, wstring _key) {
 
 	deleteBound.setPosition(editBound.getPosition().x + 35, 109);
 	deleteSprite.setPosition(deleteBound.getPosition().x, 109);
+
+	heartBound.setPosition(deleteBound.getPosition().x + 35, 109);
+	heartSprite.setPosition(heartBound.getPosition().x, 109);
 
 	saveSprite.setPosition(130 + KeyWord.getLocalBounds().width, 109);
 	saveBound.setPosition(saveSprite.getPosition().x, saveSprite.getPosition().y);
