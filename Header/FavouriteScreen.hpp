@@ -13,14 +13,15 @@ private:
 public:
 	std::vector<sf::RectangleShape> recSet;
 	std::vector<sf::Text> textSet;
-    FavoriteScreen(void);
-    void ScreenDraw(sf::RenderWindow &App);
-    int ProcessEvent(sf::RenderWindow &App, sf::Event event);
-    void updateScene(sf::Time &deltaTime);
+  FavoriteScreen(void);
+  void ScreenDraw(sf::RenderWindow &App);
+  int ProcessEvent(sf::RenderWindow &App, sf::Event event);
+  void updateScene(sf::Time &deltaTime);
 	void updateScene();
 	std::wstring MyDef;
 	std::wstring MyKey;
 	bool is_search = false;
+
 };
 
 #endif // FAVORSCR_HPP

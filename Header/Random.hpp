@@ -1,4 +1,3 @@
-
 #ifndef RANDOM_MT_H
 #define RANDOM_MT_H
 
@@ -34,3 +33,4 @@ std::vector<std::string> randomOneWordFourDef();
 std::vector<std::string> randomOneDefFourWord();
 
 #endif //RANDOM_HPP
+

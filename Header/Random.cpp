@@ -17,8 +17,6 @@ int Random::get(int min, int max){
     return std::uniform_int_distribution<>{ min, max }(mt);
 }
 
-
-
 std::string getWordFromFile(int& first,int& last)
 {
     std::string word = "";
@@ -65,6 +63,7 @@ std::string getDefFromFile(int& pos)
 }
 
 std::vector<std::string> randomOneWordFourDef()
+
 {
     vector<std::string> vec;
     ifstream fin;
@@ -124,6 +123,7 @@ std::vector<std::string> randomOneWordFourDef()
 }
 
 std::vector<std::string> randomOneDefFourWord()
+
 {
     vector<std::string> vec;
     ifstream fin;
