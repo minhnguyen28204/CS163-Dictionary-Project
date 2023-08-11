@@ -15,8 +15,6 @@ namespace Path {
 	extern int curPath;
 	extern std::vector<std::string> path;
 	void loadPath(int n = 0);
-	int getPastPath();
-	void changePastPath(int n);
 }
 
 int getLength(std::wstring ws);
@@ -38,7 +36,7 @@ template <typename T = int> int position(std::vector<T> nums, T key) {
 
 namespace Character {
 	extern char wordSplit[];
-	
+
 	// Change a unicode character into hex form with proper length
 	template <typename T> std::string load(T ch) {
 		std::ostringstream fout{};
@@ -187,7 +185,6 @@ namespace DefinitionSet {
 		if (getLength(str) != 0) {
 			word = Character::decodeStr(str, str[0]);
 		}
-		return definitionTrie->allWordContain(word);
 	}
 
 	template <typename T = std::wstring, typename U = wchar_t> void splitToRemove(T& source, U ch, int n) {
@@ -364,4 +361,3 @@ namespace WordSet {
 std::string randomWordFromFile();
 
 #endif
-

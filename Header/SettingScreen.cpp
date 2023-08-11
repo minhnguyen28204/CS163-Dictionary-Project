@@ -98,6 +98,7 @@ int SettingScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                 WordSet::switchWordSet(i);
                 selected.setPosition(x.getPosition().x+6,x.getPosition().y+6);
+				
                 ofstream ofs("Data/OldSettings.txt");
                 ofs << i;
                 ofs.close();

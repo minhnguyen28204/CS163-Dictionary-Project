@@ -1,12 +1,6 @@
 #include "SearchScreen.hpp"
 
 SearchScreen::SearchScreen(){
-<<<<<<< Updated upstream
-
-}
-
-int SearchScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
-=======
     _font.loadFromFile("Font/BeVietnamPro-Regular.ttf");
     defField.SetProperties(_font,30,c4,150,150,1000,50,true);
 
@@ -70,18 +64,10 @@ int SearchScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
         }
     }
 
->>>>>>> Stashed changes
     return 1;
 }
 
 void SearchScreen::ScreenDraw(sf::RenderWindow &App){
-<<<<<<< Updated upstream
-
-}
-
-void SearchScreen::updateScene(sf::Time &deltaTime){
-
-=======
     defField.draw(App);
     App.draw(SubTit2);
     if (suggestBox.size() && defField.cur_state()){
@@ -92,7 +78,6 @@ void SearchScreen::updateScene(sf::Time &deltaTime){
 
 void SearchScreen::updateScene(sf::Time &deltaTime){
     defField.update(deltaTime);
->>>>>>> Stashed changes
 }
 
 void SearchScreen::SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color &f4){

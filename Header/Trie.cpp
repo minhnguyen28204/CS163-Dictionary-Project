@@ -124,7 +124,7 @@ DefinitionSet::Trie::Node* DefinitionSet::Trie::search(std::string word) {
 bool removeWordFromTrie(WordSet::Trie::Node* root, std::string& word, int n) {
 	if (n == word.size()) {
 		root->exist = 0;
-		for (int i{ 0 }; i < 16; ++i) 
+		for (int i{ 0 }; i < 16; ++i)
 			if (root->children[i]) {
 				return false;
 			}
@@ -250,7 +250,6 @@ void WordSet::switchWordSet(int n) {
 	if (n == Path::curPath || n < 0 || n >= Path::path.size())
 		return;
 	Path::curPath = n % Path::path.size();
-	Path::changePastPath(Path::curPath);
 	loadAllData();
 }
 
@@ -312,7 +311,7 @@ void WordSet::loadWordSet() {
 		fdout.read(word, size);
 		std::string input2{ word };
 		delete[] word;
-		
+
 		DefinitionSet::loadDefinitionSet(Character::stringToWString(input2), i);
 	}
 	fwout.close();
@@ -637,26 +636,5 @@ void Path::loadPath(int n) {
 	path.push_back("Data/engToEng");
 	path.push_back("Data/engToVie");
 	path.push_back("Data/vieToEng");
-	curPath = getPastPath() % path.size();
-}
-
-int Path::getPastPath() {
-	std::ifstream fin("Data/CurPath.bin", std::ios::binary);
-	if (!fin.is_open())
-		return 0;
-	if (!fin.good()) {
-		fin.close();
-		return 0;
-	}
-	char result{};
-	fin.read(&result, 1);
-	fin.close();
-	return result;
-}
-
-void Path::changePastPath(int n) {
-	std::ofstream fout("Data/CurPath.bin", std::ios::trunc | std::ios::binary | std::ios::out);
-	char in = n % Path::path.size();
-	fout.write(&in, 1);
-	fout.close();
+	curPath = n % path.size();
 }

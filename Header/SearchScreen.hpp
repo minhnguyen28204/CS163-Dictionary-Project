@@ -1,11 +1,6 @@
 #ifndef SEARCH_SCREEN_HPP
 #define SEARCH_SCREEN_HPP
 #include "cScreen.hpp"
-<<<<<<< Updated upstream
-
-class SearchScreen : public cScreen{
-private:
-=======
 #include "TextField.hpp"
 #include "Trie.hpp"
 #include <vector>
@@ -19,7 +14,6 @@ private:
     sf::Text SubTit2;
     vector<sf::Text> suggestBox;
     vector<sf::RectangleShape> outlineBox;
->>>>>>> Stashed changes
 public:
     SearchScreen(void);
     void ScreenDraw(sf::RenderWindow &App);
