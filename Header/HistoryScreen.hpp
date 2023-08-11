@@ -18,6 +18,7 @@ public:
     int ProcessEvent(sf::RenderWindow &App, sf::Event event);
     void updateScene(sf::Time &deltaTime);
 	void updateScene();
+	void SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Color& f4);
 	wstring MyDef;
 	wstring MyKey;
 	bool is_search = false;
