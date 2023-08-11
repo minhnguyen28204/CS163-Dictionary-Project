@@ -56,6 +56,9 @@
 					<Add library="vorbis" />
 					<Add library="ogg" />
 					<Add directory="C:/Users/suyun/Downloads/SFML-2.5.1/lib" />
+					<Add directory="Image" />
+					<Add directory="Font" />
+					<Add directory="SFML Elements" />
 				</Linker>
 			</Target>
 		</Build>
@@ -69,11 +72,17 @@
 			<Add directory="C:/Users/suyun/Downloads/SFML-2.5.1/lib" />
 			<Add directory="Header" />
 			<Add directory="SFML Elements" />
+			<Add directory="Font" />
+			<Add directory="Image" />
 		</Linker>
 		<Unit filename="Header/AddScreen.cpp" />
 		<Unit filename="Header/AddScreen.hpp" />
+		<Unit filename="Header/FavouriteList.cpp" />
+		<Unit filename="Header/FavouriteList.hpp" />
 		<Unit filename="Header/FavouriteScreen.cpp" />
 		<Unit filename="Header/FavouriteScreen.hpp" />
+		<Unit filename="Header/History.cpp" />
+		<Unit filename="Header/History.hpp" />
 		<Unit filename="Header/HistoryScreen.cpp" />
 		<Unit filename="Header/HistoryScreen.hpp" />
 		<Unit filename="Header/HomeScreen.cpp" />
@@ -84,11 +93,19 @@
 		<Unit filename="Header/MenuSideBar.hpp" />
 		<Unit filename="Header/QuizScreen.cpp" />
 		<Unit filename="Header/QuizScreen.hpp" />
+		<Unit filename="Header/Random.cpp" />
+		<Unit filename="Header/Random.hpp" />
 		<Unit filename="Header/Screen.hpp" />
 		<Unit filename="Header/SearchScreen.cpp" />
 		<Unit filename="Header/SearchScreen.hpp" />
+		<Unit filename="Header/SettingScreen.cpp" />
+		<Unit filename="Header/SettingScreen.hpp" />
 		<Unit filename="Header/TextField.cpp" />
 		<Unit filename="Header/TextField.hpp" />
+		<Unit filename="Header/Trie.cpp" />
+		<Unit filename="Header/Trie.hpp" />
+		<Unit filename="Header/ViewWordScreen.cpp" />
+		<Unit filename="Header/ViewWordScreen.hpp" />
 		<Unit filename="Header/cScreen.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>

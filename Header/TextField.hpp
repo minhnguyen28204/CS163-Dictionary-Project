@@ -1,5 +1,6 @@
 #ifndef TEXT_FIELD_H
 #define TEXT_FIELD_H
+#define SFML_NO_DEPRECATED_WARNINGS
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -19,8 +20,12 @@ public:
     void clear_str();
     void Tab_handle();
     bool cur_state();
+    pair<float,float> getPosition();
+    void setPosition(float x, float y);
+    float getHeight();
+    float getWidth();
     void SetIniStr(std::wstring str);
-    std::wstring getText() const;
+    std::wstring getText();
 
 private:
     float cursor_stacked_time = 0;
@@ -35,7 +40,8 @@ private:
     sf::Text m_text;
     sf::RectangleShape m_cursor; // New member variable for the cursor
     bool m_selected;
-    bool m_cursorVisible; // New member variable to keep track of cursor visibility
+    bool m_cursorVisible;// New member variable to keep track of cursor visibility
+    bool is_entering_text = false;
     sf::Clock m_cursorClock; // New member variable to keep track of elapsed time since last cursor toggle
     bool ShowTxt;
 };

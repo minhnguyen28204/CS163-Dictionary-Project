@@ -1,8 +1,21 @@
 #include "Random.hpp"
 #include <ctime>
 #include <fstream>
-#include "Trie.hpp"
+
 using namespace std;
+
+std::mt19937 Random::generate(){
+    std::random_device rd{};
+
+    std::seed_seq ss{
+        static_cast<std::seed_seq::result_type>(std::chrono::steady_clock::now().time_since_epoch().count()),
+            rd(), rd(), rd(), rd(), rd(), rd(), rd() };
+    return std::mt19937{ ss };
+}
+
+int Random::get(int min, int max){
+    return std::uniform_int_distribution<>{ min, max }(mt);
+}
 
 std::string getWordFromFile(int& first,int& last)
 {
@@ -45,11 +58,12 @@ std::string getDefFromFile(int& pos)
         fin.seekg(pos+4);
         fin.read((char*)&def,n);
         fin.close();
-    } 
+    }
     return def;
 }
 
-std::vector<std::string> randomOneWordFourDef(std::string& mode)
+std::vector<std::string> randomOneWordFourDef()
+
 {
     vector<std::string> vec;
     ifstream fin;
@@ -89,7 +103,7 @@ std::vector<std::string> randomOneWordFourDef(std::string& mode)
             fin.seekg(a[i]*4);
             int last;
             fin.read((char*)&last,sizeof(int));
-            if(i==0) 
+            if(i==0)
             {
                 int first;
                 if(a[i]>1) {
@@ -108,7 +122,8 @@ std::vector<std::string> randomOneWordFourDef(std::string& mode)
     return vec;
 }
 
-std::vector<std::string> randomOneDefFourWord(std::string& mode)
+std::vector<std::string> randomOneDefFourWord()
+
 {
     vector<std::string> vec;
     ifstream fin;
@@ -148,7 +163,7 @@ std::vector<std::string> randomOneDefFourWord(std::string& mode)
             fin.seekg(a[i]*4);
             int last;
             fin.read((char*)&last,sizeof(int));
-            if(i==0) 
+            if(i==0)
             {
                 int posDef = getPositionDef(last);
                 vec.push_back(getDefFromFile(posDef));

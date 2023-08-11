@@ -124,7 +124,7 @@ DefinitionSet::Trie::Node* DefinitionSet::Trie::search(std::string word) {
 bool removeWordFromTrie(WordSet::Trie::Node* root, std::string& word, int n) {
 	if (n == word.size()) {
 		root->exist = 0;
-		for (int i{ 0 }; i < 16; ++i) 
+		for (int i{ 0 }; i < 16; ++i)
 			if (root->children[i]) {
 				return false;
 			}
@@ -250,7 +250,6 @@ void WordSet::switchWordSet(int n) {
 	if (n == Path::curPath || n < 0 || n >= Path::path.size())
 		return;
 	Path::curPath = n % Path::path.size();
-	Path::changePastPath(Path::curPath);
 	loadAllData();
 }
 
@@ -312,7 +311,6 @@ void WordSet::loadWordSet() {
 		fdout.read(word, size);
 		std::string input2{ word };
 		delete[] word;
-		
 		DefinitionSet::loadDefinitionSet(Character::stringToWString(input2), i);
 	}
 	fwout.close();
@@ -446,6 +444,198 @@ std::vector<std::string> DefinitionSet::allWord(std::vector<int> nums) {
 			result.push_back(input);
 	}
 	return result;
+}
+
+std::string randomWordFromFile() {
+	std::string result = WordSet::getWord(Random::get(0, WordSet::wordOrigCount + WordSet::wordNewCount - 1));
+	if (result.length() == 0) {
+		result = WordSet::getWord(Random::get(0, WordSet::wordOrigCount + WordSet::wordNewCount - 1));
+	}
+	return result;
+}
+
+void buildSerialWordTrie(WordSet::Trie::Node* root, std::string& serial) {
+	if (root->exist != -1) {
+		serial.push_back('[');
+		serial += std::to_string(root->exist);
+		serial.push_back(',');
+		serial += std::to_string(root->num);
+		serial.push_back(']');
+	}
+	for (int i{ 0 }; i < 16; ++i) {
+		if (root->children[i]) {
+			serial.push_back(reverseHex(i));
+			buildSerialWordTrie(root->children[i], serial);
+		}
+	}
+	serial.push_back('>');
+}
+
+void buildSerialDefiTrie(DefinitionSet::Trie::Node* root, std::string& serial) {
+	if (root->wordNum.size() != 0) {
+		serial.push_back('[');
+		for (int i{ 0 }; i < root->wordNum.size(); ++i) {
+			if (i != 0)
+				serial.push_back(',');
+			serial += std::to_string(root->wordNum[i]);
+		}
+		serial.push_back(']');
+	}
+	for (int i{ 0 }; i < 16; ++i) {
+		if (root->children[i]) {
+			serial.push_back(reverseHex(i));
+			buildSerialDefiTrie(root->children[i], serial);
+		}
+	}
+	serial.push_back('>');
+}
+
+void WordSet::buildSerialFile() {
+	std::string line{};
+	buildSerialWordTrie(wordTrie->trueRoot, line);
+	std::ofstream fin(Path::path[Path::curPath] + "/Serial.txt");
+	fin << line;
+	fin.close();
+	line.clear();
+	buildSerialDefiTrie(DefinitionSet::definitionTrie->trueRoot, line);
+	fin.open(Path::path[Path::curPath] + "/SerialDefi.txt");
+	fin << line;
+	fin.close();
+}
+
+int deserialiseStrToTrie(WordSet::Trie::Node* root, std::string& serial, int& read) {
+	int wordSeen = 0;
+	if (serial[read] == '[') {
+		read++;
+		std::string tmp{};
+		while (serial[read] != ',') {
+			tmp.push_back(serial[read]);
+			read++;
+		}
+		root->exist = std::stoi(tmp);
+		read++;
+		tmp.clear();
+		while (serial[read] != ']') {
+			tmp.push_back(serial[read]);
+			read++;
+		}
+		root->num = std::stoi(tmp);
+		read++;
+	}
+	while (serial[read] != '>') {
+		int ch = hexa(serial[read]);
+		read++;
+		root->children[ch] = new WordSet::Trie::Node;
+		wordSeen += deserialiseStrToTrie(root->children[ch], serial, read);
+	}
+	read++;
+	return wordSeen;
+}
+
+void inputNum(std::vector<int>& ans, std::string& res) {
+	std::string tmp{};
+	for (int i{ 0 }; i < res.length(); ++i) {
+		if (res[i] != ',') {
+			tmp.push_back(res[i]);
+		}
+		else {
+			ans.push_back(std::stoi(tmp));
+			tmp.clear();
+		}
+	}
+
+}
+
+int deserialiseStrToDefi(DefinitionSet::Trie::Node* root, std::string& serial, int& read) {
+	int wordSeen = 0;
+	if (serial[read] == '[') {
+		read++;
+		std::string tmp{};
+		while (serial[read] != ']') {
+			tmp.push_back(serial[read]);
+			read++;
+		}
+		tmp.push_back(',');
+		read++;
+		inputNum(root->wordNum, tmp);
+	}
+	while (serial[read] != '>') {
+		int ch = hexa(serial[read]);
+		read++;
+		root->children[ch] = new DefinitionSet::Trie::Node;
+		wordSeen += deserialiseStrToDefi(root->children[ch], serial, read);
+	}
+	read++;
+	return wordSeen;
+}
+
+void WordSet::loadTrieFromString() {
+	std::ifstream fin(Path::path[Path::curPath] + "/Serial.txt");
+	std::string serial{};
+	std::getline(fin, serial);
+	fin.close();
+	int n{ 0 };
+	deserialiseStrToTrie(wordTrie->trueRoot, serial, n);
+}
+
+void DefinitionSet::loadTrieFromString() {
+	std::ifstream fin(Path::path[Path::curPath] + "/SerialDefi.txt");
+	std::string serial{};
+	std::getline(fin, serial);
+	fin.close();
+	int n{ 0 };
+	deserialiseStrToDefi(definitionTrie->trueRoot, serial, n);
+}
+
+void WordSet::loadWordCount() {
+	std::ifstream fin;
+	fin.open(Path::path[Path::curPath] + "/WordsColumn.bin", std::ios::binary);
+	fin.read((char*)&wordOrigCount, sizeof(int));
+	fin.close();
+	fin.open(Path::path[Path::curPath] + "/New.txt");
+	fin >> wordNewCount;
+	fin.close();
+}
+
+void WordSet::loadNewData() {
+	std::ifstream fin(Path::path[Path::curPath] + "/New.txt");
+	std::string word{}, definition{};
+	std::getline(fin, word);
+	for (int i{ 0 }; i < wordNewCount; ++i) {
+		int read{};
+		std::getline(fin, word, '\t');
+		std::getline(fin, definition);
+		if (definition.length() != 0) {
+			insert(Character::stringToWString(word), i, wordOrigCount + i);
+			DefinitionSet::loadDefinitionSet(Character::stringToWString(definition), wordOrigCount + i);
+		}
+		else {
+			//DefinitionSet::removeDefinition(Character::stringToWString(definition), 0);
+			insert(Character::stringToWString(word), -1, wordOrigCount + i);
+		}
+	}
+}
+
+void WordSet::loadAllData() {
+	loadWordCount();
+	loadTrieFromString();
+	DefinitionSet::loadTrieFromString();
+	loadNewData();
+}
+
+void WordSet::reset() {
+	std::ofstream fout(Path::path[Path::curPath] + "/New.txt", std::ios::trunc);
+	fout << 0;
+	fout.close();
+}
+
+void Path::loadPath(int n) {
+	path.push_back("Data/emoticon");
+	path.push_back("Data/slang");
+	path.push_back("Data/engToEng");
+	path.push_back("Data/engToVie");
+	path.push_back("Data/vieToEng");
+	curPath = n % path.size();
 }
 
 std::string randomWordFromFile() {

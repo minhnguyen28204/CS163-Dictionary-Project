@@ -7,23 +7,11 @@
 
 namespace Random
 {
-	std::mt19937 generate()
-	{
-		std::random_device rd{};
-
-		std::seed_seq ss{
-			static_cast<std::seed_seq::result_type>(std::chrono::steady_clock::now().time_since_epoch().count()),
-				rd(), rd(), rd(), rd(), rd(), rd(), rd() };
-
-		return std::mt19937{ ss };
-	}
+	std::mt19937 generate();
 
 	extern std::mt19937 mt;
 
-	int get(int min, int max)
-	{
-		return std::uniform_int_distribution<>{ min, max }(mt);
-	}
+	int get(int min, int max);
 
 	template <typename T>
 	T get(T min, T max)
@@ -41,7 +29,8 @@ namespace Random
 std::string getWordFromFile(int& first,int& last);
 int getPositionDef(int& last);
 std::string getDefFromFile(int& pos);
-std::vector<std::string> randomOneWordFourDef(std::string& mode);
-std::vector<std::string> randomOneDefFourWord(std::string& mode);
+std::vector<std::string> randomOneWordFourDef();
+std::vector<std::string> randomOneDefFourWord();
 
 #endif //RANDOM_HPP
+
