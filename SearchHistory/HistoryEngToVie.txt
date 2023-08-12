@@ -4,3 +4,6 @@ font
 abandon
 font element
 fuck
+dog
+dog 
+avalanche

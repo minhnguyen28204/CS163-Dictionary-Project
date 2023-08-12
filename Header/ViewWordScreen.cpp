@@ -499,6 +499,8 @@ void WordScreen::setString(wstring _def, wstring _key) {
 		else heartObj.loadFromFile("Image/heart2.png");
 	}
 	MyKey = _key;
+	is_edit = false;
+	is_delete = false;
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
 	object.setPosition(130 + KeyWord.getLocalBounds().width, 109);
