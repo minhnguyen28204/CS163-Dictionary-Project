@@ -28,7 +28,7 @@ int FavoriteScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
 			else if (event.key.code == sf::Keyboard::Up) delta = 1;
 			else delta = -1;
 
-			if (delta < 0 && recSet[recSet.size() - 1].getPosition().y + 55>850)
+			if (delta < 0 && recSet[recSet.size() - 1].getPosition().y + 55>840)
 			{
 				for (int i = 0; i < recSet.size(); i++)
 				{
@@ -109,4 +109,18 @@ void FavoriteScreen::updateScene() {
 		ext.setPosition(coorRec.x, coorRec.y + (size - i - 1) * 70);
 		recSet.push_back(ext);
 	}
+}
+
+void FavoriteScreen::SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Color& f4) {
+	c1 = f1;
+	c2 = f2;
+	c3 = f3;
+	c4 = f4;
+	for (int i = 0; i < textSet.size(); i++)
+	{
+		textSet[i].setFillColor(c4);
+		recSet[i].setFillColor(c2);
+	}
+	border.setFillColor(c2);
+	title.setFillColor(c4);
 }

@@ -4,6 +4,7 @@
 #include "cScreen.hpp"
 #include "TextField.hpp"
 #include "Trie.hpp"
+#include "History.hpp"
 #include <SFML/Graphics.hpp>
 
 class HomeScreen : public cScreen

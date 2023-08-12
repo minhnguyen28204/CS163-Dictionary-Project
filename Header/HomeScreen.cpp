@@ -107,6 +107,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
                 if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                     wstring Cur_str = suggestBox[i].getString();
                     wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+                    string tmp = Character::backToString(Cur_str);
+                    saveWordToTextFile(tmp);
                     MyKey = Cur_str;
                     MyDef = Definition;
                     is_search = true;
@@ -134,6 +136,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
                         wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
                         MyKey = Cur_str;
                         MyDef = Definition;
+                        string tmp = Character::backToString(Cur_str);
+                        saveWordToTextFile(tmp);
                         is_search = true;
                     }
                     return MyMap[i];
@@ -144,14 +148,17 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
             }
         }
     }
+
+    //process when pressing the glass icon
     sf::FloatRect enterBound = enter_bound.getGlobalBounds();
     bool isMousedOn = enterBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
     if (isMousedOn){
         enter_bound.setFillColor(c3);
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
             wstring Cur_str = inputField.getText();
-            wstring another = suggestBox[0].getString();
             wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+            string tmp = Character::backToString(Cur_str);
+            saveWordToTextFile(tmp);
             MyKey = Cur_str;
             MyDef = Definition;
             is_search = true;
@@ -165,6 +172,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter){
         wstring Cur_str = inputField.getText();
         wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+        string tmp = Character::backToString(Cur_str);
+        saveWordToTextFile(tmp);
         MyKey = Cur_str;
         MyDef = Definition;
         is_search = true;
