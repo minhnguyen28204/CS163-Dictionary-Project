@@ -3,9 +3,7 @@
 HistoryScreen::HistoryScreen(void){
 	_font.loadFromFile("Font/BeVietnamPro-Regular.ttf");
 	tickObj.loadFromFile("Image/tickbox.png");
-	tri.setTexture(tickObj);
-	tri.setPosition(1350, 130);
-	
+
 	border.setSize(sf::Vector2f(1400,210));
 	border.setFillColor(c2);
 	
@@ -81,13 +79,7 @@ int HistoryScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
 					//string tmp = Character::backToString(Cur_str);
 					//deleteWordInHistory(tmp);
 					//updateScene();
-					tick[i] = true;
-					sf::Sprite tickSprite;
-					tickSprite.setTexture(tickObj);
-					tickSprite.setPosition(coorText.x + 1200, coorText.y + (size - i - 1) * 70);
-					App.draw(tickSprite);
-					tickSpriteSet.push_back(tickSprite);
-					cout << tickSpriteSet.size() << endl;
+					tick[i] = !tick[i];
 				}
 			}
 			else
@@ -115,18 +107,12 @@ int HistoryScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
 }
 
 void HistoryScreen::ScreenDraw(sf::RenderWindow &App){
-	App.draw(tri);
-	int cnt = 0;
 	for (int i = 0; i < recSet.size(); i++)
 	{
 		App.draw(recSet[i]);
 		App.draw(textSet[i]);
-		if (tick[i] == true)
-		{
-			//tickSprite.setPosition(coorText.x + 1200, coorText.y + (size - i - 1) * 70);
-			App.draw(tickSpriteSet[cnt++]);
-		}
-		else App.draw(tickBoundSet[i]);
+		App.draw(tickBoundSet[i]);
+		if (tick[i] == true) App.draw(tickSpriteSet[i]);
 	}
 	App.draw(border);
 	App.draw(title);
@@ -163,17 +149,18 @@ void HistoryScreen::updateScene(){
 		ext.setPosition(coorRec.x, coorRec.y + (size - i - 1) * 70);
 		recSet.push_back(ext);
 
-		//sf::Sprite tickSprite;
-		//tickSprite.setTexture(tickObj);
-		//tickSprite.setPosition(coorText.x + 1200, coorText.y + (size - i - 1) * 70);
-		//tickSpriteSet.push_back(tickSprite);
+		sf::Sprite tickSprite;
+		tickSprite.setTexture(tickObj);
+		tickSprite.setScale(0.6, 0.6);
+		tickSprite.setPosition(coorText.x + 1200, coorText.y + (size - i - 1) * 70 + 10);
+		tickSpriteSet.push_back(tickSprite);
 
 		sf::RectangleShape tickBound;
-		tickBound.setSize(sf::Vector2f(25, 25));
+		tickBound.setSize(sf::Vector2f(30, 30));
 		tickBound.setFillColor(c1);
 		tickBound.setOutlineThickness(1);
 		tickBound.setOutlineColor(c3);
-		tickBound.setPosition(coorText.x + 1200, coorText.y + (size - i - 1) * 70);
+		tickBound.setPosition(coorText.x + 1200, coorText.y + (size - i - 1) * 70 + 10);
 		tickBoundSet.push_back(tickBound);
 
 		tick.push_back(false);
