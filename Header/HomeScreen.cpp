@@ -152,6 +152,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
             wstring Cur_str = inputField.getText();
             wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+			std::string tmp = Character::backToString(Cur_str);
+			saveWordToTextFile(tmp);
             MyKey = Cur_str;
             MyDef = Definition;
             is_search = true;
@@ -165,6 +167,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter){
         wstring Cur_str = inputField.getText();
         wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+		std::string tmp = Character::backToString(Cur_str);
+		saveWordToTextFile(tmp);
         MyKey = Cur_str;
         MyDef = Definition;
         is_search = true;

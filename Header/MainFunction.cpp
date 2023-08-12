@@ -213,7 +213,7 @@ void Dictionary::processIconColor(sf::Event event){
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
 				s7.heart_state = false;
 				if (i == 2) s2.recSet.clear(), s2.textSet.clear(), s2.updateScene();
-				//if (i == 3) s3.recSet.clear(), s3.textSet.clear(), s3.updateScene();
+				if (i == 3) s3.recSet.clear(), s3.textSet.clear(), s3.updateScene();
                 if (i < 7) screen = i;
                 else{
                     dark = !dark;
@@ -266,6 +266,7 @@ void Dictionary::processEvent(){
         if (screen == 7 && s0.is_search) s7.setString(s0.MyDef,s0.MyKey), s0.is_search = false, s2.recSet.clear(), s2.textSet.clear(), s2.updateScene();
         if (screen == 7 && s1.is_search) s7.setString(s1.MyDef,s1.MyKey), s1.is_search = false;
 		if (screen == 7 && s2.is_search) s7.setString(s2.MyDef, s2.MyKey), s2.is_search = false;
+		if (screen == 7 && s3.is_search) s7.setString(s3.MyDef, s3.MyKey), s3.is_search = false;
         screen = Screens[screen]->ProcessEvent(mWindow,event);
         processIconColor(event);
         if (event.type == sf::Event::Closed){

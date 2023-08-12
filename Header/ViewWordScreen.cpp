@@ -445,7 +445,18 @@ void WordScreen::SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Color
 		saveObj.loadFromFile("Image/save2.png");
 		cancelObj.loadFromFile("Image/cancel2.png");
 		deleteObj.loadFromFile("Image/delete2.png");
-		if (heart_state == false) heartObj.loadFromFile("Image/heart2.png");
+		std::wstring tmp = KeyWord.getString();
+		std::string ext = Character::backToString(tmp);
+		if (isFavourite(ext))
+		{
+			heart_state = true;
+			heartObj.loadFromFile("Image/heart3.png");
+		}
+		else
+		{
+			heart_state = false;
+			heartObj.loadFromFile("Image/heart2.png");
+		}
 	}
 	else {
 		is_dark = true;
@@ -453,7 +464,20 @@ void WordScreen::SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Color
 		saveObj.loadFromFile("Image/save.png");
 		cancelObj.loadFromFile("Image/cancel.png");
 		deleteObj.loadFromFile("Image/delete.png");
-		if (heart_state == false) heartObj.loadFromFile("Image/heart.png");
+		//if (heart_state == true) std::cout << "tim" << std::endl;
+		//else std::cout << "Not tim" << std::endl;
+		std::wstring tmp = KeyWord.getString();
+		std::string ext = Character::backToString(tmp);
+		if (isFavourite(ext))
+		{
+			heart_state = true;
+			heartObj.loadFromFile("Image/heart3.png");
+		}
+		else
+		{
+			heart_state = false;
+			heartObj.loadFromFile("Image/heart.png");
+		}
 	}
 }
 
@@ -463,7 +487,6 @@ void WordScreen::setString(wstring _def, wstring _key) {
 	else is_found = true;
 	KeyWord.setString(_key);
 	std::string tmp = Character::backToString(_key);
-	//cout << tmp << endl;
 	if (isFavourite(tmp))
 	{
 		heart_state = true;
