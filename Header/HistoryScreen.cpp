@@ -36,88 +36,8 @@ HistoryScreen::HistoryScreen(void){
 }
 
 int HistoryScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
-
-	if (event.type == sf::Event::MouseWheelScrolled || (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down)))
-	{
-		if (recSet.size())
-		{
-			float delta = 0;
-			if (event.type == sf::Event::MouseWheelScrolled)
-			{
-				delta = event.mouseWheelScroll.delta;
-			}
-			else if (event.key.code == sf::Keyboard::Up) delta = 1;
-			else delta = -1;
-
-			if (delta < 0 && recSet[recSet.size() - 1].getPosition().y + 55>840)
-			{
-				for (int i = 0; i < recSet.size(); i++)
-				{
-					recSet[i].setPosition(recSet[i].getPosition().x, recSet[i].getPosition().y + delta * 20);
-					textSet[i].setPosition(textSet[i].getPosition().x, textSet[i].getPosition().y + delta * 20);
-					tickBoundSet[i].setPosition(tickBoundSet[i].getPosition().x, tickBoundSet[i].getPosition().y + delta * 20);
-				}
-				for (int i = 0; i < tickSpriteSet.size(); i++)
-				{
-					tickSpriteSet[i].setPosition(tickSpriteSet[i].getPosition().x, tickSpriteSet[i].getPosition().y + delta * 20);
-				}
-			}
-			else if (delta > 0 && recSet[0].getPosition().y < 210)
-			{
-				for (int i = 0; i < recSet.size(); i++)
-				{
-					recSet[i].setPosition(recSet[i].getPosition().x, recSet[i].getPosition().y + delta * 20);
-					textSet[i].setPosition(textSet[i].getPosition().x, textSet[i].getPosition().y + delta * 20);
-					tickBoundSet[i].setPosition(tickBoundSet[i].getPosition().x, tickBoundSet[i].getPosition().y + delta * 20);
-				}
-				for (int i = 0; i < tickSpriteSet.size(); i++)
-				{
-					tickSpriteSet[i].setPosition(tickSpriteSet[i].getPosition().x, tickSpriteSet[i].getPosition().y + delta * 20);
-				}
-			}
-		}
-	}
-
 	sf::Vector2f coorText(150, 225);
-	int size = recSet.size();
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(App);
-	for (int i = 0; i < size; i++)
-	{
-		sf::FloatRect shape = recSet[i].getGlobalBounds();
-		bool isMousedOn = shape.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-		if (isMousedOn)
-		{
-			sf::FloatRect tickshape = tickBoundSet[i].getGlobalBounds();
-			bool isMousedOnTick = tickshape.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-			if (isMousedOnTick)
-			{
-				tickBoundSet[i].setFillColor(c3);
-				recSet[i].setFillColor(c1);
-				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-				{
-					tick[i] = !tick[i];
-				}
-			}
-			else
-			{
-				tickBoundSet[i].setFillColor(c1);
-				recSet[i].setFillColor(c3);
-				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-				{
-					wstring Cur_str = textSet[i].getString();
-					wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
-					MyKey = Cur_str;
-					MyDef = Definition;
-					is_search = true;
-					return 7;
-				}
-			}
-		}
-		else
-		{
-			recSet[i].setFillColor(c1);
-		}
-	}
 
 	sf::FloatRect shapeDel = delBound.getGlobalBounds();
 	bool isMousedOnDel = shapeDel.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
@@ -131,7 +51,7 @@ int HistoryScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
 			{
 				deleteSearchHistory();
 			}
-			else 
+			else
 			{
 				for (int i = 0; i < size; i++)
 				{
@@ -180,6 +100,98 @@ int HistoryScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
 	else
 	{
 		tickAllBound.setFillColor(c2);
+	}
+
+	int size = recSet.size();
+	for (int i = 0; i < size; i++)
+	{
+		sf::FloatRect shape = recSet[i].getGlobalBounds();
+		bool isMousedOn = shape.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+		if (isMousedOn)
+		{
+			sf::FloatRect tickshape = tickBoundSet[i].getGlobalBounds();
+			bool isMousedOnTick = tickshape.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+			if (isMousedOnTick)
+			{
+				tickBoundSet[i].setFillColor(c3);
+				recSet[i].setFillColor(c1);
+				sf::FloatRect shapeBorder = border.getGlobalBounds();
+				bool isMousedOnBorder = shapeBorder.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+				if (!isMousedOnBorder)
+				{
+					if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+					{
+						tick[i] = !tick[i];
+					}
+				}
+				else tickBoundSet[i].setFillColor(c1);
+			}
+			else
+			{
+				tickBoundSet[i].setFillColor(c1);
+				recSet[i].setFillColor(c3);
+				sf::FloatRect shapeBorder = border.getGlobalBounds();
+				bool isMousedOnBorder = shapeBorder.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+				if (!isMousedOnBorder)
+				{
+					if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+					{
+						wstring Cur_str = textSet[i].getString();
+						wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+						MyKey = Cur_str;
+						MyDef = Definition;
+						is_search = true;
+						return 7;
+					}
+				}
+				else recSet[i].setFillColor(c1);
+			}
+		}
+		else
+		{
+			recSet[i].setFillColor(c1);
+		}
+	}
+
+	if (event.type == sf::Event::MouseWheelScrolled || (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down)))
+	{
+		if (recSet.size())
+		{
+			float delta = 0;
+			if (event.type == sf::Event::MouseWheelScrolled)
+			{
+				delta = event.mouseWheelScroll.delta;
+			}
+			else if (event.key.code == sf::Keyboard::Up) delta = 1;
+			else delta = -1;
+
+			if (delta < 0 && recSet[recSet.size() - 1].getPosition().y + 55>840)
+			{
+				for (int i = 0; i < recSet.size(); i++)
+				{
+					recSet[i].setPosition(recSet[i].getPosition().x, recSet[i].getPosition().y + delta * 20);
+					textSet[i].setPosition(textSet[i].getPosition().x, textSet[i].getPosition().y + delta * 20);
+					tickBoundSet[i].setPosition(tickBoundSet[i].getPosition().x, tickBoundSet[i].getPosition().y + delta * 20);
+				}
+				for (int i = 0; i < tickSpriteSet.size(); i++)
+				{
+					tickSpriteSet[i].setPosition(tickSpriteSet[i].getPosition().x, tickSpriteSet[i].getPosition().y + delta * 20);
+				}
+			}
+			else if (delta > 0 && recSet[0].getPosition().y < 210)
+			{
+				for (int i = 0; i < recSet.size(); i++)
+				{
+					recSet[i].setPosition(recSet[i].getPosition().x, recSet[i].getPosition().y + delta * 20);
+					textSet[i].setPosition(textSet[i].getPosition().x, textSet[i].getPosition().y + delta * 20);
+					tickBoundSet[i].setPosition(tickBoundSet[i].getPosition().x, tickBoundSet[i].getPosition().y + delta * 20);
+				}
+				for (int i = 0; i < tickSpriteSet.size(); i++)
+				{
+					tickSpriteSet[i].setPosition(tickSpriteSet[i].getPosition().x, tickSpriteSet[i].getPosition().y + delta * 20);
+				}
+			}
+		}
 	}
 
     return 2;

@@ -55,15 +55,21 @@ int FavoriteScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
 		if (isMousedOn)
 		{
 			recSet[i].setFillColor(c3);
-			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+			sf::FloatRect shapeBorder = border.getGlobalBounds();
+			bool isMousedOnBorder = shapeBorder.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+			if (!isMousedOnBorder)
 			{
-				std::wstring Cur_str = textSet[i].getString();
-				std::wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
-				MyKey = Cur_str;
-				MyDef = Definition;
-				is_search = true;
-				return 7;
+				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+				{
+					std::wstring Cur_str = textSet[i].getString();
+					std::wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+					MyKey = Cur_str;
+					MyDef = Definition;
+					is_search = true;
+					return 7;
+				}
 			}
+			else recSet[i].setFillColor(c1);
 		}
 		else
 		{
