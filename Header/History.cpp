@@ -97,3 +97,4 @@ bool deleteWordInHistory(std::string& word)
         return true;
     }
 }
+

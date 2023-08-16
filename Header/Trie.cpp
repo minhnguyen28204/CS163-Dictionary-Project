@@ -1,7 +1,7 @@
 #include "Trie.hpp"
 #include "Random.hpp"
 
-std::mt19937 Random::mt{ Random::generate() };
+std::mt19937 Random::mt = Random::generate();
 WordSet::Trie* WordSet::wordTrie = new WordSet::Trie;
 int WordSet::wordOrigCount = 0;
 int WordSet::wordNewCount = 0;
@@ -311,7 +311,6 @@ void WordSet::loadWordSet() {
 		fdout.read(word, size);
 		std::string input2{ word };
 		delete[] word;
-
 		DefinitionSet::loadDefinitionSet(Character::stringToWString(input2), i);
 	}
 	fwout.close();
@@ -637,4 +636,25 @@ void Path::loadPath(int n) {
 	path.push_back("Data/engToVie");
 	path.push_back("Data/vieToEng");
 	curPath = n % path.size();
+}
+
+int Path::getPastPath() {
+	std::ifstream fin("Data/CurPath.bin", std::ios::binary);
+	if (!fin.is_open())
+		return 0;
+	if (!fin.good()) {
+		fin.close();
+		return 0;
+	}
+	char result{};
+	fin.read(&result, 1);
+	fin.close();
+	return result;
+}
+
+void Path::changePastPath(int n) {
+	std::ofstream fout("Data/CurPath.bin", std::ios::trunc | std::ios::binary | std::ios::out);
+	char in = n % Path::path.size();
+	fout.write(&in, 1);
+	fout.close();
 }

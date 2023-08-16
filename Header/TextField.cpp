@@ -19,7 +19,7 @@ TextField::TextField(sf::Font& font, unsigned int size, sf::Color _color, float 
     m_text.setFont(font);
     m_text.setCharacterSize(size);
     m_text.setFillColor(color);
-    m_text.setPosition(x+10,y+7);
+    m_text.setPosition(x + 10, y + 7);
 
     m_cursor.setSize(sf::Vector2f(1, size));
     m_cursor.setFillColor(color);
@@ -36,7 +36,7 @@ TextField::TextField(sf::Font& font, unsigned int size, sf::Color _color, float 
     m_text.setString("");
 }
 
-void TextField::SetProperties(sf::Font& font, unsigned int size, sf::Color _color, float x, float y, float width, float height, bool showText = true){
+void TextField::SetProperties(sf::Font& font, unsigned int size, sf::Color _color, float x, float y, float width, float height, bool showText = true) {
     m_selected = false;
 
     m_background.setSize(sf::Vector2f(width, height));
@@ -49,7 +49,7 @@ void TextField::SetProperties(sf::Font& font, unsigned int size, sf::Color _colo
     m_text.setCharacterSize(size);
     m_text.setFillColor(color);
     sf::FloatRect textbound = m_text.getGlobalBounds();
-    m_text.setPosition(x+10,y + (height-textbound.height)/4 );
+    m_text.setPosition(x + 10, y + (height - textbound.height) / 4);
 
     m_cursor.setSize(sf::Vector2f(1, size));
     m_cursor.setFillColor(color);
@@ -64,50 +64,50 @@ void TextField::SetProperties(sf::Font& font, unsigned int size, sf::Color _colo
     ShowTxt = showText;
 }
 
-pair<float,float> TextField::getPosition(){
-    return pair<float,float>(pos_x,pos_y);
+pair<float, float> TextField::getPosition() {
+    return pair<float, float>(pos_x, pos_y);
 }
 
-void TextField::setPosition(float x, float y){
+void TextField::setPosition(float x, float y) {
     pos_x = x;
     pos_y = y;
-    m_background.setPosition(x,y);
-    m_text.setPosition(x+10,y + (m_background.getGlobalBounds().height - m_text.getLocalBounds().height)/4);
+    m_background.setPosition(x, y);
+    m_text.setPosition(x + 10, y + (m_background.getGlobalBounds().height - m_text.getLocalBounds().height) / 4);
 }
 
-float TextField::getHeight(){
+float TextField::getHeight() {
     return m_background.getGlobalBounds().height;
 }
 
-float TextField::getWidth(){
+float TextField::getWidth() {
     return m_background.getGlobalBounds().width;
 }
 
-void TextField::clear_str(){
+void TextField::clear_str() {
     m_text.setString(L"");
 }
 
-void TextField::Tab_handle(){
+void TextField::Tab_handle() {
     if (m_selected) m_selected = false;
     else m_selected = true;
 }
 
-bool TextField::cur_state(){
+bool TextField::cur_state() {
     return m_selected;
 }
 
-void TextField::SetIniStr(std::wstring str){
+void TextField::SetIniStr(std::wstring str) {
     real_text = str;
     m_text.setString(real_text);
-    while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20){
-        m_text.setString(m_text.getString().substring(1,m_text.getString().getSize()));
+    while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20) {
+        m_text.setString(m_text.getString().substring(1, m_text.getString().getSize()));
     }
 }
 
 void TextField::draw(sf::RenderWindow& window)
 {
     window.draw(m_background);
-    if (ShowTxt==true) window.draw(m_text);
+    if (ShowTxt == true) window.draw(m_text);
 
     if (m_selected && m_cursorVisible)
     {
@@ -115,7 +115,7 @@ void TextField::draw(sf::RenderWindow& window)
     }
 }
 
-void TextField::handleEvent(sf::RenderWindow &App, sf::Event &event)
+void TextField::handleEvent(sf::RenderWindow& App, sf::Event& event)
 {
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
     {
@@ -132,15 +132,15 @@ void TextField::handleEvent(sf::RenderWindow &App, sf::Event &event)
     else if (event.type == sf::Event::TextEntered && m_selected)
     {
         is_entering_text = true;
-        if (event.text.unicode == '\n'){
+        if (event.text.unicode == '\n') {
 
         }
         else if (event.text.unicode == '\b' && real_text.size() > 0) // Handle backspace
         {
             if (real_text.size()) real_text.pop_back();
             m_text.setString(real_text);
-            while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20){
-                m_text.setString(m_text.getString().substring(1,m_text.getString().getSize()));
+            while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20) {
+                m_text.setString(m_text.getString().substring(1, m_text.getString().getSize()));
             }
             m_cursorIndex--;
             m_cursorIndex = max(m_cursorIndex, 0);
@@ -150,16 +150,16 @@ void TextField::handleEvent(sf::RenderWindow &App, sf::Event &event)
             real_text += static_cast<wchar_t>(event.text.unicode);
             m_text.setString(real_text);
             m_cursorIndex++;
-            while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20){
-                m_text.setString(m_text.getString().substring(1,m_text.getString().getSize()));
+            while (m_text.getLocalBounds().width >= m_background.getLocalBounds().width - 20) {
+                m_text.setString(m_text.getString().substring(1, m_text.getString().getSize()));
             }
         }
     }
     else if (event.type == sf::Event::KeyReleased) is_entering_text = false;
 }
 
-void TextField::update(sf::Time &deltaTime){
-// Handle cursor blinking
+void TextField::update(sf::Time& deltaTime) {
+    // Handle cursor blinking
     cursor_stacked_time += deltaTime.asSeconds();
     if (m_selected)
     {
@@ -171,15 +171,15 @@ void TextField::update(sf::Time &deltaTime){
             cursor_stacked_time -= 0.5;
         }
         if (ShowTxt) m_cursor.setPosition(m_text.getPosition().x + m_text.getLocalBounds().width + 2, m_text.getPosition().y + 2);
-        else{
+        else {
             sf::Text tmp;
             std::wstring temp = L"";
-            for(int i=0; i<m_text.getString().getSize(); i++) temp += L"*";
+            for (int i = 0; i < m_text.getString().getSize(); i++) temp += L"*";
             tmp.setString(temp);
             tmp.setFont(_font);
             tmp.setCharacterSize(Size);
             tmp.setColor(color);
-            tmp.setPosition(pos_x+10,pos_y+10);
+            tmp.setPosition(pos_x + 10, pos_y + 10);
             m_cursor.setPosition(tmp.getPosition().x + tmp.getLocalBounds().width + 4, tmp.getPosition().y);
         }
     }

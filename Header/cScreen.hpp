@@ -2,7 +2,7 @@
 #define SCREEN_STATE_HPP
 #include <SFML/Graphics.hpp>
 
-class cScreen{
+class cScreen {
 public:
     virtual void ScreenDraw(sf::RenderWindow &App) = 0;
     virtual int ProcessEvent(sf::RenderWindow &App, sf::Event event) = 0;

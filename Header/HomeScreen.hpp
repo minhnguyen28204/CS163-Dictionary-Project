@@ -51,6 +51,7 @@ public:
     wstring MyKey;
     bool is_search = false;
     bool previous_state = false;
+
 };
 
 #endif // HOMESCREEN_HPP
