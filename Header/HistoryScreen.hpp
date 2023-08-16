@@ -10,9 +10,21 @@ private:
 	sf::Text title;
 	sf::RectangleShape border;
 	sf::Color c1 = sf::Color(34, 40, 49), c2 = sf::Color(57, 62, 70), c3 = sf::Color(0, 173, 181), c4 = sf::Color(238, 238, 238);
+	sf::Texture tickObj;
+	sf::Texture delObj;
+	sf::Sprite delSprite;
+	sf::RectangleShape delBound;
+	sf::Texture tickAllObj;
+	sf::Sprite tickAllSprite;
+	sf::RectangleShape tickAllBound;
+	bool is_tickAll = false;
+	bool is_dark = true;
 public:
 	std::vector<sf::RectangleShape> recSet;
 	std::vector<sf::Text> textSet;
+	std::vector<sf::RectangleShape> tickBoundSet;
+	std::vector<sf::Sprite> tickSpriteSet;
+	std::vector<bool> tick;
     HistoryScreen(void);
     void ScreenDraw(sf::RenderWindow &App);
     int ProcessEvent(sf::RenderWindow &App, sf::Event event);

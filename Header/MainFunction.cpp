@@ -224,6 +224,8 @@ void Dictionary::processIconColor(sf::Event event){
                     Title.setOutlineColor(c3);
                     s0.SetColor(c1,c2,c3,c4);
                     s1.SetColor(c1,c2,c3,c4);
+                    s2.SetColor(c1,c2,c3,c4);
+                    s3.SetColor(c1,c2,c3,c4);
                     s4.SetColor(c1,c2,c3,c4);
                     s5.SetColor(c1,c2,c3,c4);
                     s6.SetColor(c1,c2,c3,c4);

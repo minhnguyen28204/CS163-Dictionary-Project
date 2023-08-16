@@ -56,9 +56,6 @@
 					<Add library="vorbis" />
 					<Add library="ogg" />
 					<Add directory="C:/Users/suyun/Downloads/SFML-2.5.1/lib" />
-					<Add directory="Image" />
-					<Add directory="Font" />
-					<Add directory="SFML Elements" />
 				</Linker>
 			</Target>
 		</Build>
@@ -72,8 +69,6 @@
 			<Add directory="C:/Users/suyun/Downloads/SFML-2.5.1/lib" />
 			<Add directory="Header" />
 			<Add directory="SFML Elements" />
-			<Add directory="Font" />
-			<Add directory="Image" />
 		</Linker>
 		<Unit filename="Header/AddScreen.cpp" />
 		<Unit filename="Header/AddScreen.hpp" />
