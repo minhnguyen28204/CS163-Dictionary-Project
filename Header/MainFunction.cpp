@@ -3,6 +3,8 @@
 Dictionary::Dictionary()
 : mWindow(sf::VideoMode(1400,850),"Dictionary",sf::Style::Titlebar | sf::Style::Close)
 {
+    image.loadFromFile("Image/Icon.png");
+    mWindow.setIcon(image.getSize().x,image.getSize().y,image.getPixelsPtr());
     Screens.push_back(&s0);
     Screens.push_back(&s1);
     Screens.push_back(&s2);

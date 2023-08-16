@@ -23,6 +23,7 @@ private:
     vector<cScreen*> Screens;
     int screen = 0;
     sf::Text Title;
+    sf::Image image;
 
     //Variables
     HomeScreen s0;
