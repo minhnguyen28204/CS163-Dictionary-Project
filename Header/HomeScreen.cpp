@@ -72,30 +72,74 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
         if (Path::curPath == 0) WordSet::loadAllData();
         suggestBox.clear();
         outlineBox.clear();
+        numberBox.clear();
         MyKey = inputField.getText();
         if (MyKey.size()!=0){
-            vector<string> temp = WordSet::displayWordTree(MyKey,5);
+            l = 0, r = min((int)recommendString.size()-1,4);
+            recommendString = WordSet::displayWordTree(MyKey,20);
             int cnt = 0;
-            for(auto t : temp){
-                wstring word = Character::stringToWString(t);
+            for(int i=0; i<min((int)recommendString.size(),5); i++){
+                wstring word = Character::stringToWString(recommendString[i]);
                 sf::Text word_i;
+                sf::Text numb_i;
+                numb_i.setFont(_font);
+                numb_i.setCharacterSize(30);
+                numb_i.setFillColor(c4);
+                numb_i.setPosition(160,235+cnt*75);
+                numb_i.setString(to_string(i+1) + ".");
+
                 word_i.setFont(_font);
                 word_i.setCharacterSize(30);
                 word_i.setString(word);
                 word_i.setFillColor(c4);
-                word_i.setPosition(160,235+cnt*75);
+                word_i.setPosition(160 + numb_i.getLocalBounds().width + 5,235+cnt*75);
+
                 sf::RectangleShape outline_i;
                 outline_i.setPosition(150,225+cnt*75);
                 outline_i.setSize(sf::Vector2f(1000,75));
                 outline_i.setFillColor(c2);
                 cnt++;
                 suggestBox.push_back(std::move(word_i));
+                numberBox.push_back(std::move(numb_i));
                 outlineBox.push_back(std::move(outline_i));
             }
         }
     }
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(App);
+    //handle scroll down the suggest box
+    if (inputField.cur_state() && suggestBox.size()){
+		if (event.type == sf::Event::MouseWheelScrolled || (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down))){
+            float delta = 0;
+            if (event.type == sf::Event::MouseWheelScrolled) delta = event.mouseWheelScroll.delta;
+            else if (event.key.code == sf::Keyboard::Up) delta = 1;
+            else delta = -1;
+            if (delta > 0 && l > 0){
+                l--;
+                r--;
+                int i = l;
+                for(int idx = 0; idx < suggestBox.size(); idx++, i++){
+                    wstring tmp = Character::stringToWString(recommendString[i]);
+                    suggestBox[idx].setString(tmp);
+                    numberBox[idx].setString(to_string(i+1) + ".");
+                    suggestBox[idx].setPosition(160 + numberBox[idx].getLocalBounds().width + 5, suggestBox[idx].getPosition().y);
+                }
+            }
+            if (delta < 0 && r < recommendString.size()-1){
+                l++;
+                r++;
+                int i = l;
+                for(int idx = 0; idx < suggestBox.size(); idx++, i++){
+                    wstring tmp = Character::stringToWString(recommendString[i]);
+                    suggestBox[idx].setString(tmp);
+                    numberBox[idx].setString(to_string(i+1) + ".");
+                    suggestBox[idx].setPosition(160 + numberBox[idx].getLocalBounds().width + 5, suggestBox[idx].getPosition().y);
+                }
+            }
+		}
+    }
+
+    //handle when suggest box is on
     if (inputField.cur_state() || (inputField.cur_state()==false && previous_state==true)){
         for(int i=0; i<outlineBox.size(); i++){
             auto &x = outlineBox[i];
@@ -107,6 +151,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
                 if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
                     wstring Cur_str = suggestBox[i].getString();
                     wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+                    string tmp = Character::backToString(Cur_str);
+                    saveWordToTextFile(tmp);
                     MyKey = Cur_str;
                     MyDef = Definition;
                     is_search = true;
@@ -134,6 +180,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
                         wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
                         MyKey = Cur_str;
                         MyDef = Definition;
+                        string tmp = Character::backToString(Cur_str);
+                        saveWordToTextFile(tmp);
                         is_search = true;
                     }
                     return MyMap[i];
@@ -144,14 +192,17 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
             }
         }
     }
+
+    //process when pressing the glass icon
     sf::FloatRect enterBound = enter_bound.getGlobalBounds();
     bool isMousedOn = enterBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
     if (isMousedOn){
         enter_bound.setFillColor(c3);
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
             wstring Cur_str = inputField.getText();
-            wstring another = suggestBox[0].getString();
             wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+            string tmp = Character::backToString(Cur_str);
+            saveWordToTextFile(tmp);
             MyKey = Cur_str;
             MyDef = Definition;
             is_search = true;
@@ -165,6 +216,8 @@ int HomeScreen::ProcessEvent(sf::RenderWindow &App, sf::Event event){
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter){
         wstring Cur_str = inputField.getText();
         wstring Definition = Character::stringToWString(WordSet::definition(Cur_str));
+        string tmp = Character::backToString(Cur_str);
+        saveWordToTextFile(tmp);
         MyKey = Cur_str;
         MyDef = Definition;
         is_search = true;
@@ -185,6 +238,7 @@ void HomeScreen::ScreenDraw(sf::RenderWindow &App){
     inputField.draw(App);
     if (suggestBox.size() && inputField.cur_state()){
         for(int i=0; i<outlineBox.size(); i++) App.draw(outlineBox[i]);
+        for(int i=0; i<suggestBox.size(); i++) App.draw(numberBox[i]);
         for(int i=0; i<suggestBox.size(); i++) App.draw(suggestBox[i]);
     }
 }

@@ -4,6 +4,7 @@
 #include "cScreen.hpp"
 #include "TextField.hpp"
 #include "Trie.hpp"
+#include "History.hpp"
 #include <SFML/Graphics.hpp>
 
 class HomeScreen : public cScreen
@@ -31,7 +32,10 @@ private:
 
     //elements for suggest box
     std::vector<sf::Text> suggestBox;
+    std::vector<sf::Text> numberBox;
     std::vector<sf::RectangleShape> outlineBox;
+    std::vector<std::string> recommendString;
+    int l, r;
 
     float cur_stack_time = 0;
 

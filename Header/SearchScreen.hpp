@@ -14,6 +14,9 @@ private:
     sf::Text SubTit2;
     vector<sf::Text> suggestBox;
     vector<sf::RectangleShape> outlineBox;
+    vector<sf::Text> numberBox;
+    vector<string> recommendString;
+    int l, r;
 public:
     SearchScreen(void);
     void ScreenDraw(sf::RenderWindow &App);

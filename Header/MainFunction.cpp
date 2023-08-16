@@ -211,6 +211,9 @@ void Dictionary::processIconColor(sf::Event event){
             x.setFillColor(c3);
             is_on[i] = true;
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+                s7.heart_state = false;
+				if (i == 2) s2.recSet.clear(), s2.textSet.clear(), s2.updateScene();
+				if (i == 3) s3.recSet.clear(), s3.textSet.clear(), s3.updateScene();
                 if (i < 7) screen = i;
                 else{
                     dark = !dark;
@@ -221,6 +224,8 @@ void Dictionary::processIconColor(sf::Event event){
                     Title.setOutlineColor(c3);
                     s0.SetColor(c1,c2,c3,c4);
                     s1.SetColor(c1,c2,c3,c4);
+                    s2.SetColor(c1,c2,c3,c4);
+                    s3.SetColor(c1,c2,c3,c4);
                     s4.SetColor(c1,c2,c3,c4);
                     s5.SetColor(c1,c2,c3,c4);
                     s6.SetColor(c1,c2,c3,c4);
@@ -258,8 +263,10 @@ void Dictionary::processIconColor(sf::Event event){
 void Dictionary::processEvent(){
     sf::Event event;
     while (mWindow.pollEvent(event)){
-        if (screen == 7 && s0.is_search) s7.setString(s0.MyDef,s0.MyKey), s0.is_search = false;
-        if (screen == 7 && s1.is_search) s7.setString(s1.MyDef,s1.MyKey), s1.is_search = false;
+        if (screen == 7 && s0.is_search) s7.setString(s0.MyDef,s0.MyKey), s0.is_search = false, s2.updateScene();
+        if (screen == 7 && s1.is_search) s7.setString(s1.MyDef,s1.MyKey), s1.is_search = false, s2.updateScene();
+        if (screen == 7 && s2.is_search) s7.setString(s2.MyDef, s2.MyKey), s2.is_search = false, s2.updateScene();
+		if (screen == 7 && s3.is_search) s7.setString(s3.MyDef, s3.MyKey), s3.is_search = false, s2.updateScene();
         screen = Screens[screen]->ProcessEvent(mWindow,event);
         processIconColor(event);
         if (event.type == sf::Event::Closed){
