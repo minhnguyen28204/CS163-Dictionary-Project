@@ -22,4 +22,3 @@ bool deleteSearchHistory();
 bool deleteWordInHistory(std::string& word);
 
 #endif
-

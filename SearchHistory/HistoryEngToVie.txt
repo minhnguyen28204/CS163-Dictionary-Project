@@ -1,9 +1,3 @@
-font sample
-font family
-font
-abandon
-font element
-fuck
+dog biscuit
+dog collar
 dog
-dog 
-avalanche

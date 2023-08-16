@@ -179,6 +179,7 @@ int WordScreen::ProcessEvent(sf::RenderWindow& App, sf::Event event) {
 		Def_i.setCharacterSize(20);
 		Def_i.setFont(_font);
 		Def_i.setString(L"Not found");
+		Def_i.setFillColor(c4);
 		wrapText(Def_i, maxWidth);
 		Def.push_back(std::move(Def_i));
 		is_found = true;

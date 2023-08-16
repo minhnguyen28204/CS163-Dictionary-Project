@@ -26,7 +26,6 @@ public:
     wstring MyDef;
     wstring MyKey;
     bool is_search = false;
-
 };
 
 #endif // SEARCH_SCREEN_HPP

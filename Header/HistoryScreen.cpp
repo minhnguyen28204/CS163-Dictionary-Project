@@ -278,16 +278,16 @@ void HistoryScreen::SetColor(sf::Color& f1, sf::Color& f2, sf::Color& f3, sf::Co
 	tickAllBound.setFillColor(c2);
 	if (is_dark)
 	{
-		tickObj.loadFromFile("Image/tickbox.png");
-		delObj.loadFromFile("Image/del.png");
-		tickAllObj.loadFromFile("Image/tick.png");
+		tickObj.loadFromFile("Image/tickbox2.png");
+		delObj.loadFromFile("Image/del2.png");
+		tickAllObj.loadFromFile("Image/tick2.png");
 		is_dark = false;
 	}
 	else
 	{
-		tickObj.loadFromFile("Image/tickbox2.png");
-		delObj.loadFromFile("Image/del2.png");
-		tickAllObj.loadFromFile("Image/tick2.png");
+		tickObj.loadFromFile("Image/tickbox.png");
+		delObj.loadFromFile("Image/del.png");
+		tickAllObj.loadFromFile("Image/tick.png");
 		is_dark = true;
 	}
 }

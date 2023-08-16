@@ -15,8 +15,6 @@ namespace Path {
 	extern int curPath;
 	extern std::vector<std::string> path;
 	void loadPath(int n = 0);
-	int getPastPath();
-	void changePastPath(int n);
 }
 
 int getLength(std::wstring ws);

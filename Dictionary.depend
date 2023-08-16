@@ -420,7 +420,7 @@
 	"Screen.hpp"
 	"Trie.hpp"
 
-1692154649 source:e:\cs163\project\dictionary\header\mainfunction.cpp
+1692155174 source:e:\cs163\project\dictionary\header\mainfunction.cpp
 	"MainFunction.hpp"
 
 1687700920 e:\cs163\project\dictionary\header\menusidebar.hpp
@@ -433,7 +433,7 @@
 	"MenuSideBar.hpp"
 	<iostream>
 
-1691735204 e:\cs163\project\dictionary\header\trie.hpp
+1692155342 e:\cs163\project\dictionary\header\trie.hpp
 	<iostream>
 	<cstdlib>
 	<fstream>
@@ -445,7 +445,7 @@
 	<chrono>
 	<stack>
 
-1691735204 source:e:\cs163\project\dictionary\header\trie.cpp
+1692155342 source:e:\cs163\project\dictionary\header\trie.cpp
 	"Trie.hpp"
 	"Random.hpp"
 
@@ -462,13 +462,13 @@
 
 1689598133 ated upstream
 
-1691735204 e:\cs163\project\dictionary\header\cscreen.hpp
+1692155342 e:\cs163\project\dictionary\header\cscreen.hpp
 	<SFML/Graphics.hpp>
 
 1689607151 shed changes
 	<SFML/Graphics.hpp>
 
-1692001947 e:\cs163\project\dictionary\header\homescreen.hpp
+1692155342 e:\cs163\project\dictionary\header\homescreen.hpp
 	<vector>
 	"cScreen.hpp"
 	"TextField.hpp"
@@ -476,12 +476,12 @@
 	"History.hpp"
 	<SFML/Graphics.hpp>
 
-1692001947 source:e:\cs163\project\dictionary\header\homescreen.cpp
+1692155174 source:e:\cs163\project\dictionary\header\homescreen.cpp
 	"HomeScreen.hpp"
 	<iostream>
 	<string>
 
-1691735204 e:\cs163\project\dictionary\header\quizscreen.hpp
+1692155342 e:\cs163\project\dictionary\header\quizscreen.hpp
 	"cScreen.hpp"
 	"Trie.hpp"
 	<SFML/Graphics.hpp>
@@ -492,27 +492,27 @@
 1691735204 source:e:\cs163\project\dictionary\header\quizscreen.cpp
 	"QuizScreen.hpp"
 
-1692001947 e:\cs163\project\dictionary\header\searchscreen.hpp
+1692155342 e:\cs163\project\dictionary\header\searchscreen.hpp
 	"cScreen.hpp"
 	"TextField.hpp"
 	"Trie.hpp"
 	<vector>
 
-1692001947 source:e:\cs163\project\dictionary\header\searchscreen.cpp
+1692155174 source:e:\cs163\project\dictionary\header\searchscreen.cpp
 	"SearchScreen.hpp"
 
-1692154124 e:\cs163\project\dictionary\header\historyscreen.hpp
+1692155174 e:\cs163\project\dictionary\header\historyscreen.hpp
 	"cScreen.hpp"
 	"History.hpp"
 	"Trie.hpp"
 
-1692154752 source:e:\cs163\project\dictionary\header\historyscreen.cpp
+1692155711 source:e:\cs163\project\dictionary\header\historyscreen.cpp
 	"HistoryScreen.hpp"
 
-1692153932 source:e:\cs163\project\dictionary\header\favouritescreen.cpp
+1692155174 source:e:\cs163\project\dictionary\header\favouritescreen.cpp
 	"FavouriteScreen.hpp"
 
-1692001947 e:\cs163\project\dictionary\header\favouritescreen.hpp
+1692155342 e:\cs163\project\dictionary\header\favouritescreen.hpp
 	"cScreen.hpp"
 	"Trie.hpp"
 	"FavouriteList.hpp"
@@ -538,7 +538,7 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1692001947 source:e:\cs163\project\dictionary\header\textfield.cpp
+1692155342 source:e:\cs163\project\dictionary\header\textfield.cpp
 	"TextField.hpp"
 	<iostream>
 
@@ -551,39 +551,39 @@
 1692001947 source:e:\cs163\project\dictionary\header\settingscreen.cpp
 	"SettingScreen.hpp"
 
-1691811112 source:e:\cs163\project\dictionary\header\favouritelist.cpp
+1692155174 source:e:\cs163\project\dictionary\header\favouritelist.cpp
 	"FavouriteList.hpp"
 
-1691811136 e:\cs163\project\dictionary\header\favouritelist.hpp
+1692155174 e:\cs163\project\dictionary\header\favouritelist.hpp
 	<vector>
 	<string>
 	<fstream>
 	<stdio.h>
 	"Trie.hpp"
 
-1691811800 source:e:\cs163\project\dictionary\header\history.cpp
+1692155342 source:e:\cs163\project\dictionary\header\history.cpp
 	<iostream>
 	"History.hpp"
 	<fstream>
 	<vector>
 	<stdio.h>
 
-1691811808 e:\cs163\project\dictionary\header\history.hpp
+1692155342 e:\cs163\project\dictionary\header\history.hpp
 	<vector>
 	<string>
 	"Trie.hpp"
 
-1691735204 source:e:\cs163\project\dictionary\header\random.cpp
+1692155342 source:e:\cs163\project\dictionary\header\random.cpp
 	"Random.hpp"
 	<ctime>
 	<fstream>
 
-1691735204 e:\cs163\project\dictionary\header\random.hpp
+1692155342 e:\cs163\project\dictionary\header\random.hpp
 	<chrono>
 	<random>
 	<vector>
 
-1691811343 e:\cs163\project\dictionary\header\viewwordscreen.hpp
+1692155174 e:\cs163\project\dictionary\header\viewwordscreen.hpp
 	<string>
 	"SFML/Graphics.hpp"
 	"cScreen.hpp"
@@ -593,7 +593,7 @@
 	<io.h>
 	<fcntl.h>
 
-1692001947 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
+1692155908 source:e:\cs163\project\dictionary\header\viewwordscreen.cpp
 	"ViewWordScreen.hpp"
 	<iostream>
 	<sstream>

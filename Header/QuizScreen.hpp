@@ -42,7 +42,6 @@ public:
     void updateScene(sf::Time &deltaTime);
     void SetColor(sf::Color &f1, sf::Color &f2, sf::Color &f3, sf::Color &f4);
     void wrapText(sf::Text &text, float maxWidth);
-
 };
 
 #endif // QUIZSCREEN_HPP
