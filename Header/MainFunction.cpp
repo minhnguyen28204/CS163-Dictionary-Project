@@ -269,8 +269,8 @@ void Dictionary::processEvent(){
         if (screen == 7 && s1.is_search) s7.setString(s1.MyDef,s1.MyKey), s1.is_search = false, s2.updateScene();
         if (screen == 7 && s2.is_search) s7.setString(s2.MyDef, s2.MyKey), s2.is_search = false, s2.updateScene();
 		if (screen == 7 && s3.is_search) s7.setString(s3.MyDef, s3.MyKey), s3.is_search = false, s2.updateScene();
-        screen = Screens[screen]->ProcessEvent(mWindow,event);
         processIconColor(event);
+        screen = Screens[screen]->ProcessEvent(mWindow,event);
         if (event.type == sf::Event::Closed){
             mWindow.close();
         }
